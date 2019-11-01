@@ -2,32 +2,22 @@ package projeto_marcaçaoconsulta.negocio.beans;
 
 public class Diagnostico {
     
-    private Medico medico;
-    private Paciente paciente;
+    private Consulta consulta;
     private String descricao;
     private String medicamentos;
 
-    public Diagnostico(Medico medico, Paciente paciente, String descricao, String medicamentos) {
-        this.medico = medico;
-        this.paciente = paciente;
+    public Diagnostico(Consulta consulta, String descricao, String medicamentos) {
+        this.consulta = consulta;
         this.descricao = descricao;
         this.medicamentos = medicamentos;
     }
 
-    public Medico getMedico() {
-        return medico;
+    public Consulta getConsulta() {
+        return consulta;
     }
 
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setConsulta(Consulta consulta) {
+        this.consulta = consulta;
     }
 
     public String getDescricao() {
@@ -48,7 +38,6 @@ public class Diagnostico {
 
     @Override
     public String toString() {
-        return "Diagnostico{" + "medico=" + medico + ", paciente=" + paciente + ", descricao=" + descricao + ", medicamentos=" + medicamentos + '}';
+        return "Diagnostico{" + "consulta=" + consulta + ", descricao=" + descricao + ", medicamentos=" + medicamentos + '}';
     }
-
 }

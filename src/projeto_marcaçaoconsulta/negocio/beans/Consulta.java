@@ -7,12 +7,14 @@ public class Consulta {
     
     private Medico medico;
     private Paciente paciente;
+    private String descricao;
     private LocalDateTime dataHoraInicio;
     private LocalDateTime dataHoraFim;
 
-    public Consulta(Medico medico, Paciente paciente, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim) {
+    public Consulta(Medico medico, Paciente paciente, String descricao, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim) {
         this.medico = medico;
         this.paciente = paciente;
+        this.descricao = descricao;
         this.dataHoraInicio = dataHoraInicio;
         this.dataHoraFim = dataHoraFim;
     }
@@ -33,6 +35,14 @@ public class Consulta {
         this.paciente = paciente;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
     public LocalDateTime getDataHoraInicio() {
         return dataHoraInicio;
     }
@@ -51,7 +61,7 @@ public class Consulta {
 
     @Override
     public String toString() {
-        return "Consulta{" + "medico=" + medico + ", paciente=" + paciente + ", dataHoraInicio=" + dataHoraInicio + ", dataHoraFim=" + dataHoraFim + '}';
+        return "Consulta{" + "medico=" + medico + ", paciente=" + paciente + ", descricao=" + descricao + ", dataHoraInicio=" + dataHoraInicio + ", dataHoraFim=" + dataHoraFim + '}';
     }
 
     @Override
