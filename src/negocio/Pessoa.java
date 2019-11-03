@@ -1,18 +1,18 @@
-package projeto_marcaçaoconsulta.negocio.beans;
+package negocio;
 
 import java.util.Objects;
 
 public class Pessoa {
-    
+
     private String nome;
     private int idade;
-    private String cfp;
-    
+    private String cpf;
 
-    public Pessoa(String nome, int idade, String cfp) {
+
+    public Pessoa(String nome, int idade, String cpf) {
         this.nome = nome;
         this.idade = idade;
-        this.cfp = cfp;
+        this.cpf = cpf;
     }
 
     public String getNome() {
@@ -31,17 +31,17 @@ public class Pessoa {
         this.idade = idade;
     }
 
-    public String getCfp() {
-        return cfp;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCfp(String cfp) {
-        this.cfp = cfp;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override
     public String toString() {
-        return "Pessoa{" + "nome=" + nome + ", idade=" + idade + ", cfp=" + cfp + '}';
+        return ", nome=" + nome + ", idade=" + idade + ", cpf=" + cpf;
     }
 
     @Override
@@ -62,10 +62,10 @@ public class Pessoa {
             return false;
         }
         final Pessoa other = (Pessoa) obj;
-        if (!Objects.equals(this.cfp, other.cfp)) {
+        if (!Objects.equals(this.cpf, other.cpf)) {
             return false;
         }
         return true;
     }
-    
+
 }

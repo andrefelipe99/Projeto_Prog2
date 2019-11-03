@@ -1,10 +1,10 @@
-package projeto_marcaçaoconsulta.negocio.beans;
+package negocio;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Consulta {
-    
+
     private Medico medico;
     private Paciente paciente;
     private String descricao;
@@ -18,7 +18,7 @@ public class Consulta {
         this.dataHoraInicio = dataHoraInicio;
         this.dataHoraFim = dataHoraFim;
     }
-   
+
     public Medico getMedico() {
         return medico;
     }
@@ -42,7 +42,7 @@ public class Consulta {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
+
     public LocalDateTime getDataHoraInicio() {
         return dataHoraInicio;
     }

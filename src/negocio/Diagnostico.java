@@ -1,7 +1,7 @@
-package projeto_marcaçaoconsulta.negocio.beans;
+package negocio;
 
 public class Diagnostico {
-    
+
     private Consulta consulta;
     private String descricao;
     private String medicamentos;

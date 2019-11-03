@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projeto_marcaçaoconsulta;
+package marcacaoconsulta;
 
-/**
- *
- * @author dedea
- */
-public class Projeto_MarcaçaoConsulta {
+
+public class Projeto_Marca�aoConsulta {
 
     /**
      * @param args the command line arguments
@@ -17,5 +14,5 @@ public class Projeto_MarcaçaoConsulta {
     public static void main(String[] args) {
         // TODO code application logic here
     }
-    
+
 }

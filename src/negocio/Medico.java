@@ -1,21 +1,20 @@
-package projeto_marcaçaoconsulta.negocio.beans;
+package negocio;
 
 import java.util.List;
 import java.util.Objects;
 
 public class Medico extends Pessoa{
-    
+
     private String crm;
     private String area;
     private String senha;
     private List<Consulta> consultas;
 
-    public Medico(String crm, String area, String senha, List<Consulta> consultas, String nome, int idade, String cfp) {
-        super(nome, idade, cfp);
+    public Medico(String crm, String area, String senha, String nome, int idade, String cpf) {
+        super(nome, idade, cpf);
         this.crm = crm;
         this.area = area;
         this.senha = senha;
-        this.consultas = consultas;
     }
 
     public List<Consulta> getConsultas() {
@@ -76,6 +75,6 @@ public class Medico extends Pessoa{
 
     @Override
     public String toString() {
-        return "Medico{" + "crm=" + crm + ", area=" + area + ", senha=" + senha + ", consultas=" + consultas + '}';
-    }    
+        return "Medico{" + "crm=" + crm + ", area=" + area + ", senha=" + senha + ", consultas=" + consultas + super.toString() + '}';
+    }
 }
