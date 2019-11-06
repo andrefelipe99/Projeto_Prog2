@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,14 +16,15 @@ public class Medico extends Pessoa{
         this.crm = crm;
         this.area = area;
         this.senha = senha;
+        this.consultas = new ArrayList<>();
     }
 
     public List<Consulta> getConsultas() {
         return consultas;
     }
 
-    public void setConsultas(List<Consulta> consultas) {
-        this.consultas = consultas;
+    public void setConsultas(Consulta consulta) {
+        this.consultas.add(consulta);
     }
 
     public String getCrm() {
@@ -75,6 +77,6 @@ public class Medico extends Pessoa{
 
     @Override
     public String toString() {
-        return "Medico{" + "crm=" + crm + ", area=" + area + ", senha=" + senha + ", consultas=" + consultas + super.toString() + '}';
+        return "Medico{" + "crm=" + crm + ", area=" + area + ", senha=" + senha + super.toString() + '}';
     }
 }

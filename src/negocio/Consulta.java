@@ -11,6 +11,7 @@ public class Consulta {
     private String descricao;
     private LocalDateTime dataHoraInicio;
     private LocalDateTime dataHoraFim;
+    private Diagnostico diagnostico;
 
     public Consulta(int id, Medico medico, Paciente paciente, String descricao, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim) {
         this.id = id;
@@ -19,6 +20,7 @@ public class Consulta {
         this.descricao = descricao;
         this.dataHoraInicio = dataHoraInicio;
         this.dataHoraFim = dataHoraFim;
+        this.diagnostico = null;
     }
 
     public int getId() {
@@ -67,6 +69,14 @@ public class Consulta {
 
     public void setDataHoraFim(LocalDateTime dataHoraFim) {
         this.dataHoraFim = dataHoraFim;
+    }
+
+    public Diagnostico getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(Diagnostico diagnostico) {
+        this.diagnostico = diagnostico;
     }
 
     @Override

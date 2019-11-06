@@ -9,12 +9,20 @@ import negocio.Paciente;
 
 public class RepositorioConsulta implements IRepositorioConsulta {
 	private List<Consulta> consultas;
+        
+        public RepositorioConsulta(){
+            this.consultas = new ArrayList<>();
+        }
 	@Override
 	public void cadastrarConsulta(Consulta c) {
-		if(!consultas.contains(c)) {
-			consultas.add(c);
+		if(!consultas.contains(c) && this.buscarConsultaPorId(c.getId()) == null) {
+                    c.getMedico().setConsultas(c);
+                    consultas.add(c);
+                    System.out.println("criou");
 		}
-
+                else {
+                    System.out.println("nao criou");
+                }
 	}
 
 	@Override

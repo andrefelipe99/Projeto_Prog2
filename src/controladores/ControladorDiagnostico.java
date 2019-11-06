@@ -14,8 +14,8 @@ public class ControladorDiagnostico implements IControladorDiagnostico{
     }
     
     @Override
-    public void cadastrarDiagnostico(Diagnostico dg) {
-        diagnostico.cadastrarDiagnostico(dg);
+    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
+        diagnostico.cadastrarDiagnostico(dg, c);
     }
 
     @Override

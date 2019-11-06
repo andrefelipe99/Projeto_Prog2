@@ -14,8 +14,9 @@ public class RepositorioDiagnostico implements IRepositorioDiagnostico{
     }
     
     @Override
-    public void cadastrarDiagnostico(Diagnostico dg) {
-        if(dg != null){
+    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
+        if(dg != null && c.getDiagnostico() == null){
+            c.setDiagnostico(dg);
             this.diagnosticos.add(dg);
         }
     }
@@ -51,6 +52,11 @@ public class RepositorioDiagnostico implements IRepositorioDiagnostico{
             }
         }
         return diagnostico;
+    }
+
+    @Override
+    public String toString() {
+        return "RepositorioDiagnostico{" + "diagnosticos=" + diagnosticos + '}';
     }
     
 }
