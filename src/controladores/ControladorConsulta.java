@@ -38,4 +38,9 @@ public class ControladorConsulta implements IControladorConsulta {
 	public List<Consulta> listarConsultasMedico(Medico m){
 		return consultasSalvas.listarConsultasMedico(m);
 	}
+
+        @Override
+        public Consulta buscarConsultaPorId(int id) {
+            return consultasSalvas.buscarConsultaPorId(id);
+        }
 }

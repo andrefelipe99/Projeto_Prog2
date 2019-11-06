@@ -4,8 +4,7 @@ public class Paciente extends Pessoa{
 
     private String endereco;
     private String telefone;
-
-
+   
     public Paciente(String endereco, String telefone, String nome, int idade, String cfp) {
         super(nome, idade, cfp);
         this.endereco = endereco;
@@ -30,7 +29,7 @@ public class Paciente extends Pessoa{
 
     @Override
     public String toString() {
-        return "Paciente{" + "endereco=" + endereco + ", telefone=" + telefone + super.toString() + '}';
+        return "Paciente{" + "endereco=" + endereco + ", telefone=" + telefone + '}';
     }
 
 }

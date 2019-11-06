@@ -8,8 +8,8 @@ public class teste {
 		ControladorPaciente p = new ControladorPaciente();
 		ControladorMedico m = new ControladorMedico();
 
-		Paciente p1 = new Paciente("endereço", "telefone", "nome", 15, "123");
-		Paciente p2 = new Paciente("endereço", "telefone", "nome", 15, "1234");
+		Paciente p1 = new Paciente("endereco", "telefone", "nome", 15, "123");
+		Paciente p2 = new Paciente("endereco", "telefone", "nome", 15, "1234");
 
 		Medico m1 = new Medico("12345", "area", "senha", "nome", 23, "123");
 		Medico m2 = new Medico("123456", "area", "senha", "nome", 23, "123");
@@ -25,5 +25,7 @@ public class teste {
 		System.out.println(m.listarMedicos().toString());
 		m.removerMedico("12345");
 		System.out.println(m.listarMedicos().toString());
+                
+                
 	}
 }

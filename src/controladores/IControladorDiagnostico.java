@@ -1,0 +1,12 @@
+package controladores;
+
+import java.util.List;
+import negocio.Consulta;
+import negocio.Diagnostico;
+
+public interface IControladorDiagnostico {
+     public void cadastrarDiagnostico(Diagnostico dg);
+    public Diagnostico buscarDiagnosticoPorConsulta(Consulta c);
+    public Diagnostico buscarDiagnosticoPorId(int id);
+    public List<Diagnostico> listarDiagnosticoPorConsulta(Consulta c);
+}

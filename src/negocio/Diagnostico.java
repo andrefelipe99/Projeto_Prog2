@@ -1,17 +1,27 @@
 package negocio;
 
 public class Diagnostico {
-
+    
+    private int id;
     private Consulta consulta;
     private String descricao;
     private String medicamentos;
 
-    public Diagnostico(Consulta consulta, String descricao, String medicamentos) {
+    public Diagnostico(int id, Consulta consulta, String descricao, String medicamentos) {
+        this.id = id;
         this.consulta = consulta;
         this.descricao = descricao;
         this.medicamentos = medicamentos;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public Consulta getConsulta() {
         return consulta;
     }
@@ -38,6 +48,6 @@ public class Diagnostico {
 
     @Override
     public String toString() {
-        return "Diagnostico{" + "consulta=" + consulta + ", descricao=" + descricao + ", medicamentos=" + medicamentos + '}';
+        return "Diagnostico{" + "id=" + id + ", consulta=" + consulta + ", descricao=" + descricao + ", medicamentos=" + medicamentos + '}';
     }
 }

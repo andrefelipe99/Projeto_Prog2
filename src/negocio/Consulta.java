@@ -5,13 +5,15 @@ import java.util.Objects;
 
 public class Consulta {
 
+    private int id;
     private Medico medico;
     private Paciente paciente;
     private String descricao;
     private LocalDateTime dataHoraInicio;
     private LocalDateTime dataHoraFim;
 
-    public Consulta(Medico medico, Paciente paciente, String descricao, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim) {
+    public Consulta(int id, Medico medico, Paciente paciente, String descricao, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim) {
+        this.id = id;
         this.medico = medico;
         this.paciente = paciente;
         this.descricao = descricao;
@@ -19,6 +21,14 @@ public class Consulta {
         this.dataHoraFim = dataHoraFim;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public Medico getMedico() {
         return medico;
     }
@@ -61,7 +71,7 @@ public class Consulta {
 
     @Override
     public String toString() {
-        return "Consulta{" + "medico=" + medico + ", paciente=" + paciente + ", descricao=" + descricao + ", dataHoraInicio=" + dataHoraInicio + ", dataHoraFim=" + dataHoraFim + '}';
+        return "Consulta{" + "id=" + id + ", medico=" + medico + ", paciente=" + paciente + ", descricao=" + descricao + ", dataHoraInicio=" + dataHoraInicio + ", dataHoraFim=" + dataHoraFim + '}';
     }
 
     @Override

@@ -57,4 +57,14 @@ public class RepositorioConsulta implements IRepositorioConsulta {
 		return consultas;
 	}
 
+    @Override
+    public Consulta buscarConsultaPorId(int id) {
+       for(Consulta c: this.consultas){
+           if(c.getId() == id){
+               return c;
+           }
+       }
+       return null;
+    }
+
 }
