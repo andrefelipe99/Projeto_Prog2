@@ -39,4 +39,15 @@ public class ControladorMedico implements IControladorMedico{
 	public List<Medico> listarMedicos() {
 		return medico.listarMedicos();
 	}
+        
+        public boolean login(String crm, String senha){
+            for(Medico m: medico.listarMedicos()){
+                if(crm.equals(m.getCrm())){
+                    if(senha.equals(m.getSenha())){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        } 
 }

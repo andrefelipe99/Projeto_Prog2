@@ -7,4 +7,5 @@ public interface IControladorMedico {
 	public void cadastrarMedico(Medico m);
 	public void removerMedico(String crm);
 	public List<Medico> listarMedicos();
+        public boolean login(String crm, String senha);
 }
