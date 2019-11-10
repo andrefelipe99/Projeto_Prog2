@@ -20,9 +20,9 @@ public class ControladorMedico implements IControladorMedico{
 				&& m.getIdade() >= 22) {
 			medico.cadastrarMedico(m);
 		}
-		else {
+		else { //exception dados invalidos
 			System.out.println("Medico dados invalidos");
-			//exception
+
 		}
 	}
 
@@ -30,24 +30,30 @@ public class ControladorMedico implements IControladorMedico{
 		if(crm!= null && crm.isEmpty() == false) {
 			medico.removerMedico(crm);
 		}
-		else {
+		else { //exception crm invalido
 			System.out.println("crm invalido");
-			//exception
+
 		}
 	}
+
+	public boolean login(String crm, String senha){
+        for(Medico m: medico.listarMedicos()){
+           if(crm.equalsIgnoreCase(m.getCrm())){
+               if(senha.equals(m.getSenha())){
+            	   System.out.println("Medico logado");
+                    return true;
+               }
+               else { //exception senha errada
+            	   System.out.println("Senha errada");
+               }
+           }
+        }
+        return false;
+   }
 
 	public List<Medico> listarMedicos() {
 		return medico.listarMedicos();
 	}
-        
-        public boolean login(String crm, String senha){
-            for(Medico m: medico.listarMedicos()){
-                if(crm.equals(m.getCrm())){
-                    if(senha.equals(m.getSenha())){
-                        return true;
-                    }
-                }
-            }
-            return false;
-        } 
+
+
 }

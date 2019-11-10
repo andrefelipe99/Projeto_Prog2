@@ -7,28 +7,28 @@ import negocio.Medico;
 import negocio.Paciente;
 
 public class Fachada {
-    
+
     private static Fachada instance;
-    
+
     private ControladorPaciente controladorPaciente;
     private ControladorMedico controladorMedico;
     private ControladorConsulta controladorConsulta;
     private ControladorDiagnostico controladorDiagnostico;
-    
+
     private Fachada(){
         controladorPaciente = new ControladorPaciente();
         controladorMedico = new ControladorMedico();
         controladorConsulta = new ControladorConsulta();
         controladorDiagnostico = new ControladorDiagnostico();
     }
-    
+
     public static Fachada getInstance(){
         if(instance == null){
             instance = new Fachada();
         }
         return instance;
     }
-    
+
     // PACIENTE
 
     public void cadastrarPaciente(Paciente p) {
@@ -42,7 +42,7 @@ public class Fachada {
     public List<Paciente> listarPacientes() {
         return controladorPaciente.listarPacientes();
     }
-    
+
     // MEDICO
 
     public void cadastrarMedico(Medico m) {
@@ -60,7 +60,7 @@ public class Fachada {
     public boolean login(String crm, String senha) {
         return controladorMedico.login(crm, senha);
     }
-    
+
     // CONSULTA
 
     public void cadastrarConsulta(Consulta c) {
@@ -86,11 +86,15 @@ public class Fachada {
     public Consulta buscarConsultaPorId(int id) {
         return controladorConsulta.buscarConsultaPorId(id);
     }
-    
+
     // DIAGNOSTICO
 
-    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
-        controladorDiagnostico.cadastrarDiagnostico(dg, c);
+    public void cadastrarDiagnostico(Diagnostico dg) {
+    	controladorDiagnostico.cadastrarDiagnostico(dg);
+    }
+
+    public void atualizarDiagnostico(Diagnostico dg) {
+    	controladorDiagnostico.atualizarDiagnostico(dg);
     }
 
     public Diagnostico buscarDiagnosticoPorConsulta(Consulta c) {
@@ -104,6 +108,6 @@ public class Fachada {
     public List<Diagnostico> listarDiagnosticoPorConsulta(Consulta c) {
         return controladorDiagnostico.listarDiagnosticoPorConsulta(c);
     }
-    
-    
+
+
 }

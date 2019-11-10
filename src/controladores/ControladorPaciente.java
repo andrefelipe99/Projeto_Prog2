@@ -20,9 +20,9 @@ public class ControladorPaciente {
 				&& p.getIdade() > 0) {
 			paciente.cadastrarPaciente(p);
 		}
-		else {
+		else { //exception dados invalidos
 			System.out.println("paciente nao cadastrado");
-			//exception
+
 		}
 	}
 
@@ -30,9 +30,9 @@ public class ControladorPaciente {
 		if(cpf!= null && cpf.isEmpty() == false) {
 			paciente.removerPaciente(cpf);
 		}
-		else {
+		else { //exception cpf invalido
 			System.out.println("cpf invalido");
-			//exception
+
 		}
 	}
 

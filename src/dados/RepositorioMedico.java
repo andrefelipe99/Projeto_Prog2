@@ -17,9 +17,9 @@ public class RepositorioMedico implements IRepositorioMedico{
 	    		medicos.add(m);
 	    		System.out.println("Medico cadastrado");
 	    	}
-	    	else {
+	    	else {//exception medico ja existente
 	    		System.out.println("Medico ja existente");
-	    		//exception
+
 	    	}
 
 	    }
@@ -30,9 +30,9 @@ public class RepositorioMedico implements IRepositorioMedico{
 	    		medicos.remove(m);
 	    		System.out.println("Medico removido");
 	    	}
-	    	else {
+	    	else { //exception medico nao encontrado
 	    		System.out.println("Medico não encontrado");
-	    		//exception
+
 	    	}
 	    }
 

@@ -16,9 +16,9 @@ import negocio.Paciente;
 	    		pacientes.add(p);
 	    		System.out.println("Paciente cadastrado");
 	    	}
-	    	else {
+	    	else { //exception ja existe
 	    		System.out.println("cpf ja existente");
-	    		//exception
+
 	    	}
 
 	    }
@@ -29,9 +29,9 @@ import negocio.Paciente;
 	    		pacientes.remove(p);
 	    		System.out.println("Paciente removido");
 	    	}
-	    	else {
+	    	else { //exception cpf nao encontrado
 	    		System.out.println("Paciente não encontrado");
-	    		//exception
+
 	    	}
 	    }
 

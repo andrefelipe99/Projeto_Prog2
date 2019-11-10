@@ -29,7 +29,7 @@ public class Paciente extends Pessoa{
 
     @Override
     public String toString() {
-        return "Paciente{" + "endereco=" + endereco + ", telefone=" + telefone + '}';
+        return "Paciente{" + "endereco=" + endereco + ", telefone=" + telefone + super.toString() + '}';
     }
 
 }
