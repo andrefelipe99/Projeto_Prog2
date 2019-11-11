@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.3659147869674185" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HospitalOficial.gui.controladores.ControladorTelaAtendente.java">
+   <items>
+      <AnchorPane prefHeight="433.0" prefWidth="213.0">
+         <children>
+            <TableView layoutY="76.0" prefHeight="522.0" prefWidth="306.0">
+              <columns>
+                <TableColumn fx:id="colunaListarPacientes" prefWidth="305.5999878287315" text="Lista de Pacientes">
+                     <columns>
+                        <TableColumn fx:id="colunaNome" prefWidth="153.6000275015831" text="Nome" />
+                        <TableColumn fx:id="colunaCPF" prefWidth="151.9999542236328" text="CPF" />
+                     </columns></TableColumn>
+              </columns>
+            </TableView>
+            <TextField fx:id="barraPesquisa" layoutX="14.0" layoutY="41.0" prefHeight="26.0" prefWidth="277.0" />
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="256.0" text="Pesquisar por Nome ou CPF:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="599.0" prefWidth="502.0">
+         <children>
+            <Label layoutX="30.0" layoutY="36.0" prefHeight="40.0" prefWidth="70.0" text="CPF:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="textoCPF" layoutX="121.0" layoutY="29.0" prefHeight="40.0" prefWidth="306.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="30.0" layoutY="69.0" prefHeight="40.0" prefWidth="69.0" text="Nome:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="textoNome" layoutX="121.0" layoutY="69.0" prefHeight="40.0" prefWidth="306.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="30.0" layoutY="109.0" prefHeight="40.0" prefWidth="70.0" text="Idade:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="textoIdade" layoutX="121.0" layoutY="109.0" prefHeight="40.0" prefWidth="306.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="30.0" layoutY="149.0" prefHeight="40.0" prefWidth="91.0" text="Endereço:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="textoEndereco" layoutX="121.0" layoutY="149.0" prefHeight="40.0" prefWidth="306.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="30.0" layoutY="189.0" prefHeight="40.0" prefWidth="91.0" text="Telefone:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="textoTelefone" layoutX="121.0" layoutY="189.0" prefHeight="40.0" prefWidth="306.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ButtonBar layoutX="89.0" layoutY="545.0" prefHeight="40.0" prefWidth="387.0" AnchorPane.bottomAnchor="14.200000000000045" AnchorPane.rightAnchor="10.199999999999989">
+              <buttons>
+                  <Button fx:id="botaoHistorico" mnemonicParsing="false" text="Histórico Paciente" />
+                  <Button fx:id="botaoCadastrar" mnemonicParsing="false" text="Cadastrar Paciente" />
+                  <Button fx:id="botaoRemover" mnemonicParsing="false" text="Remover Paciente" />
+              </buttons>
+            </ButtonBar>
+         </children>
+      </AnchorPane>
+   </items>
+</SplitPane>
