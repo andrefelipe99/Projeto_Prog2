@@ -6,9 +6,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Projeto_Prog2-master.gui.controladores.ControladorTelaAdmin.java">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladoresTela.ControladorTelaAdmin">
    <children>
-      <ButtonBar layoutX="250.0" layoutY="544.0" prefHeight="26.0" prefWidth="300.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0">
+      <ButtonBar layoutX="201.0" layoutY="544.0" prefHeight="26.0" prefWidth="399.0" AnchorPane.bottomAnchor="29.600000000000023" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="200.0">
         <buttons>
           <Button fx:id="botaoCadastrar" mnemonicParsing="false" prefHeight="26.0" prefWidth="241.0" text="Cadastrar Medico" />
             <Button fx:id="botaoRemover" mnemonicParsing="false" text="Remover Médico" />
@@ -16,10 +16,11 @@
       </ButtonBar>
       <TableView layoutX="23.0" layoutY="14.0" prefHeight="514.0" prefWidth="760.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="17.0">
         <columns>
-          <TableColumn prefWidth="195.20001220703125" text="CRM" />
-          <TableColumn prefWidth="330.4000244140625" text="Nome" />
-            <TableColumn prefWidth="234.39996337890625" text="Especialidade" />
+          <TableColumn fx:id="colunaCRM" prefWidth="233.5999755859375" resizable="false" text="CRM" />
+          <TableColumn fx:id="colunaNome" prefWidth="287.99993896484375" resizable="false" text="Nome" />
+            <TableColumn fx:id="colunaEspecialidade" prefWidth="240.79998779296875" resizable="false" text="Especialidade" />
         </columns>
       </TableView>
+      <Button fx:id="botaoSair" layoutX="731.0" layoutY="558.0" mnemonicParsing="false" text="Sair" AnchorPane.bottomAnchor="16.4" AnchorPane.rightAnchor="17.0" />
    </children>
 </AnchorPane>
