@@ -8,41 +8,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< HEAD
 <AnchorPane prefHeight="377.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladoresTela.ControladorTelaLogin">
    <children>
       <Separator layoutX="101.0" layoutY="79.0" prefHeight="3.0" prefWidth="234.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="78.99999999999999" />
       <Label layoutX="101.0" layoutY="93.0" prefHeight="22.0" prefWidth="71.0" style="-fx-background-color: 23;" text="Usuário:" textAlignment="JUSTIFY" textOverrun="LEADING_WORD_ELLIPSIS" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="93.0">
-=======
-<AnchorPane prefHeight="380.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladoresTela.ControladorTelaLogin">
-   <children>
-      <Separator layoutX="101.0" layoutY="79.0" prefHeight="3.0" prefWidth="234.0" />
-      <Label layoutX="101.0" layoutY="93.0" prefHeight="22.0" prefWidth="71.0" style="-fx-background-color: 23;" text="Usuário:" textAlignment="JUSTIFY" textOverrun="LEADING_WORD_ELLIPSIS">
->>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-<<<<<<< HEAD
       <TextField fx:id="textoUser" layoutX="179.0" layoutY="91.0" AnchorPane.leftAnchor="179.0" AnchorPane.topAnchor="91.0" />
       <Label layoutX="101.0" layoutY="131.0" prefHeight="22.0" prefWidth="71.0" text="Senha:" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="131.0">
-=======
-      <TextField fx:id="textoUser" layoutX="179.0" layoutY="91.0" />
-      <Label layoutX="101.0" layoutY="131.0" prefHeight="22.0" prefWidth="71.0" text="Senha:">
->>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-<<<<<<< HEAD
       <PasswordField fx:id="textoSenha" layoutX="179.0" layoutY="129.0" AnchorPane.leftAnchor="179.0" AnchorPane.topAnchor="129.0" />
       <Separator layoutX="101.0" layoutY="169.0" prefHeight="3.0" prefWidth="234.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="169.0" />
       <Button fx:id="botaoLogin" layoutX="191.0" layoutY="313.0" mnemonicParsing="false" text="Login" AnchorPane.bottomAnchor="38.4" AnchorPane.leftAnchor="191.0" />
-=======
-      <PasswordField fx:id="textoSenha" layoutX="179.0" layoutY="129.0" />
-      <Separator layoutX="101.0" layoutY="169.0" prefHeight="3.0" prefWidth="234.0" />
-      <Button fx:id="botaoLogin" layoutX="191.0" layoutY="313.0" mnemonicParsing="false" text="Login" />
-      <Label fx:id="textoAvisos" layoutX="52.0" layoutY="173.0" prefHeight="122.0" prefWidth="333.0" textFill="RED" />
->>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
    </children>
 </AnchorPane>

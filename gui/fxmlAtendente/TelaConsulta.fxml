@@ -2,16 +2,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<<<<<<< HEAD
-=======
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
->>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<<<<<<< HEAD
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladoresTela.ControladorTelaConsulta">
    <top>
@@ -53,56 +47,4 @@
          </children>
       </AnchorPane>
    </bottom>
-=======
-<?import javafx.scene.text.Font?>
-
-
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladoresTela.ControladorTelaConsulta">
-   <left>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-         <children>
-            <TableView layoutX="-1.0" prefHeight="414.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <columns>
-                <TableColumn prefWidth="399.20001220703125" text="Consultas Passadas">
-                     <columns>
-                      <TableColumn fx:id="colunaMedPast" prefWidth="207.20001220703125" resizable="false" text="Médico" />
-                        <TableColumn fx:id="colunaDataPast" prefWidth="192.0" resizable="false" text="Data" />
-                     </columns>
-                  </TableColumn>
-              </columns>
-            </TableView>
-            <Button fx:id="botaoDiagnostico" layoutX="144.0" layoutY="538.0" mnemonicParsing="false" text="Exibir Diagnóstico" AnchorPane.bottomAnchor="36.39999999999998" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="144.8" />
-            <Separator layoutX="370.0" layoutY="416.0" orientation="VERTICAL" prefHeight="178.0" prefWidth="62.0" AnchorPane.bottomAnchor="5.599999999999994" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="-32.4" />
-            <Button fx:id="botaoVoltar" layoutX="14.0" layoutY="564.0" mnemonicParsing="false" text="Voltar" AnchorPane.bottomAnchor="10.399999999999999" AnchorPane.leftAnchor="14.0" />
-         </children>
-      </AnchorPane>
-   </left>
-   <center>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <TableView prefHeight="414.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <columns>
-                <TableColumn prefWidth="474.40001220703124" text="Consultas Marcadas">
-                     <columns>
-                      <TableColumn fx:id="colunaMedicoPres" prefWidth="213.60003662109375" resizable="false" text="Médico" />
-                        <TableColumn fx:id="colunaDataPres" prefWidth="185.5999755859375" resizable="false" text="Data" />
-                     </columns>
-                  </TableColumn>
-              </columns>
-            </TableView>
-            <ButtonBar layoutX="31.0" layoutY="537.0" prefHeight="42.0" prefWidth="316.0" AnchorPane.bottomAnchor="21.0">
-              <buttons>
-                  <Button fx:id="botaoMarcaConsulta" mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="Marcar Consulta" />
-                <Button fx:id="botaoCancelaConsulta" mnemonicParsing="false" text="Cancelar Consulta" />
-              </buttons>
-            </ButtonBar>
-            <Label fx:id="textoAvisoConsulta" layoutX="66.0" layoutY="432.0" prefHeight="97.0" prefWidth="344.0" textFill="RED" AnchorPane.bottomAnchor="68.79999999999995" AnchorPane.leftAnchor="66.0">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </center>
->>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
 </BorderPane>

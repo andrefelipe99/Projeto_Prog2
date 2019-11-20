@@ -14,7 +14,6 @@
             <Button fx:id="botaoRemover" mnemonicParsing="false" text="Remover Médico" />
         </buttons>
       </ButtonBar>
-<<<<<<< HEAD
       <TableView editable="true" layoutX="23.0" layoutY="14.0" prefHeight="514.0" prefWidth="760.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="17.0">
         <columns>
           <TableColumn fx:id="colunaCRM" prefWidth="233.5999755859375" text="CRM" />
@@ -24,14 +23,6 @@
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
-=======
-      <TableView layoutX="23.0" layoutY="14.0" prefHeight="514.0" prefWidth="760.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="17.0">
-        <columns>
-          <TableColumn fx:id="colunaCRM" prefWidth="233.5999755859375" resizable="false" text="CRM" />
-          <TableColumn fx:id="colunaNome" prefWidth="287.99993896484375" resizable="false" text="Nome" />
-            <TableColumn fx:id="colunaEspecialidade" prefWidth="240.79998779296875" resizable="false" text="Especialidade" />
-        </columns>
->>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
       </TableView>
       <Button fx:id="botaoSair" layoutX="731.0" layoutY="558.0" mnemonicParsing="false" text="Sair" AnchorPane.bottomAnchor="16.4" AnchorPane.rightAnchor="17.0" />
    </children>
