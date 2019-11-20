@@ -12,14 +12,21 @@
    <left>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="358.0" BorderPane.alignment="CENTER">
          <children>
+<<<<<<< HEAD
             <TableView fx:id="tabelaConsultasMed" editable="true" prefHeight="598.0" prefWidth="357.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+=======
+            <TableView fx:id="tabelaConsultasMed" prefHeight="598.0" prefWidth="357.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+>>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
               <columns>
                 <TableColumn fx:id="colunaPaciente" prefWidth="171.999966442585" text="Paciente" />
                 <TableColumn fx:id="colunaHorario" prefWidth="185.6000518798828" text="Horário" />
               </columns>
+<<<<<<< HEAD
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
+=======
+>>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
             </TableView>
          </children>
       </AnchorPane>
@@ -47,13 +54,21 @@
                   <Font size="18.0" />
                </font>
             </Label>
+<<<<<<< HEAD
             <Label fx:id="campoMedAvisos" layoutX="19.0" layoutY="134.0" prefHeight="113.0" prefWidth="402.0" textFill="#fd0202">
+=======
+            <Label fx:id="campoMedAvisos" layoutX="14.0" layoutY="134.0" prefHeight="113.0" prefWidth="402.0" textFill="#fd0202">
+>>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <Button fx:id="botaoDiagnostico" layoutX="315.0" layoutY="121.0" mnemonicParsing="false" text="Criar Diagnóstico" AnchorPane.rightAnchor="16.19999999999999" AnchorPane.topAnchor="121.0" />
+<<<<<<< HEAD
             <Label fx:id="campoMedHora" layoutX="19.0" layoutY="522.0" prefHeight="62.0" prefWidth="218.0" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="15.600000000000023" AnchorPane.leftAnchor="19.0">
+=======
+            <Label fx:id="campoMedHora" layoutX="14.0" layoutY="544.0" prefHeight="40.0" prefWidth="166.0" AnchorPane.bottomAnchor="14.399999999999977" AnchorPane.leftAnchor="14.0">
+>>>>>>> e227eebdf700acaa08823ef7812489f34b0c2e7f
                <font>
                   <Font size="18.0" />
                </font>
