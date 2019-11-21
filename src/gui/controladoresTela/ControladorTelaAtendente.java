@@ -2,6 +2,8 @@ package gui.controladoresTela;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import gui.tela.GerenciadorHospitalAPP;
 
@@ -31,7 +33,7 @@ public class ControladorTelaAtendente implements Initializable{
     @FXML private Button botaoCadastrar;
     @FXML private Button botaoRemover;
     @FXML private Button botaoSair;
-	
+
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	botaoHistorico.setOnMouseClicked((MouseEvent e)->{
@@ -42,7 +44,7 @@ public class ControladorTelaAtendente implements Initializable{
     			abrirTelaConsulta();
     		}
     	});
-    	
+
     	botaoSair.setOnMouseClicked((MouseEvent e)->{
 			GerenciadorHospitalAPP.fechar();
 		});
@@ -51,19 +53,33 @@ public class ControladorTelaAtendente implements Initializable{
 				GerenciadorHospitalAPP.fechar();
 			}
 		});
-		
+		botaoCadastrar.setOnMouseClicked((MouseEvent e)->{
+			try {
+                cadastro();
+            } catch (Exception ex) {
+                Logger.getLogger(ControladorTelaAtendente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+		});
+
 	}
-    
+
+    public void cadastro() throws Exception {
+    	GerenciadorHospitalAPP.getStage().close();
+        GerenciadorHospitalAPP atd = new GerenciadorHospitalAPP();
+        atd.start(new Stage(), "/gui/fxmlAtendente/TelaCadastroPaciente.fxml","Cadastro paciente");
+
+    }
+
     public void abrirTelaConsulta() {
 		GerenciadorHospitalAPP.getStage().close();
     	GerenciadorHospitalAPP gerenciadorHospitalAPP = new GerenciadorHospitalAPP();
 		try {
-			gerenciadorHospitalAPP.start(new Stage(), "/fxmlAtendente/TelaConsulta.fxml", "Hist�rico do Paciente");
+			gerenciadorHospitalAPP.start(new Stage(), "/gui/fxmlAtendente/TelaConsulta.fxml", "Historico do Paciente");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
     }
-    
+
 
 
 

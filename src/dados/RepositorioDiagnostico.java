@@ -14,9 +14,9 @@ public class RepositorioDiagnostico implements IRepositorioDiagnostico{
     }
 
     @Override
-    public void cadastrarDiagnostico(Diagnostico dg) {
-        if(dg.getConsulta().getDiagnostico() == null && this.buscarDiagnosticoPorId(dg.getId()) == null){
-            dg.getConsulta().setDiagnostico(dg);
+    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
+        if(c.getDiagnostico() == null){
+            c.setDiagnostico(dg);
             diagnosticos.add(dg);
             System.out.println("Diagnostico criado");
         }
@@ -25,21 +25,11 @@ public class RepositorioDiagnostico implements IRepositorioDiagnostico{
         }
     }
 
-    public void atualizarDiagnostico(Diagnostico dg) {
-    	Diagnostico procurado = this.buscarDiagnosticoPorId(dg.getId());
-    	if(procurado != null) {
-    		diagnosticos.remove(procurado);
-    		diagnosticos.add(dg);
-    		dg.getConsulta().setDiagnostico(dg);
-    		System.out.println("Atualiado diagnostico");
-    	}
-    }
-
     @Override
     public Diagnostico buscarDiagnosticoPorConsulta(Consulta c) {
 
         for(Diagnostico dg: this.diagnosticos){
-            if(dg.getConsulta().equals(c)){
+            if(c.getDiagnostico().equals(dg)){
                 return dg;
             }
         }
@@ -47,21 +37,11 @@ public class RepositorioDiagnostico implements IRepositorioDiagnostico{
     }
 
     @Override
-    public Diagnostico buscarDiagnosticoPorId(int id) {
-       for(Diagnostico dg: this.diagnosticos){
-           if(dg.getId() == id){
-               return dg;
-           }
-       }
-       return null;
-    }
-
-    @Override
     public List<Diagnostico> listarDiagnosticoPorConsulta(Consulta c) {
         List<Diagnostico> diagnostico = new ArrayList<>();
 
         for(Diagnostico dg: this.diagnosticos){
-            if(dg.getConsulta().equals(c)){
+            if(c.getDiagnostico().equals(dg)){
                 diagnostico.add(dg);
             }
         }

@@ -64,7 +64,7 @@ public class Fachada {
     public boolean MedicoExiste(Medico m) {
         return controladorMedico.MedicoExiste(m);
     }
-    
+
     // CONSULTA
 
     public void cadastrarConsulta(Consulta c) {
@@ -93,20 +93,12 @@ public class Fachada {
 
     // DIAGNOSTICO
 
-    public void cadastrarDiagnostico(Diagnostico dg) {
-    	controladorDiagnostico.cadastrarDiagnostico(dg);
-    }
-
-    public void atualizarDiagnostico(Diagnostico dg) {
-    	controladorDiagnostico.atualizarDiagnostico(dg);
+    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
+    	controladorDiagnostico.cadastrarDiagnostico(dg, c);
     }
 
     public Diagnostico buscarDiagnosticoPorConsulta(Consulta c) {
         return controladorDiagnostico.buscarDiagnosticoPorConsulta(c);
-    }
-
-    public Diagnostico buscarDiagnosticoPorId(int id) {
-        return controladorDiagnostico.buscarDiagnosticoPorId(id);
     }
 
     public List<Diagnostico> listarDiagnosticoPorConsulta(Consulta c) {

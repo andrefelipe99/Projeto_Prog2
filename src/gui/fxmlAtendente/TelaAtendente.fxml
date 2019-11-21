@@ -85,10 +85,10 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ButtonBar layoutX="104.0" layoutY="544.0" prefHeight="40.0" prefWidth="389.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="104.0" AnchorPane.rightAnchor="10.0">
+            <ButtonBar layoutX="104.0" layoutY="544.0" prefHeight="40.0" prefWidth="266.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="104.0" AnchorPane.rightAnchor="10.0">
               <buttons>
-                  <Button fx:id="botaoCadastrar" mnemonicParsing="false" prefHeight="26.0" prefWidth="266.0" text="Cadastrar Paciente" />
-                  <Button fx:id="botaoRemover" mnemonicParsing="false" text="Remover Paciente" />
+                  <Button fx:id="botaoCadastrar" mnemonicParsing="false" text="Cadastrar Paciente" />
+                  <Button fx:id="botaoRemover" mnemonicParsing="false" prefHeight="26.0" prefWidth="266.0" text="Remover paciente" />
               </buttons>
             </ButtonBar>
             <Button fx:id="botaoSair" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" text="Sair" AnchorPane.bottomAnchor="19.799999999999976" AnchorPane.leftAnchor="14.0" />

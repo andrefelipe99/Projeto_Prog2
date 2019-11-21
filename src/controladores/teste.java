@@ -35,11 +35,11 @@ public class teste {
         f.cadastrarConsulta(c2);
         //System.out.println(f.listarConsultasPaciente(p1));
 
-        Diagnostico dg1 = new Diagnostico(01, c1, "Falta de Sexo", "Puta");
-        Diagnostico dg2 = new Diagnostico(02, c2, "Falta de Sexo", "Puta");
+        Diagnostico dg1 = new Diagnostico("Falta de Sexo", "Puta");
+        Diagnostico dg2 = new Diagnostico( "Falta de Sexo", "Puta");
 
-        f.cadastrarDiagnostico(dg1);
-        f.cadastrarDiagnostico(dg2);
+        f.cadastrarDiagnostico(dg1, c1);
+        f.cadastrarDiagnostico(dg2, c2);
         //f.atualizarDiagnostico(dg1);
         //System.out.println(f.buscarDiagnosticoPorConsulta(c1).toString());
 	}

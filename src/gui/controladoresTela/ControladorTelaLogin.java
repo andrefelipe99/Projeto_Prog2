@@ -24,50 +24,50 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class ControladorTelaLogin implements Initializable{
-	
+
     @FXML private TextField textoUser;
     @FXML private PasswordField textoSenha;
     @FXML private Button botaoLogin;
     @FXML private Label textoAvisos;
-	
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		botaoLogin.setOnMouseClicked((MouseEvent me)->{
 			logar();
 		});
-		
+
 		botaoLogin.setOnKeyPressed((KeyEvent e)->{
 			if(e.getCode() == KeyCode.ENTER) {
 			logar();
 			}
 		});
 	}
-    
+
 	public void logar(){
-		
-			try {                            
-                                BufferedReader br = new BufferedReader(new FileReader("src\\dados\\arquivos/logins.txt"));
-				boolean logado = false;                                
+
+			try {
+                                BufferedReader br = new BufferedReader(new FileReader("src/dados/arquivos/logins.txt"));
+				boolean logado = false;
 				String caminho = "";
 				String titulo = new String();
 				String crm = new String();
-				
-				do {                                    
+
+				do {
 					String[] loginSenha = br.readLine().split(",");
-                                          
+
 					if(textoUser.getText().equals(loginSenha[0]) && textoSenha.getText().equals(loginSenha[1])) {
-						
-						if(textoUser.getText().equals("admin")) {                                                    
+
+						if(textoUser.getText().equals("admin")) {
 							titulo = "Administrador";
 							caminho = "/gui/fxmlAdmin/TelaAdmin.fxml";
 							logado = true;
-							
+
 						}
 						else if(textoUser.getText().equals("atendente")) {
 							titulo = "Atendente";
 							caminho = "/gui/fxmlAtendente/TelaAtendente.fxml";
 							logado = true;
-							
+
 						}
 						else {
 							titulo = "Medico";
@@ -75,34 +75,34 @@ public class ControladorTelaLogin implements Initializable{
 							crm = textoUser.getText();
 							setarMedicoLogado(crm);
 							logado = true;
-							
-							
+
+
 						}
-						
+
 						if(!br.ready()) {
 							br.close();
 							logado = true;
-							
+
 						}
 					}
 
-					
+
 				}while(!logado);
-				
+
 				if(!caminho.equals("")) {
 					GerenciadorHospitalAPP.getStage().close();
 					GerenciadorHospitalAPP gerenciadorHospitalAPP = new GerenciadorHospitalAPP();
 					gerenciadorHospitalAPP.start(new Stage(), caminho, titulo);
 
 				}
-			
+
 			}
 			catch(IOException ioe) {
 				Alert alerta = new Alert(AlertType.ERROR);
 				alerta.setTitle("ERRO");
 				alerta.setHeaderText("Erro nos Arquivos");
 				alerta.setContentText("Falha ao ler o arquivo dos logins, contate a administracao!");
-				alerta.show();   
+				alerta.show();
                                 ioe.printStackTrace();
 			}
 			catch(Exception e) {
@@ -112,30 +112,30 @@ public class ControladorTelaLogin implements Initializable{
 				alerta.setContentText("Usuario ou senha invalidos!");
 				alerta.show();
 			}
-			
-			
+
+
 		}
-	
+
 	public void setarMedicoLogado(String crm) throws IOException {
-		File f = new File("C:\\Users\\dedea\\OneDrive\\Documentos\\NetBeansProjects\\Projeto_MarcaçaoConsulta\\src\\dados\\arquivos/medicoLogado.txt");
-		
+		File f = new File("src/dados/arquivos/medicoLogado.txt");
+
 		if(f.exists()) {
 			f.delete();
 		}
-		
+
 		f.createNewFile();
 		FileWriter fw = new FileWriter(f);
-			
+
 		fw.write(crm);
-			
+
 		fw.close();
-	
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 	public PasswordField getTextoSenha() {
 		return textoSenha;
 	}

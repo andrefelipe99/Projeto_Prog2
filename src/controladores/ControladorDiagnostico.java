@@ -14,30 +14,18 @@ public class ControladorDiagnostico implements IControladorDiagnostico{
     }
 
     @Override
-    public void cadastrarDiagnostico(Diagnostico dg) {
-    	if(dg != null && dg.getConsulta() != null) {
-    		diagnostico.cadastrarDiagnostico(dg);
+    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
+    	if(dg != null && c.getDiagnostico() == null) {
+    		diagnostico.cadastrarDiagnostico(dg, c);
     	}
     	else { //exception dados invalidos
     		System.out.println("Dados invalidos diagnostico");
     	}
     }
 
-
-    public void atualizarDiagnostico(Diagnostico dg) {
-    	if(dg != null && dg.getConsulta() != null) {
-    		diagnostico.atualizarDiagnostico(dg);
-    	}
-	}
-
 	@Override
     public Diagnostico buscarDiagnosticoPorConsulta(Consulta c) {
        return diagnostico.buscarDiagnosticoPorConsulta(c);
-    }
-
-    @Override
-    public Diagnostico buscarDiagnosticoPorId(int id) {
-        return diagnostico.buscarDiagnosticoPorId(id);
     }
 
     @Override

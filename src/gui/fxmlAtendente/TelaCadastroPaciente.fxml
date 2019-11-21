@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="347.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="347.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controladoresTela.ControladorTelaCadastroPaciente">
    <children>
-      <Button fx:id="botaoSalvar" layoutX="734.0" layoutY="560.0" mnemonicParsing="false" text="Salvar" AnchorPane.bottomAnchor="14.399999999999999" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="botaoSalvar" layoutX="734.0" layoutY="560.0" mnemonicParsing="false" onAction="#cadastrar" text="Salvar" AnchorPane.bottomAnchor="14.399999999999999" AnchorPane.rightAnchor="14.0" />
       <Label layoutX="14.0" layoutY="14.0" prefHeight="42.0" prefWidth="765.0" text="Cadastro de Paciente" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="18.0" />
@@ -44,6 +44,6 @@
       <TextField fx:id="textoCPF" layoutX="113.0" layoutY="140.0" prefHeight="42.0" prefWidth="637.0" promptText="Digite o CPF..." AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="49.39999999999998" AnchorPane.topAnchor="140.0" />
       <TextField fx:id="textoEndereco" layoutX="113.0" layoutY="182.0" prefHeight="42.0" prefWidth="637.0" promptText="Digite o Endereço..." AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="49.39999999999998" AnchorPane.topAnchor="182.0" />
       <TextField fx:id="textoTelefone" layoutX="113.0" layoutY="224.0" prefHeight="42.0" prefWidth="637.0" promptText="Digite o Telefone:" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="49.39999999999998" AnchorPane.topAnchor="224.0" />
-      <Button fx:id="botaoCancelar" layoutX="14.0" layoutY="307.0" mnemonicParsing="false" text="Cancelar" AnchorPane.bottomAnchor="14.399999999999977" AnchorPane.leftAnchor="14.0" />
+      <Button fx:id="botaoCancelar" layoutX="14.0" layoutY="307.0" mnemonicParsing="false" onAction="#voltar" text="Cancelar" AnchorPane.bottomAnchor="14.399999999999977" AnchorPane.leftAnchor="14.0" />
    </children>
 </AnchorPane>
