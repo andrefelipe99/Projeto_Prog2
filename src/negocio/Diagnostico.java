@@ -1,12 +1,12 @@
 package negocio;
 
 public class Diagnostico {
-
+	
     private String descricao;
     private String medicamentos;
 
     public Diagnostico(String descricao, String medicamentos) {
-        this.descricao = descricao;
+    	this.descricao = descricao;
         this.medicamentos = medicamentos;
     }
 
@@ -30,4 +30,5 @@ public class Diagnostico {
     public String toString() {
         return "Diagnostico{ descricao=" + descricao + ", medicamentos=" + medicamentos + '}';
     }
+
 }

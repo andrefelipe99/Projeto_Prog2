@@ -1,5 +1,6 @@
 package dados;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +76,18 @@ public class RepositorioConsulta implements IRepositorioConsulta {
            }
        }
        return null;
+    }
+    
+    public Consulta consultaDoMomento(LocalDateTime horaDoSistema, Medico m) {
+    	List<Consulta> acharConsultaDoMomento = listarConsultasMedico(m);
+    	Consulta localizada = null;
+    	for (Consulta consulta : acharConsultaDoMomento) {
+			if(consulta.getDataHoraInicio().isAfter(horaDoSistema) && horaDoSistema.isBefore(consulta.getDataHoraFim())){
+				localizada = consulta;
+			}
+		}
+    	
+    	return localizada;
     }
 
 }

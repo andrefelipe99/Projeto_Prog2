@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import negocio.Consulta;
 
 public class ControladorTelaMedico implements Initializable{
@@ -50,6 +51,16 @@ public class ControladorTelaMedico implements Initializable{
     				GerenciadorHospitalAPP.fechar();
     			}
     		});
+    		
+    		botaoDiagnostico.setOnMouseClicked((MouseEvent e)->{
+    			abrirTelaDiagnostico();
+    		});
+    		botaoDiagnostico.setOnKeyPressed((KeyEvent e)->{
+    			if(e.getCode() == KeyCode.ENTER) {
+    				abrirTelaDiagnostico();
+    			}
+    		});
+    	
     	
 	}
     
@@ -59,6 +70,16 @@ public class ControladorTelaMedico implements Initializable{
     	return horaDoSistema.format(formatador);
     }
     
+    public void abrirTelaDiagnostico() {
+    	GerenciadorHospitalAPP.getStage().close();
+		GerenciadorHospitalAPP novaTela = new GerenciadorHospitalAPP();
+		
+		try {
+			novaTela.start(new Stage(), "/gui/fxmlMedico/TelaDiagnostico.fxml", "Diagnóstico");
+		} catch (IOException e1) {
+			
+		}
+    }
     
     public String medicoLogado() {
     	String medicoLogado = new String();

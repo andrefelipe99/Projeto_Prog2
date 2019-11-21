@@ -41,6 +41,12 @@ public class ControladorTelaLogin implements Initializable{
 			logar();
 			}
 		});
+		
+		textoSenha.setOnKeyPressed((KeyEvent e)->{
+			if(e.getCode() == KeyCode.ENTER) {
+			logar();
+			}
+		});
 	}
 
 	public void logar(){

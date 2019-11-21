@@ -1,5 +1,6 @@
 package controladores;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import negocio.Consulta;
 import negocio.Diagnostico;
@@ -64,6 +65,10 @@ public class Fachada {
     public boolean MedicoExiste(Medico m) {
         return controladorMedico.MedicoExiste(m);
     }
+    
+    public Medico buscarMedico(String crm) {
+    	return controladorMedico.buscarMedico(crm);
+    }
 
     // CONSULTA
 
@@ -89,6 +94,10 @@ public class Fachada {
 
     public Consulta buscarConsultaPorId(int id) {
         return controladorConsulta.buscarConsultaPorId(id);
+    }
+    
+    public Consulta consultaDoMomento(LocalDateTime horaDoSistema, Medico m) {
+    	return controladorConsulta.consultaDoMomento(horaDoSistema, m);
     }
 
     // DIAGNOSTICO

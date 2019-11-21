@@ -58,6 +58,10 @@ public class ControladorMedico implements IControladorMedico{
     public boolean MedicoExiste(Medico m) {
         return medico.MedicoExiste(m);
     }
+    
+    public Medico buscarMedico(String crm) {
+    	return medico.buscarMedico(crm);
+    }
 
         
 }

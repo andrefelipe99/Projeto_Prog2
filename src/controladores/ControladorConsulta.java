@@ -1,5 +1,6 @@
 package controladores;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import dados.RepositorioConsulta;
@@ -47,8 +48,12 @@ public class ControladorConsulta implements IControladorConsulta {
 		return consultasSalvas.listarConsultasMedico(m);
 	}
 
-        @Override
-        public Consulta buscarConsultaPorId(int id) {
-            return consultasSalvas.buscarConsultaPorId(id);
-        }
+    @Override
+    public Consulta buscarConsultaPorId(int id) {
+    	return consultasSalvas.buscarConsultaPorId(id);
+    }
+    
+    public Consulta consultaDoMomento(LocalDateTime horaDoSistema, Medico m) {
+    	return consultasSalvas.consultaDoMomento(horaDoSistema, m);
+    }
 }
