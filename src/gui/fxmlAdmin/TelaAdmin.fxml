@@ -14,10 +14,10 @@
             <Button fx:id="botaoRemover" mnemonicParsing="false" text="Remover Médico" />
         </buttons>
       </ButtonBar>
-      <TableView editable="true" layoutX="23.0" layoutY="14.0" prefHeight="514.0" prefWidth="760.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="17.0">
+      <TableView fx:id="tblMedico" editable="true" layoutX="23.0" layoutY="14.0" prefHeight="514.0" prefWidth="760.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="17.0">
         <columns>
-          <TableColumn fx:id="colunaCRM" prefWidth="233.5999755859375" text="CRM" />
-          <TableColumn fx:id="colunaNome" prefWidth="287.99993896484375" text="Nome" />
+          <TableColumn fx:id="colunaCRM" prefWidth="198.0" text="CRM" />
+          <TableColumn fx:id="colunaNome" prefWidth="308.0" text="Nome" />
             <TableColumn fx:id="colunaEspecialidade" prefWidth="240.79998779296875" text="Especialidade" />
         </columns>
          <columnResizePolicy>

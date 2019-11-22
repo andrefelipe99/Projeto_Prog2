@@ -48,7 +48,7 @@ public class ControladorTelaDiagnostico implements Initializable{
 				Alert alerta = new Alert(AlertType.WARNING);
 		    	alerta.setTitle("Aviso");
 		    	alerta.setHeaderText("Fora do Horario da Consulta!");
-		    	alerta.setContentText("SÛ È possivel salvar um diagnÛstico no hor·rio da consulta. Tente novamente mais tarde!");
+		    	alerta.setContentText("S√≥ √© possivel salvar um diagn√≥stico no hor√°rio da consulta. Tente novamente mais tarde!");
 		    	alerta.show();
 			}
 
@@ -61,7 +61,7 @@ public class ControladorTelaDiagnostico implements Initializable{
 					Alert alerta = new Alert(AlertType.WARNING);
 			    	alerta.setTitle("Aviso");
 			    	alerta.setHeaderText("Fora do Horario da Consulta!");
-			    	alerta.setContentText("SÛ È possivel salvar um diagnÛstico no hor·rio da consulta. Tente novamente mais tarde!");
+			    	alerta.setContentText("S√≥ √© possivel salvar um diagn√≥stico no hor√°rio da consulta. Tente novamente mais tarde!");
 			    	alerta.show();
 				}
 				
@@ -87,7 +87,7 @@ public class ControladorTelaDiagnostico implements Initializable{
     
     public void alertaConfirmacaoOK() {
     	Alert alerta = new Alert(AlertType.INFORMATION);
-    	alerta.setTitle("InformaÁ„o");
+    	alerta.setTitle("Informa√ß√£o");
     	alerta.setHeaderText("Salvo com Sucesso!");
     	alerta.setContentText("Pressione 'OK' para retornar!");
     	alerta.show();
@@ -118,7 +118,7 @@ public class ControladorTelaDiagnostico implements Initializable{
 		GerenciadorHospitalAPP novaTela = new GerenciadorHospitalAPP();
 		
 		try {
-			novaTela.start(new Stage(), "/gui/fxmlMedico/TelaMedico.fxml", "MÈdico");
+			novaTela.start(new Stage(), "/gui/fxmlMedico/TelaMedico.fxml", "MÔøΩdico");
 		} catch (IOException e1) {
 			
 		}

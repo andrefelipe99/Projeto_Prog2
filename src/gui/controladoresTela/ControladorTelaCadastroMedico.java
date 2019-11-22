@@ -5,6 +5,7 @@ import controladores.Fachada;
 import gui.tela.GerenciadorHospitalAPP;
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -49,7 +50,7 @@ public class ControladorTelaCadastroMedico {
         		if(!nome.isEmpty() && !cpf.isEmpty() && !senha.isEmpty() && !area.isEmpty() && !crm.isEmpty()) {
         			Medico medico = new Medico(crm,area,senha,nome,idade,cpf);
                 	fachada.cadastrarMedico(medico);
-                	voltar();
+                                voltar();
         		}
 
         }catch(Exception e){
@@ -59,8 +60,18 @@ public class ControladorTelaCadastroMedico {
 
     @FXML
     void voltar() throws IOException{
+            alertaConfirmacaoOK();
             GerenciadorHospitalAPP.getStage().close();
             GerenciadorHospitalAPP adm = new GerenciadorHospitalAPP();
             adm.start(new Stage(), "/gui/fxmlAdmin/TelaAdmin.fxml","Administrador");
     }
+    
+        public void alertaConfirmacaoOK() {
+    	Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+    	alerta.setTitle("Informação");
+    	alerta.setHeaderText("Salvo com Sucesso!");
+    	alerta.setContentText("Pressione 'OK' para retornar!");
+    	alerta.showAndWait();
+    }
+    
 }
