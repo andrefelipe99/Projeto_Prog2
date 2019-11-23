@@ -1,6 +1,8 @@
 package dados;
 import java.util.*;
 
+import exceptions.DadosInvalidosException;
+import exceptions.PacienteExistenteException;
 import negocio.Paciente;
 
 	public class RepositorioPaciente implements IRepositorioPaciente{
@@ -11,31 +13,31 @@ import negocio.Paciente;
 			this.pacientes = new ArrayList<>();
 		}
 
-	    public void cadastrarPaciente(Paciente p) {
-	    	if(this.PacienteExiste(p) == false) {
-	    		pacientes.add(p);
-	    		System.out.println("Paciente cadastrado");
+	    public void cadastrarPaciente(Paciente p) throws DadosInvalidosException, PacienteExistenteException {
+	    	if(!pacienteExiste(p)) {
+	    		if(p != null && p.getEndereco()!= null && p.getEndereco().isEmpty() == false
+	    				&& p.getCpf()!= null && p.getCpf().isEmpty() == false
+	    				&& p.getNome()!= null && p.getNome().isEmpty() == false
+	    				&& p.getTelefone()!= null && p.getTelefone().isEmpty() == false
+	    				&& p.getIdade() > 0) {
+	    			
+	    			pacientes.add(p);
+	    		}
+	    		else {
+	    			throw new DadosInvalidosException();
+	    		}
 	    	}
-	    	else { //exception ja existe
-	    		System.out.println("cpf ja existente");
-
+	    	else {
+	    		throw new PacienteExistenteException();
 	    	}
 
 	    }
 
-	    public void removerPaciente (String cpf) {
-	    	Paciente p = this.buscarPaciente(cpf);
-	    	if(p != null) {
-	    		pacientes.remove(p);
-	    		System.out.println("Paciente removido");
-	    	}
-	    	else { //exception cpf nao encontrado
-	    		System.out.println("Paciente nao encontrado");
-
-	    	}
+	    public void removerPaciente (Paciente p) {
+	    	pacientes.remove(p);
 	    }
 
-	    public boolean PacienteExiste(Paciente p) {
+	    public boolean pacienteExiste(Paciente p) {
 	    	for(int i = 0; i < this.pacientes.size(); i++) {
 	    		if(pacientes.get(i).getCpf().equals(p.getCpf()) == true) {
 	    			return true;

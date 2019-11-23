@@ -1,6 +1,8 @@
 package negocio;
 
-public class Diagnostico {
+import java.io.Serializable;
+
+public class Diagnostico implements Serializable{
 	
     private String descricao;
     private String medicamentos;

@@ -1,9 +1,10 @@
 package negocio;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Consulta {
+public class Consulta implements Serializable{
 
     private int id;
     private Medico medico;
@@ -84,24 +85,17 @@ public class Consulta {
         return "Consulta{" + "id=" + id + ", medico=" + medico + ", paciente=" + paciente + ", descricao=" + descricao + ", dataHoraInicio=" + dataHoraInicio + ", dataHoraFim=" + dataHoraFim + '}';
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Consulta other = (Consulta) obj;
-        if (!Objects.equals(this.dataHoraInicio, other.dataHoraInicio)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataHoraFim, other.dataHoraFim)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Consulta c) {
+    	if(this.id == c.getId()) {
+        	if(this.paciente.equals(c.getPaciente())) {
+        		if((this.medico.equals(c.getMedico()))){
+        			if(this.dataHoraInicio.isEqual(c.dataHoraInicio)) {
+        				return true;
+        			}
+        		}
+        	}
+    	}
+    	
+    	return false;
     }
 }

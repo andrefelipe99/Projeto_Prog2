@@ -3,6 +3,8 @@ package dados;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.DadosInvalidosException;
+import exceptions.MedicoExistenteException;
 import negocio.Medico;
 
 public class RepositorioMedico implements IRepositorioMedico{
@@ -12,31 +14,33 @@ public class RepositorioMedico implements IRepositorioMedico{
 			this.medicos = new ArrayList<>();
 		}
 
-	    public void cadastrarMedico(Medico m) {
-	    	if(this.MedicoExiste(m) == false) {
-	    		medicos.add(m);
-	    		System.out.println("Medico cadastrado");
+	    public void cadastrarMedico(Medico m) throws MedicoExistenteException, DadosInvalidosException {
+	    	if(!medicoExiste(m)) {
+	    		if(m != null && m.getArea()!= null && m.getArea().isEmpty() == false
+	    				&& m.getCpf()!= null && m.getCpf().isEmpty() == false
+	    				&& m.getNome()!= null && m.getNome().isEmpty() == false
+	    				&& m.getCrm()!= null && m.getCrm().isEmpty() == false
+	    				&& m.getIdade() >= 22) {
+	    			
+	    			
+	    			medicos.add(m);
+	    		}
+	    		else {
+	    			throw new DadosInvalidosException();
+	    		}
 	    	}
-	    	else {//exception medico ja existente
-	    		System.out.println("Medico ja existente");
+	    	else {
+	    		throw new MedicoExistenteException();
 
 	    	}
 
 	    }
-
-	    public void removerMedico (String crm) {
-	    	Medico m = this.buscarMedico(crm);
-	    	if(m != null) {
-	    		medicos.remove(m);
-	    		System.out.println("Medico removido");
-	    	}
-	    	else { //exception medico nao encontrado
-	    		System.out.println("Medico nao encontrado");
-
-	    	}
+	    
+	    public void removerMedico (Medico m) {
+	    	medicos.remove(m);
 	    }
 
-	    public boolean MedicoExiste(Medico m) {
+	    public boolean medicoExiste(Medico m) {
 	    	for(int i = 0; i < this.medicos.size(); i++) {
 	    		if(medicos.get(i).equals(m) == true) {
 	    			return true;
@@ -64,4 +68,5 @@ public class RepositorioMedico implements IRepositorioMedico{
 	    	}
 	    	return lista;
 	    }
+
 }

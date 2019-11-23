@@ -2,6 +2,10 @@ package controladores;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import exceptions.DadosInvalidosException;
+import exceptions.MedicoExistenteException;
+import exceptions.PacienteExistenteException;
 import negocio.Consulta;
 import negocio.Diagnostico;
 import negocio.Medico;
@@ -32,12 +36,12 @@ public class Fachada {
 
     // PACIENTE
 
-    public void cadastrarPaciente(Paciente p) {
+    public void cadastrarPaciente(Paciente p) throws DadosInvalidosException, PacienteExistenteException {
         controladorPaciente.cadastrarPaciente(p);
     }
 
-    public void removerPaciente(String cpf) {
-        controladorPaciente.removerPaciente(cpf);
+    public void removerPaciente(Paciente p) {
+        controladorPaciente.removerPaciente(p);
     }
 
     public List<Paciente> listarPacientes() {
@@ -46,12 +50,12 @@ public class Fachada {
 
     // MEDICO
 
-    public void cadastrarMedico(Medico m) {
+    public void cadastrarMedico(Medico m) throws DadosInvalidosException, MedicoExistenteException {
         controladorMedico.cadastrarMedico(m);
     }
 
-    public void removerMedico(String crm) {
-        controladorMedico.removerMedico(crm);
+    public void removerMedico(Medico m) {
+        controladorMedico.removerMedico(m);
     }
 
     public List<Medico> listarMedicos() {
@@ -62,8 +66,8 @@ public class Fachada {
         return controladorMedico.login(crm, senha);
     }
 
-    public boolean MedicoExiste(Medico m) {
-        return controladorMedico.MedicoExiste(m);
+    public boolean medicoExiste(Medico m) {
+        return controladorMedico.medicoExiste(m);
     }
     
     public Medico buscarMedico(String crm) {

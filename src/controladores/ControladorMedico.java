@@ -3,6 +3,8 @@ package controladores;
 import java.util.List;
 
 import dados.RepositorioMedico;
+import exceptions.DadosInvalidosException;
+import exceptions.MedicoExistenteException;
 import negocio.Medico;
 
 public class ControladorMedico implements IControladorMedico{
@@ -12,28 +14,12 @@ public class ControladorMedico implements IControladorMedico{
 		this.medico = new RepositorioMedico();
 	}
 
-	public void cadastrarMedico(Medico m) {
-		if(m != null && m.getArea()!= null && m.getArea().isEmpty() == false
-				&& m.getCpf()!= null && m.getCpf().isEmpty() == false
-				&& m.getNome()!= null && m.getNome().isEmpty() == false
-				&& m.getCrm()!= null && m.getCrm().isEmpty() == false
-				&& m.getIdade() >= 22) {
-			medico.cadastrarMedico(m);
-		}
-		else { //exception dados invalidos
-			System.out.println("Medico dados invalidos");
-
-		}
+	public void cadastrarMedico( Medico m) throws DadosInvalidosException, MedicoExistenteException {
+		medico.cadastrarMedico(m);
 	}
 
-	public void removerMedico(String crm) {
-		if(crm!= null && crm.isEmpty() == false) {
-			medico.removerMedico(crm);
-		}
-		else { //exception crm invalido
-			System.out.println("crm invalido");
-
-		}
+	public void removerMedico(Medico m) {
+		medico.removerMedico(m);
 	}
 
 	public boolean login(String crm, String senha){
@@ -55,8 +41,8 @@ public class ControladorMedico implements IControladorMedico{
 		return medico.listarMedicos();
 	}
 
-    public boolean MedicoExiste(Medico m) {
-        return medico.MedicoExiste(m);
+    public boolean medicoExiste(Medico m) {
+        return medico.medicoExiste(m);
     }
     
     public Medico buscarMedico(String crm) {

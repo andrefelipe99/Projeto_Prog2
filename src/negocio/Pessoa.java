@@ -1,8 +1,8 @@
 package negocio;
 
-import java.util.Objects;
+import java.io.Serializable;
 
-public class Pessoa {
+public class Pessoa implements Serializable{
 
     private String nome;
     private int idade;
@@ -45,27 +45,16 @@ public class Pessoa {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 3;
-        return hash;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Pessoa other = (Pessoa) obj;
-        if (!Objects.equals(this.cpf, other.cpf)) {
-            return false;
-        }
-        return true;
-    }
+ 
+	public boolean equals(Pessoa p) {
+    	return this.cpf.equals(p.cpf);
+	}
 
 }

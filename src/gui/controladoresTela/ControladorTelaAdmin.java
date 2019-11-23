@@ -103,14 +103,14 @@ public class ControladorTelaAdmin implements Initializable{
             
             if(medicoSelecionado != null){
                 
-                fachada.removerMedico(medicoSelecionado.getCrm());
+                fachada.removerMedico(medicoSelecionado);
                 alertaConfirmacaoOK();
                 atualizarTabela();
             } else{
                 Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("Sem sele√ß√£o");
-                alert.setHeaderText("Nenhum M√©dico selecionado");
-                alert.setContentText("Por favor, selecione um m√©dico na tabela.");
+                alert.setTitle("Aviso");
+                alert.setHeaderText("Nenhum MÈdico selecionado!");
+                alert.setContentText("Por favor, selecione um mÈdico na tabela!");
                 alert.show();
             }
            
@@ -122,8 +122,8 @@ public class ControladorTelaAdmin implements Initializable{
         
         public void alertaConfirmacaoOK() {
             Alert alerta = new Alert(AlertType.INFORMATION);
-            alerta.setTitle("Informa√ß√£o");
-            alerta.setHeaderText("Remo√ß√£o feita com Sucesso!");
+            alerta.setTitle("InformaÁ„o");
+            alerta.setHeaderText("RemoÁ„o feita com Sucesso!");
             alerta.setContentText("Pressione 'OK' para retornar!");
             alerta.showAndWait();
     }
