@@ -21,7 +21,7 @@ public class teste {
 		Medico m1 = new Medico("12345", "area", "senha", "nome", 23, "123");
 		Medico m2 = new Medico("123456", "area", "senha", "nome", 23, "123");
 
-		
+
 		try {
 			f.cadastrarPaciente(p1);
 			f.cadastrarPaciente(p2);
@@ -44,7 +44,7 @@ public class teste {
 		} catch (MedicoExistenteException mee) {
 			mee.printStackTrace();
 		}
-		
+
 		//f.removerMedico("12345");
 		//f.login("12345", "senha");
 		//System.out.println(f.listarMedicos().toString());
@@ -52,8 +52,8 @@ public class teste {
 
         Consulta c1 = new Consulta(01, m1, p1, "Dor no cunhao", LocalDateTime.of(2019, 2, 12, 10, 0), LocalDateTime.of(2019, 2, 12, 11, 0));
         Consulta c2 = new Consulta(02, m1, p2, "Dor no cunhao", LocalDateTime.of(2019, 2, 12, 11, 0), LocalDateTime.of(2019, 2, 12, 12, 0));
-        f.cadastrarConsulta(c1);
-        f.cadastrarConsulta(c2);
+        //f.cadastrarConsulta(c1);
+        //f.cadastrarConsulta(c2);
         //System.out.println(f.listarConsultasPaciente(p1));
 
         Diagnostico dg1 = new Diagnostico("Falta de Sexo", "Puta");

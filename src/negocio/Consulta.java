@@ -2,6 +2,7 @@ package negocio;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Consulta implements Serializable{
@@ -31,7 +32,7 @@ public class Consulta implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public Medico getMedico() {
         return medico;
     }
@@ -58,6 +59,12 @@ public class Consulta implements Serializable{
 
     public LocalDateTime getDataHoraInicio() {
         return dataHoraInicio;
+    }
+
+    public String horarioConsulta() {
+    	DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    	String retorno = this.getDataHoraInicio().format(formato) + "";
+    	return retorno;
     }
 
     public void setDataHoraInicio(LocalDateTime dataHoraInicio) {
@@ -95,7 +102,7 @@ public class Consulta implements Serializable{
         		}
         	}
     	}
-    	
+
     	return false;
     }
 }

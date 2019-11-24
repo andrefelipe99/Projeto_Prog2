@@ -26,42 +26,33 @@ public class ControladorTelaCadastroMedico {
     @FXML
     void cadastrar(){
     	int idade = -1;
-    	if(!txtIdade.getText().isEmpty()) {
+    	String cpf = "";
+    	String crm = "";
+    	if(!txtIdade.getText().isEmpty() && txtIdade.getText().matches("^[0-9]*$")) {
     		idade = Integer.parseInt(txtIdade.getText());
     	}
+    	if(txtCpf.getText().matches("^[0-9]*$") && txtCpf.getText().length() == 11) {
+			cpf = this.txtCpf.getText();
+		}	
+    	if(txtCrm.getText().matches("^[0-9]*$")) {
+			crm = this.txtCrm.getText();
+		}	
         String nome = this.txtNome.getText();
-        String cpf = this.txtCpf.getText();
         String senha = this.txtSenha.getText();
         String area = this.txtArea.getText();
-        String crm = this.txtCrm.getText();
-
 
         try {
-        	if(!nome.isEmpty() && !cpf.isEmpty() && !senha.isEmpty() && !area.isEmpty() && !crm.isEmpty()) {
-        			Medico medico = new Medico(crm,area,senha,nome,idade,cpf);
-                	fachada.cadastrarMedico(medico);
-                	alertaConfirmacaoOK();
-                    voltar();
-        		}
-        }catch(IOException ioe){
+        		Medico medico = new Medico(crm,area,senha,nome,idade,cpf);
+                fachada.cadastrarMedico(medico);
+                alertaConfirmacaoOK();
+                voltar();
+        }catch (DadosInvalidosException e) {
+        	e.erro();
+		}catch (MedicoExistenteException e) {
+			e.erro();
+		}catch(IOException ioe){
         	ioe.printStackTrace();
-        } catch (DadosInvalidosException e) {
-        	Alert alerta = new Alert(Alert.AlertType.ERROR);
-        	alerta.setTitle("Erro");
-        	alerta.setHeaderText("Dados Inseridos Ivalidos!");
-        	alerta.setContentText("Revise as Informacoes!");
-        	alerta.showAndWait();
-		} catch (MedicoExistenteException e) {
-			Alert alerta = new Alert(Alert.AlertType.ERROR);
-	    	alerta.setTitle("Erro");
-	    	alerta.setHeaderText("Medico Já Cadastrado!");
-	    	alerta.setContentText("Este Médico já foi cadastrado no hospital!");
-	    	alerta.showAndWait();
-		}
-        		
-
-        
-        
+        } 
     }
 
     @FXML
@@ -70,13 +61,13 @@ public class ControladorTelaCadastroMedico {
             GerenciadorHospitalAPP adm = new GerenciadorHospitalAPP();
             adm.start(new Stage(), "/gui/fxmlAdmin/TelaAdmin.fxml","Administrador");
     }
-    
+
         public void alertaConfirmacaoOK() {
     	Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    	alerta.setTitle("Informação");
-    	alerta.setHeaderText("Salvo com Sucesso!");
+    	alerta.setTitle("Informacao");
+    	alerta.setHeaderText("Salvo com sucesso!");
     	alerta.setContentText("Pressione 'OK' para retornar!");
     	alerta.showAndWait();
     }
-    
+
 }

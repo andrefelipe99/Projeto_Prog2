@@ -33,10 +33,10 @@ public class ControladorTelaAdmin implements Initializable{
     @FXML private TableColumn<Medico, String> colunaCRM;
     @FXML private TableColumn<Medico, String> colunaNome;
     @FXML private TableColumn<Medico, String> colunaEspecialidade;
-    
+
     private ObservableList<Medico> listaMedicos;
     private Fachada fachada = Fachada.getInstance();
-	
+
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		botaoSair.setOnMouseClicked((MouseEvent e)->{
@@ -47,7 +47,7 @@ public class ControladorTelaAdmin implements Initializable{
 				GerenciadorHospitalAPP.fechar();
 			}
 		});
-                
+
                 botaoCadastrar.setOnMouseClicked((MouseEvent e) ->{
                     try {
                         cadastro();
@@ -55,7 +55,7 @@ public class ControladorTelaAdmin implements Initializable{
                         Logger.getLogger(ControladorTelaAdmin.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
-                
+
                 botaoCadastrar.setOnKeyPressed((KeyEvent e) ->{
                     if(e.getCode() == KeyCode.ENTER){
                         try {
@@ -65,67 +65,67 @@ public class ControladorTelaAdmin implements Initializable{
                         }
                     }
                 });
-                
+
                 botaoRemover.setOnMouseClicked((MouseEvent e) -> {
                     remover();
                 });
-                
+
                 botaoRemover.setOnKeyPressed((KeyEvent e) -> {
                     if(e.getCode() == KeyCode.ENTER){
                         remover();
                     }
                 });
-                
+
                 carregarTableMedico();
-		
+
 	}
-    
+
         public void cadastro() throws Exception{
             GerenciadorHospitalAPP.getStage().close();
             GerenciadorHospitalAPP adm = new GerenciadorHospitalAPP();
             adm.start(new Stage(), "/gui/fxmlAdmin/TelaCadastroMedico.fxml","Cadastro");
-            
-            
-        }    
-    
+
+
+        }
+
         public void carregarTableMedico(){
             colunaCRM.setCellValueFactory(new PropertyValueFactory<Medico, String>("crm"));
             colunaNome.setCellValueFactory(new PropertyValueFactory<Medico, String>("nome"));
             colunaEspecialidade.setCellValueFactory(new PropertyValueFactory<Medico, String>("area"));
-             
+
             listaMedicos = FXCollections.observableArrayList();
             listaMedicos.addAll(fachada.listarMedicos());
             tblMedico.setItems(listaMedicos);
         }
-	
+
         public void remover(){
             Medico medicoSelecionado = tblMedico.getSelectionModel().getSelectedItem();
-            
+
             if(medicoSelecionado != null){
-                
+
                 fachada.removerMedico(medicoSelecionado);
                 alertaConfirmacaoOK();
                 atualizarTabela();
             } else{
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Aviso");
-                alert.setHeaderText("Nenhum Médico selecionado!");
-                alert.setContentText("Por favor, selecione um médico na tabela!");
+                alert.setHeaderText("Nenhum medico selecionado!");
+                alert.setContentText("Por favor, selecione um medico na tabela!");
                 alert.show();
             }
-           
+
         }
-        
+
         public void atualizarTabela(){
             tblMedico.getItems().setAll(fachada.listarMedicos());
         }
-        
+
         public void alertaConfirmacaoOK() {
             Alert alerta = new Alert(AlertType.INFORMATION);
-            alerta.setTitle("Informação");
-            alerta.setHeaderText("Remoção feita com Sucesso!");
+            alerta.setTitle("Informacao");
+            alerta.setHeaderText("Remocao feita com sucesso!");
             alerta.setContentText("Pressione 'OK' para retornar!");
             alerta.showAndWait();
     }
-        
+
 }

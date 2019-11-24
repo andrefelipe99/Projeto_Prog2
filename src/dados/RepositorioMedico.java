@@ -20,7 +20,7 @@ public class RepositorioMedico implements IRepositorioMedico{
 	    				&& m.getCpf()!= null && m.getCpf().isEmpty() == false
 	    				&& m.getNome()!= null && m.getNome().isEmpty() == false
 	    				&& m.getCrm()!= null && m.getCrm().isEmpty() == false
-	    				&& m.getIdade() >= 22) {
+	    				&& m.getIdade() >= 22 && m.getIdade() < 100) {
 	    			
 	    			
 	    			medicos.add(m);
@@ -42,7 +42,8 @@ public class RepositorioMedico implements IRepositorioMedico{
 
 	    public boolean medicoExiste(Medico m) {
 	    	for(int i = 0; i < this.medicos.size(); i++) {
-	    		if(medicos.get(i).equals(m) == true) {
+	    		if(medicos.get(i).getCrm().equalsIgnoreCase(m.getCrm())
+	    				|| medicos.get(i).getCpf().equalsIgnoreCase(m.getCpf())) {
 	    			return true;
 	    		}
 	    	}

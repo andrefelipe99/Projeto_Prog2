@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import negocio.Consulta;
 
 public class ControladorTelaMedico implements Initializable{
-	
+
 	Fachada fachada;
 	@FXML private TableView<Consulta> tabelaConsultasMed;
 	@FXML private TableColumn<Consulta, String> colunaPaciente;
@@ -35,9 +35,9 @@ public class ControladorTelaMedico implements Initializable{
     @FXML private Button botaoDiagnostico;
     @FXML private Label campoMedHora;
     @FXML private Button botaoSair;
-	
+
     @Override
-	public void initialize(URL arg0, ResourceBundle arg1) {    	
+	public void initialize(URL arg0, ResourceBundle arg1) {
     		botaoSair.setOnMouseClicked((MouseEvent e)->{
     			GerenciadorHospitalAPP.fechar();
     		});
@@ -46,7 +46,7 @@ public class ControladorTelaMedico implements Initializable{
     				GerenciadorHospitalAPP.fechar();
     			}
     		});
-    		
+
     		botaoDiagnostico.setOnMouseClicked((MouseEvent e)->{
     			abrirTelaDiagnostico();
     		});
@@ -55,47 +55,47 @@ public class ControladorTelaMedico implements Initializable{
     				abrirTelaDiagnostico();
     			}
     		});
-    	
-    	
+
+
 	}
-    
+
     public String atualizarHora() {
     	LocalDateTime horaDoSistema = LocalDateTime.now();
     	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     	return horaDoSistema.format(formatador);
     }
-    
+
     public void abrirTelaDiagnostico() {
     	GerenciadorHospitalAPP.getStage().close();
 		GerenciadorHospitalAPP novaTela = new GerenciadorHospitalAPP();
-		
+
 		try {
-			novaTela.start(new Stage(), "/gui/fxmlMedico/TelaDiagnostico.fxml", "Diagnóstico");
+			novaTela.start(new Stage(), "/gui/fxmlMedico/TelaDiagnostico.fxml", "Diagnostico");
 		} catch (IOException e1) {
-			
+
 		}
     }
-    
+
     public String medicoLogado() {
     	String medicoLogado = new String();
-    	
+
     	try {
 			BufferedReader leitor = new BufferedReader(new FileReader("dados/arquivos/medicoLogado.txt"));
-			
+
 			if(leitor.ready()) {
 				medicoLogado = leitor.readLine();
 			}
-			
-			
+
+
 			leitor.close();
 		} catch (FileNotFoundException e) {
-			
+
 		} catch (IOException e) {
-			
+
 		}
 		return medicoLogado;
     }
-    
-    
-    
+
+
+
 }

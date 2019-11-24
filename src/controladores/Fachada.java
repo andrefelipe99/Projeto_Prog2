@@ -3,6 +3,7 @@ package controladores;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import exceptions.ConsultaJaExisteException;
 import exceptions.DadosInvalidosException;
 import exceptions.MedicoExistenteException;
 import exceptions.PacienteExistenteException;
@@ -44,7 +45,11 @@ public class Fachada {
         controladorPaciente.removerPaciente(p);
     }
 
-    public List<Paciente> listarPacientes() {
+    public Paciente buscarPaciente(String cpf) {
+		return controladorPaciente.buscarPaciente(cpf);
+	}
+
+	public List<Paciente> listarPacientes() {
         return controladorPaciente.listarPacientes();
     }
 
@@ -69,14 +74,14 @@ public class Fachada {
     public boolean medicoExiste(Medico m) {
         return controladorMedico.medicoExiste(m);
     }
-    
+
     public Medico buscarMedico(String crm) {
     	return controladorMedico.buscarMedico(crm);
     }
 
     // CONSULTA
 
-    public void cadastrarConsulta(Consulta c) {
+    public void cadastrarConsulta(Consulta c) throws DadosInvalidosException, ConsultaJaExisteException {
         controladorConsulta.cadastrarConsulta(c);
     }
 
@@ -99,7 +104,7 @@ public class Fachada {
     public Consulta buscarConsultaPorId(int id) {
         return controladorConsulta.buscarConsultaPorId(id);
     }
-    
+
     public Consulta consultaDoMomento(LocalDateTime horaDoSistema, Medico m) {
     	return controladorConsulta.consultaDoMomento(horaDoSistema, m);
     }

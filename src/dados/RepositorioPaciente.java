@@ -19,8 +19,8 @@ import negocio.Paciente;
 	    				&& p.getCpf()!= null && p.getCpf().isEmpty() == false
 	    				&& p.getNome()!= null && p.getNome().isEmpty() == false
 	    				&& p.getTelefone()!= null && p.getTelefone().isEmpty() == false
-	    				&& p.getIdade() > 0) {
-	    			
+	    				&& p.getIdade() > 0 && p.getIdade() < 120) {
+
 	    			pacientes.add(p);
 	    		}
 	    		else {

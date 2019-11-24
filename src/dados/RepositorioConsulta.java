@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.ConsultaJaExisteException;
 import negocio.Consulta;
 import negocio.Medico;
 import negocio.Paciente;
@@ -15,13 +16,12 @@ public class RepositorioConsulta implements IRepositorioConsulta {
             this.consultas = new ArrayList<>();
         }
 	@Override
-	public void cadastrarConsulta(Consulta c) {
-		if(!consultas.contains(c) && this.buscarConsultaPorId(c.getId()) == null) {
+	public void cadastrarConsulta(Consulta c) throws ConsultaJaExisteException {
+		if(validarConsulta(c) && this.buscarConsultaPorId(c.getId()) == null) {
                     consultas.add(c);
-                    System.out.println("criou consulta");
 		}
-        else { //exception consulta ja existe
-                  	System.out.println("nao criou consulta");
+        else {
+             	throw new ConsultaJaExisteException();
         }
 	}
 
@@ -29,12 +29,27 @@ public class RepositorioConsulta implements IRepositorioConsulta {
 	public void removerConsulta(Consulta c) {
 		if(consultas.contains(c)) {
 			consultas.remove(c);
-			System.out.println("Remover consulta");
 		}
-		else { //exception consulta nao encontrada
-			System.out.println("Consulta nao encontrada");
-		}
+		else {
 
+		}
+	}
+
+	public boolean validarConsulta(Consulta c) {
+		for(int i = 0; i < consultas.size(); i++) {
+			if(c.getMedico().getCrm() == consultas.get(i).getMedico().getCrm()){
+				if((c.getDataHoraInicio().isBefore(consultas.get(i).getDataHoraInicio())
+						&& c.getDataHoraFim().isAfter(consultas.get(i).getDataHoraInicio()))
+						|| (c.getDataHoraInicio().isBefore(consultas.get(i).getDataHoraFim())
+						&& c.getDataHoraFim().isAfter(consultas.get(i).getDataHoraFim()))
+						|| c.getDataHoraInicio().equals(consultas.get(i).getDataHoraInicio())) {
+					return false;
+				}
+			}
+
+
+		}
+		return true;
 	}
 
 	@Override
@@ -77,7 +92,7 @@ public class RepositorioConsulta implements IRepositorioConsulta {
        }
        return null;
     }
-    
+
     public Consulta consultaDoMomento(LocalDateTime horaDoSistema, Medico m) {
     	List<Consulta> acharConsultaDoMomento = listarConsultasMedico(m);
     	Consulta localizada = null;
@@ -86,7 +101,7 @@ public class RepositorioConsulta implements IRepositorioConsulta {
 				localizada = consulta;
 			}
 		}
-    	
+
     	return localizada;
     }
 

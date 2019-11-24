@@ -29,7 +29,7 @@ public class ControladorTelaDiagnostico implements Initializable{
     @FXML private Button botaoSalvar;
     @FXML private TextArea areaTextoDiag;
     @FXML private TextArea areaTextoMedicamentos;
-	
+
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		botaoVoltar.setOnMouseClicked((MouseEvent e)->{
@@ -40,15 +40,15 @@ public class ControladorTelaDiagnostico implements Initializable{
 				retornarTelaMedico();
 			}
 		});
-		
+
 		botaoSalvar.setOnMouseClicked((MouseEvent e)->{
 			try {
 				cadastrarDiagnostico();
 			} catch (SemConsultaNoMomentoException e1) {
 				Alert alerta = new Alert(AlertType.WARNING);
 		    	alerta.setTitle("Aviso");
-		    	alerta.setHeaderText("Fora do Horario da Consulta!");
-		    	alerta.setContentText("Só é possivel salvar um diagnóstico no horário da consulta. Tente novamente mais tarde!");
+		    	alerta.setHeaderText("Fora do horario da consulta!");
+		    	alerta.setContentText("So e possivel salvar um diagnostico no horario da consulta. Tente novamente mais tarde!");
 		    	alerta.show();
 			}
 
@@ -58,69 +58,65 @@ public class ControladorTelaDiagnostico implements Initializable{
 				try {
 					cadastrarDiagnostico();
 				} catch (SemConsultaNoMomentoException e1) {
-					Alert alerta = new Alert(AlertType.WARNING);
-			    	alerta.setTitle("Aviso");
-			    	alerta.setHeaderText("Fora do Horario da Consulta!");
-			    	alerta.setContentText("Só é possivel salvar um diagnóstico no horário da consulta. Tente novamente mais tarde!");
-			    	alerta.show();
+					e1.erro();
 				}
-				
+
 			}
 		});
 	}
-    
+
     public void cadastrarDiagnostico() throws SemConsultaNoMomentoException {
     	Consulta c = Fachada.getInstance().consultaDoMomento(LocalDateTime.now(), Fachada.getInstance().buscarMedico(medicoLogado()));
-    	
+
     	if(c == null) {
     		throw new SemConsultaNoMomentoException();
     	}
     	Diagnostico d = c.getDiagnostico();
-    	
+
     	d.setDescricao(areaTextoDiag.getText());
     	d.setMedicamentos(areaTextoMedicamentos.getText());
-    	
+
     	Fachada.getInstance().cadastrarDiagnostico(d, c);
-    	
+
     	alertaConfirmacaoOK();
     }
-    
+
     public void alertaConfirmacaoOK() {
     	Alert alerta = new Alert(AlertType.INFORMATION);
-    	alerta.setTitle("Informação");
-    	alerta.setHeaderText("Salvo com Sucesso!");
+    	alerta.setTitle("Informacao");
+    	alerta.setHeaderText("Salvo com sucesso!");
     	alerta.setContentText("Pressione 'OK' para retornar!");
     	alerta.show();
     }
-    
+
     public String medicoLogado() {
     	String medicoLogado = new String();
-    	
+
     	try {
 			BufferedReader leitor = new BufferedReader(new FileReader("dados/arquivos/medicoLogado.txt"));
-			
+
 			if(leitor.ready()) {
 				medicoLogado = leitor.readLine();
 			}
-			
-			
+
+
 			leitor.close();
 		} catch (FileNotFoundException e) {
-			
+
 		} catch (IOException e) {
-			
+
 		}
 		return medicoLogado;
     }
-    
+
     public void retornarTelaMedico() {
     	GerenciadorHospitalAPP.getStage().close();
 		GerenciadorHospitalAPP novaTela = new GerenciadorHospitalAPP();
-		
+
 		try {
-			novaTela.start(new Stage(), "/gui/fxmlMedico/TelaMedico.fxml", "M�dico");
+			novaTela.start(new Stage(), "/gui/fxmlMedico/TelaMedico.fxml", "Medico");
 		} catch (IOException e1) {
-			
+
 		}
     }
 }

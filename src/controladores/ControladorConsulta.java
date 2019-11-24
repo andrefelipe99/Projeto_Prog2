@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import dados.RepositorioConsulta;
+import exceptions.ConsultaJaExisteException;
+import exceptions.DadosInvalidosException;
 import negocio.Consulta;
 import negocio.Medico;
 import negocio.Paciente;
@@ -16,15 +18,14 @@ public class ControladorConsulta implements IControladorConsulta {
 	}
 
 	@Override
-	public void cadastrarConsulta(Consulta c) {
+	public void cadastrarConsulta(Consulta c) throws DadosInvalidosException, ConsultaJaExisteException {
 		if(c != null && c.getMedico() != null && c.getPaciente() != null
-				&& c.getDataHoraFim() != null && c.getDataHoraInicio() != null
-				&& c.getDescricao() != null && c.getDescricao().isEmpty() == false
-				&& c.getId()> 0) {
+				&& !c.getDataHoraInicio().equals(LocalDateTime.of(1900, 1, 1, 0, 0))
+				&& c.getDescricao().isEmpty() == false	&& c.getId()> 0) {
 			consultasSalvas.cadastrarConsulta(c);
 		}
-		else { //exception dados invalidos
-			System.out.println("Consulta dados invalidos");
+		else {
+			throw new DadosInvalidosException();
 		}
 	}
 
@@ -52,7 +53,7 @@ public class ControladorConsulta implements IControladorConsulta {
     public Consulta buscarConsultaPorId(int id) {
     	return consultasSalvas.buscarConsultaPorId(id);
     }
-    
+
     public Consulta consultaDoMomento(LocalDateTime horaDoSistema, Medico m) {
     	return consultasSalvas.consultaDoMomento(horaDoSistema, m);
     }

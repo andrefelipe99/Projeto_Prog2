@@ -41,7 +41,7 @@ public class ControladorTelaLogin implements Initializable{
 			logar();
 			}
 		});
-		
+
 		textoSenha.setOnKeyPressed((KeyEvent e)->{
 			if(e.getCode() == KeyCode.ENTER) {
 			logar();
@@ -52,11 +52,11 @@ public class ControladorTelaLogin implements Initializable{
 	public void logar(){
 
 			try {
-                                BufferedReader br = new BufferedReader(new FileReader("src/dados/arquivos/logins.txt"));
-				boolean logado = false;
-				String caminho = "";
-				String titulo = new String();
-				String crm = new String();
+                	BufferedReader br = new BufferedReader(new FileReader("src/dados/arquivos/logins.txt"));
+                	boolean logado = false;
+                	String caminho = "";
+                	String titulo = new String();
+                	String crm = new String();
 
 				do {
 					String[] loginSenha = br.readLine().split(",");
@@ -113,7 +113,7 @@ public class ControladorTelaLogin implements Initializable{
 			catch(Exception e) {
 				Alert alerta = new Alert(AlertType.ERROR);
 				alerta.setTitle("ERRO");
-				alerta.setHeaderText("Erro no Login");
+				alerta.setHeaderText("Erro no login");
 				alerta.setContentText("Usuario ou senha invalidos!");
 				alerta.show();
 			}
@@ -134,9 +134,6 @@ public class ControladorTelaLogin implements Initializable{
 		fw.write(crm);
 
 		fw.close();
-
-
-
 	}
 
 

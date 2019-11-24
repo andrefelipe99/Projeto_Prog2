@@ -16,11 +16,15 @@ public class ControladorPaciente {
 
 	public void cadastrarPaciente(Paciente p) throws DadosInvalidosException, PacienteExistenteException {
 		paciente.cadastrarPaciente(p);
-		
+
 	}
 
 	public void removerPaciente(Paciente p) {
 		paciente.removerPaciente(p);
+	}
+
+	public Paciente buscarPaciente(String cpf) {
+		return paciente.buscarPaciente(cpf);
 	}
 
 	public List<Paciente> listarPacientes() {
