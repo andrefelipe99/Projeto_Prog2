@@ -40,11 +40,11 @@ public class ControladorTelaCadastroConsulta implements Initializable{
     @FXML private TableView<Medico> tabelaMedicos;
     @FXML private TableColumn<Medico, String> colunaNome;
     @FXML private TableColumn<Medico, String> colunaEspecialidade;
-    //@FXML private ChoiceBox<String> selecionarMedico;
+    
 
     private ObservableList<Medico> listaMedicos;
 	private Fachada fachada = Fachada.getInstance();
-	//private ObservableList<String> listaMedicos = FXCollections.observableArrayList();
+	
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		medicoBusca.setOnKeyReleased((KeyEvent e)->{
@@ -119,7 +119,7 @@ public class ControladorTelaCadastroConsulta implements Initializable{
 	public void alertaConfirmacaoOK() {
     	Alert alerta = new Alert(Alert.AlertType.INFORMATION);
     	alerta.setTitle("Informacao");
-    	alerta.setHeaderText("Maracado com sucesso!");
+    	alerta.setHeaderText("Marcado com sucesso!");
     	alerta.setContentText("Pressione 'OK' para retornar!");
     	alerta.showAndWait();
     }
@@ -143,25 +143,6 @@ public class ControladorTelaCadastroConsulta implements Initializable{
 		return pacienteSelecionado;
     }
 
-	public void selecionarMedico() { //tentaviva com ChoiceBox
-
-		/*selecionarMedico = new ChoiceBox<>();
-		//Stage primaryStage = new Stage();
-		//primaryStage.setTitle("ChoiceBox Experiment 1");
-
-
-		listaMedicos.removeAll(listaMedicos);
-
-    	for(int i = 0; i < fachada.listarMedicos().size(); i++) {
-    		listaMedicos.addAll(fachada.listarMedicos().get(i).getNome());
-    		selecionarMedico.getItems().addAll(listaMedicos);
-    	}
-    	selecionarMedico.getSelectionModel().select(fachada.listarMedicos().get(0).getNome());
-
-        Scene scene = new Scene(selecionarMedico, 200, 100);
-        //primaryStage.setScene(scene);
-        //primaryStage.show();*/
-    }
 
 	public void carregarTableMedico(){
 		colunaNome.setCellValueFactory((TableColumn.CellDataFeatures<Medico, String> m)->

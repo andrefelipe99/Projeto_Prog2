@@ -11,6 +11,9 @@ import java.util.ResourceBundle;
 
 import controladores.Fachada;
 import gui.tela.GerenciadorHospitalAPP;
+import java.time.LocalDate;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,15 +21,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import negocio.Consulta;
+import negocio.Medico;
 
 public class ControladorTelaMedico implements Initializable{
 
-	Fachada fachada;
+	private Fachada fachada = Fachada.getInstance();
 	@FXML private TableView<Consulta> tabelaConsultasMed;
 	@FXML private TableColumn<Consulta, String> colunaPaciente;
     @FXML private TableColumn<Consulta, LocalDateTime> colunaHorario;
@@ -35,6 +40,8 @@ public class ControladorTelaMedico implements Initializable{
     @FXML private Button botaoDiagnostico;
     @FXML private Label campoMedHora;
     @FXML private Button botaoSair;
+    
+    private ObservableList<Consulta> listaConsultas;
 
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -56,7 +63,7 @@ public class ControladorTelaMedico implements Initializable{
     			}
     		});
 
-
+                carregarTableMedico();
 	}
 
     public String atualizarHora() {
@@ -80,7 +87,7 @@ public class ControladorTelaMedico implements Initializable{
     	String medicoLogado = new String();
 
     	try {
-			BufferedReader leitor = new BufferedReader(new FileReader("dados/arquivos/medicoLogado.txt"));
+			BufferedReader leitor = new BufferedReader(new FileReader("src/dados/arquivos/medicoLogado.txt"));
 
 			if(leitor.ready()) {
 				medicoLogado = leitor.readLine();
@@ -96,6 +103,13 @@ public class ControladorTelaMedico implements Initializable{
 		return medicoLogado;
     }
 
-
+    public void carregarTableMedico(){
+            colunaPaciente.setCellValueFactory(new PropertyValueFactory<Consulta, String>("nomePaciente"));
+            colunaHorario.setCellValueFactory(new PropertyValueFactory<Consulta, LocalDateTime>("dataHoraInicio"));
+            
+            listaConsultas = FXCollections.observableArrayList();
+            listaConsultas.addAll(fachada.listarConsultasMedico(fachada.buscarMedico(medicoLogado())));
+            tabelaConsultasMed.setItems(listaConsultas);
+        }
 
 }

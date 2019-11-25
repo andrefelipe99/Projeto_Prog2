@@ -1,5 +1,6 @@
 package gui.controladoresTela;
 
+import controladores.Fachada;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,6 +30,8 @@ public class ControladorTelaLogin implements Initializable{
     @FXML private PasswordField textoSenha;
     @FXML private Button botaoLogin;
     @FXML private Label textoAvisos;
+    
+    private Fachada fachada = Fachada.getInstance();
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {

@@ -24,6 +24,10 @@ public class Consulta implements Serializable{
         this.dataHoraFim = dataHoraFim;
         this.diagnostico = null;
     }
+    
+    public String getNomePaciente(){
+        return paciente != null ? paciente.getNome() : null;
+    }
 
     public int getId() {
         return id;
