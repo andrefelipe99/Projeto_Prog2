@@ -51,8 +51,16 @@ public class ControladorTelaAtendente implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	botaoHistorico.setOnMouseClicked((MouseEvent e)->{
     		try {
+    			if(fachada.consultaVazia()) {
+    				fachada.recuperarConsultas();
+    			}
+    			
 				abrirTelaConsulta();
-			} catch (IOException e1) {
+			
+    		} catch (IOException e1) {
+				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
     	});
@@ -60,8 +68,12 @@ public class ControladorTelaAtendente implements Initializable{
     		if(e.getCode() == KeyCode.ENTER) {
     			try {
     				
-					abrirTelaConsulta();
-					fachada.recuperarConsultas();
+    				if(fachada.consultaVazia()) {
+        				fachada.recuperarConsultas();
+        			}
+    				
+    				abrirTelaConsulta();
+					
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				} catch (ClassNotFoundException e1) {

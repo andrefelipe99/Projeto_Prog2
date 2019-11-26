@@ -32,7 +32,7 @@ public class ControladorTelaMedico implements Initializable{
 	private Fachada fachada = Fachada.getInstance();
 	@FXML private TableView<Consulta> tabelaConsultasMed;
 	@FXML private TableColumn<Consulta, String> colunaPaciente;
-    @FXML private TableColumn<Consulta, String> colunaHorario;
+    @FXML private TableColumn<Consulta, LocalDateTime> colunaHorario;
     @FXML private Label campoMedIdade;
     @FXML private Label campoMedAvisos;
     @FXML private Button botaoDiagnostico;
@@ -103,7 +103,7 @@ public class ControladorTelaMedico implements Initializable{
 
     public void carregarTableMedico(){
             colunaPaciente.setCellValueFactory(new PropertyValueFactory<Consulta, String>("nomePaciente"));
-            colunaHorario.setCellValueFactory(new PropertyValueFactory<Consulta, String>("horarioConsulta"));
+            colunaHorario.setCellValueFactory(new PropertyValueFactory<Consulta, LocalDateTime>("dataHoraInicio"));
             
             listaConsultas = FXCollections.observableArrayList();
             listaConsultas.addAll(fachada.listarConsultasMedico(fachada.buscarMedico(medicoLogado())));

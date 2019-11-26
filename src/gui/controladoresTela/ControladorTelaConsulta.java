@@ -74,7 +74,12 @@ public class ControladorTelaConsulta implements Initializable{
 		});
 		botaoMarcarConsulta.setOnMouseClicked((MouseEvent e)->{
 			try {
-	             	cadastroConsulta();
+				
+				if(fachada.medicoVazio()) {
+    				fachada.recuperarMedicos();
+    			}
+				
+	             cadastroConsulta();
 	        } catch (Exception ex) {
 	            	Logger.getLogger(ControladorTelaAtendente.class.getName()).log(Level.SEVERE, null, ex);
 	        }
@@ -82,7 +87,12 @@ public class ControladorTelaConsulta implements Initializable{
 		botaoMarcarConsulta.setOnKeyPressed((KeyEvent e)->{
 			if(e.getCode() == KeyCode.ENTER) {
 				try {
-	             		cadastroConsulta();
+					
+					if(fachada.medicoVazio()) {
+	    				fachada.recuperarMedicos();
+	    			}
+					
+	             	cadastroConsulta();
 				} catch (Exception ex) {
 	            		Logger.getLogger(ControladorTelaAtendente.class.getName()).log(Level.SEVERE, null, ex);
 				}

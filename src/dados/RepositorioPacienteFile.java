@@ -70,11 +70,11 @@ public class RepositorioPacienteFile {
 		
 		File pacientes = new File("src/dados/arquivos/repositorios/repositorioPacientes.txt");
 		
-		infoLer = new FileInputStream(pacientes); 
-		
 		if(!pacientes.exists()){
 			pacientes.createNewFile();
 		}
+		
+		infoLer = new FileInputStream(pacientes); 
 		
 		recuperarNumeroPacientes();
 		
@@ -96,6 +96,7 @@ public class RepositorioPacienteFile {
 	
 	private void recuperarNumeroPacientes() throws NumberFormatException, IOException {
 		File arquivoNumeroPacientes = new File("src/dados/arquivos/numeroPacientes.txt");
+		
 		le = new BufferedReader(new FileReader(arquivoNumeroPacientes));
 		
 		setNumeroPacientes(Integer.parseInt(le.readLine()));

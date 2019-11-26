@@ -89,6 +89,7 @@ public class ControladorTelaLogin implements Initializable{
 							caminho = "/gui/fxmlMedico/TelaMedico.fxml";
 							crm = textoUser.getText();
 							setarMedicoLogado(crm);
+							
 							if(fachada.pacienteVazio()) {
 								fachada.recuperarPacientes();
 								

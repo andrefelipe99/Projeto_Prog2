@@ -75,11 +75,11 @@ public class RepositorioMedicoFile {
 		
 		File medicos = new File("src/dados/arquivos/repositorios/repositorioMedico.txt");
 		
-		infoLer = new FileInputStream(medicos);
-		
 		if(!medicos.exists()) {
 			medicos.createNewFile();
 		}
+		
+		infoLer = new FileInputStream(medicos);
 		
 		Medico medico;
 		

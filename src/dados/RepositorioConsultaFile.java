@@ -71,13 +71,12 @@ public class RepositorioConsultaFile{
 		
 		File consultas = new File("src/dados/arquivos/repositorios/repositorioDeConsultas.txt");
 		
-		infoLer = new FileInputStream(consultas);
-		
-		
 		if(!consultas.exists()){
 			consultas.createNewFile();
 		}
 		
+		infoLer = new FileInputStream(consultas);
+
 		recuperarNumeroConsultas();
 		
 		Consulta consulta;
