@@ -1,160 +1,109 @@
 package dados;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.ConsultaJaExisteException;
-import exceptions.HorarioIndisponivelException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import negocio.Consulta;
-import negocio.Medico;
-import negocio.Paciente;
 
 public class RepositorioConsultaFile{
-	private File consultas;
-	FileOutputStream infoEscrever;
-	ObjectOutputStream salvarNoArquivo;
 	private int numeroConsultas;
 	
-	public RepositorioConsultaFile() throws IOException{
-		consultas = new File("src/dados/arquivos/repositorios/repositorioDeConsultas.txt");
+	private FileOutputStream infoEscrever;
+	private ObjectOutputStream escreverNoArquivo;
+	
+	private FileInputStream infoLer;
+	private ObjectInputStream lerNoArquivo;
+	
+	private BufferedReader le;
+	private BufferedWriter escreve;
+	
+	public RepositorioConsultaFile(){
 		numeroConsultas = 0;
-		
-		if(!consultas.exists()) {
-			consultas.createNewFile();	
-		}
-
-		infoEscrever = new FileOutputStream(consultas);
-		salvarNoArquivo = new ObjectOutputStream(infoEscrever);
-		
 	}
 
-	public void cadastrarConsulta(Consulta c) throws IOException, ConsultaJaExisteException, HorarioIndisponivelException, ClassNotFoundException{
-		if(!consultaExiste(c)) {
-			salvarNoArquivo.writeObject(c);
+	public void salvarConsultas(List<Consulta> consulta) throws IOException {
+		File consultas = new File("src/dados/arquivos/repositorios/repositorioDeConsultas.txt");
+		
+		if(consultas.exists()) {
+			consultas.delete();
+			consultas.createNewFile();
 		}
 		else {
-			throw new ConsultaJaExisteException();
+			consultas.createNewFile();
 		}
-		numeroConsultas++;
 		
+		infoEscrever = new FileOutputStream(consultas);
+		escreverNoArquivo = new ObjectOutputStream(infoEscrever);
+		
+		consulta.stream().forEach((Consulta c)->{
+			try {
+				escreverNoArquivo.writeObject(c);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		
+		salvarNumeroConsultas(consulta.size());
 	}
 	
-	public boolean consultaExiste(Consulta c) throws ClassNotFoundException, IOException {
-		boolean existe = false;
+	private void salvarNumeroConsultas(int i) throws IOException {
+		File arquivoNumeroConsultas = new File("src/dados/arquivos/numeroConsultas.txt");
+		escreve = new BufferedWriter(new FileWriter(arquivoNumeroConsultas));
 		
-		List<Consulta> consultas = listarConsultas();
+		escreve.write(Integer.toString(i));
 		
-		for (Consulta consulta : consultas) {
-			if(consulta.getMedico().equals(c.getMedico())) {
-				if((c.getDataHoraInicio().isAfter(consulta.getDataHoraInicio()) || c.getDataHoraInicio().isEqual(consulta.getDataHoraInicio())) && (c.getDataHoraInicio().isBefore(consulta.getDataHoraFim()) || c.getDataHoraInicio().isEqual(consulta.getDataHoraFim()))) {
-					existe = true;
-				}
-			}
-			if(consulta.getPaciente().equals(c.getPaciente())){
-				if((c.getDataHoraInicio().isAfter(consulta.getDataHoraInicio()) || c.getDataHoraInicio().isEqual(consulta.getDataHoraInicio())) && (c.getDataHoraInicio().isBefore(consulta.getDataHoraFim()) || c.getDataHoraInicio().isEqual(consulta.getDataHoraFim()))) {
-					existe = true;
-				}
-			}
-		}
-		
-		
-		return existe;
-	}
+		escreve.flush();
 
-	public void removerConsulta(Consulta c) throws IOException, ClassNotFoundException{
-		File auxFile = new File("src/dados/arquivos/repositorios/repositorioConsultaAux.txt");
-		
-		FileInputStream infoLer = new FileInputStream(consultas);
-		ObjectInputStream lerArquivos = new ObjectInputStream(infoLer);
-		
-		for(int contador = 1; contador < numeroConsultas; contador++) {
-			Consulta aux = (Consulta) lerArquivos.readObject();
-		
-			if(!aux.equals(c)) {
-				cadastroRemover(auxFile, aux);
-			}
-		
-		}
-		
-		lerArquivos.close();
-		auxFile.renameTo(consultas);		
-		numeroConsultas--;	
 	}
 	
-	private void cadastroRemover(File aux, Consulta c) throws IOException {
-		if(!aux.exists()) {
-			aux.createNewFile();
+	public List<Consulta> recuperarConsultas() throws IOException, ClassNotFoundException{
+		List<Consulta> consultasRecuperadas = new ArrayList<Consulta>();
+		
+		File consultas = new File("src/dados/arquivos/repositorios/repositorioDeConsultas.txt");
+		
+		infoLer = new FileInputStream(consultas);
+		
+		
+		if(!consultas.exists()){
+			consultas.createNewFile();
 		}
 		
-		FileOutputStream infoAux = new FileOutputStream(aux);
-		ObjectOutputStream salvarNoArquivoAux = new ObjectOutputStream(infoAux);
+		recuperarNumeroConsultas();
 		
+		Consulta consulta;
 		
-		salvarNoArquivoAux.writeObject(c);
-		
-		salvarNoArquivoAux.close();
-	}
-
-	public ObservableList<Consulta> listarConsultasPaciente(Paciente p) throws IOException, ClassNotFoundException {
-		ObservableList<Consulta> listarConsultasPorPaciente = FXCollections.observableArrayList();
-		
-		FileInputStream infoLer = new FileInputStream(consultas);
-		ObjectInputStream lerArquivos = new ObjectInputStream(infoLer);
-		
-		for(int contador = 1; contador < numeroConsultas; contador++) {
-			Consulta aux = (Consulta) lerArquivos.readObject();
-			if(!aux.getPaciente().equals(p)) {
-				listarConsultasPorPaciente.add(aux);
+		if(numeroConsultas != 0) {
+			lerNoArquivo = new ObjectInputStream(infoLer);
+			
+			for(int i = 0; i< numeroConsultas; i++){
+				consulta = (Consulta) lerNoArquivo.readObject();
+				consultasRecuperadas.add(consulta);
 			}
+			
 			
 		}
 		
-		lerArquivos.close();
-		return listarConsultasPorPaciente;
-		
-	}
-
-	public ObservableList<Consulta> listarConsultasMedico(Medico m) throws IOException, ClassNotFoundException {
-		ObservableList<Consulta> listarConsultasPorMedico = FXCollections.observableArrayList();
-		
-		FileInputStream infoLer = new FileInputStream(consultas);
-		ObjectInputStream lerArquivos = new ObjectInputStream(infoLer);
-		
-		for(int contador = 1; contador < numeroConsultas; contador++) {
-			Consulta aux = (Consulta) lerArquivos.readObject();
-			
-			if(!aux.getMedico().equals(m)) {
-				listarConsultasPorMedico.add(aux);
-			}
-		}
-		
-		lerArquivos.close();
-		return listarConsultasPorMedico;
-		
-	}
-
-	public ObservableList<Consulta> listarConsultas() throws IOException, ClassNotFoundException {
-		ObservableList<Consulta> listarConsultas = FXCollections.observableArrayList();
-		
-		FileInputStream infoLer = new FileInputStream(consultas);
-		ObjectInputStream lerArquivos = new ObjectInputStream(infoLer);
-		
-		for(int contador = 1; contador < numeroConsultas; contador++) {
-			Consulta aux = (Consulta) lerArquivos.readObject();
-			
-			listarConsultas.add(aux);
-		}
-		
-		lerArquivos.close();
-		return listarConsultas;
+		return consultasRecuperadas;
 	}
 	
+	private void recuperarNumeroConsultas() throws NumberFormatException, IOException {
+		File arquivoNumeroConsultas = new File("src/dados/arquivos/numeroConsultas.txt");
+		le = new BufferedReader(new FileReader(arquivoNumeroConsultas));
+		
+		setNumeroConsultas(Integer.parseInt(le.readLine()));
+	}
 	
+	private void setNumeroConsultas(int i) {
+		this.numeroConsultas = i;
+	}
 }

@@ -1,147 +1,107 @@
 package dados;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.DadosInvalidosException;
-import exceptions.PacienteExistenteException;
 import negocio.Paciente;
 
 public class RepositorioPacienteFile {
-	File pacientes;
-	FileOutputStream infoEscrever;
-	ObjectOutputStream escreverNoArquivo;
-	
 	private int numeroPacientes;
 	
-	public RepositorioPacienteFile() throws IOException {
-		pacientes = new File("src/dados/arquivos/repositorios/repositorioPacientes.txt");
+	private FileOutputStream infoEscrever;
+	private ObjectOutputStream escreverNoArquivo;
+	
+	private FileInputStream infoLer;
+	private ObjectInputStream lerNoArquivo;
+	
+	private BufferedReader le;
+	private BufferedWriter escreve;
+	
+	public RepositorioPacienteFile(){
+		numeroPacientes = 0;
+	}
+	
+	public void salvarPacientes(List<Paciente> paciente) throws IOException {
+		File pacientes = new File("src/dados/arquivos/repositorios/repositorioPacientes.txt");
 		
-		if(!pacientes.exists()) {
+		if(pacientes.exists()) {
+			pacientes.delete();
+			pacientes.createNewFile();
+		}else {
 			pacientes.createNewFile();
 		}
 		
 		infoEscrever = new FileOutputStream(pacientes);
 		escreverNoArquivo = new ObjectOutputStream(infoEscrever);
 		
-		numeroPacientes = 0;		
-		
-	}
-	
-	public void cadastrarPaciente(Paciente p) throws ClassNotFoundException, IOException, PacienteExistenteException, DadosInvalidosException {
-    	if(!pacienteExiste(p)) {
-    		if(p != null && p.getEndereco()!= null && p.getEndereco().isEmpty() == false
-    				&& p.getCpf()!= null && p.getCpf().isEmpty() == false
-    				&& p.getNome()!= null && p.getNome().isEmpty() == false
-    				&& p.getTelefone()!= null && p.getTelefone().isEmpty() == false
-    				&& p.getIdade() > 0) {
-    			
-    			escreverNoArquivo.writeObject(p);
-    			numeroPacientes++;
-    		}
-    		else {
-    			throw new DadosInvalidosException();
-    		}
-    		
-    	}
-    	else {
-    		throw new PacienteExistenteException();
-    	}
-
-    }
-
-	public void removerPaciente(Paciente p) throws ClassNotFoundException, IOException {
-		Paciente auxiliar;
-		File repositorioAuxiliar = new File("src/dados/arquivos/repositorios/repositorioPacienteAux");
-		
-		FileInputStream infoLer = new FileInputStream(pacientes);
-		ObjectInputStream leitorDeArquivo = new ObjectInputStream(infoLer);
-		
-		for(int i = 1; i < numeroPacientes; i++) {
-			auxiliar = (Paciente)leitorDeArquivo.readObject();
-			if(!auxiliar.equals(p)) {
-				arquivoPacienteAuxiliar(repositorioAuxiliar, auxiliar);
+		paciente.stream().forEach((Paciente p)->{
+			try {
+				escreverNoArquivo.writeObject(p);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+		});
+		
+		salvarNumeroPacientes(paciente.size());
+	}
+	
+	private void salvarNumeroPacientes(int i) throws IOException {
+		File arquivoNumeroPacientes = new File("src/dados/arquivos/numeroPacientes.txt");
+		escreve = new BufferedWriter(new FileWriter(arquivoNumeroPacientes));
+		
+		escreve.write(Integer.toString(i));
+		
+		escreve.flush();
+	}
+	
+	public List<Paciente> recuperarPacientes() throws IOException, ClassNotFoundException{
+		List<Paciente> pacientesRecuperados = new ArrayList<Paciente>();
+		
+		File pacientes = new File("src/dados/arquivos/repositorios/repositorioPacientes.txt");
+		
+		infoLer = new FileInputStream(pacientes); 
+		
+		if(!pacientes.exists()){
+			pacientes.createNewFile();
 		}
 		
-		leitorDeArquivo.close();
-		repositorioAuxiliar.renameTo(pacientes);
-		numeroPacientes--;
-	}
-
-	public void arquivoPacienteAuxiliar(File auxiliar, Paciente p) throws IOException {
+		recuperarNumeroPacientes();
 		
-		if(!auxiliar.exists()) {
-			auxiliar.createNewFile();
-		}
+		Paciente paciente;
 		
-		FileOutputStream infoEscreverAuxiliar = new FileOutputStream(auxiliar);
-		ObjectOutputStream escreverNoArquivoAuxiliar = new ObjectOutputStream(infoEscreverAuxiliar);
-		
-		escreverNoArquivoAuxiliar.writeObject(p);
-		escreverNoArquivoAuxiliar.close();	
-		
-	}
-
-    public boolean pacienteExiste(Paciente p) throws ClassNotFoundException, IOException {
-    	Paciente auxiliar;
-    	boolean existe = false;
-    	
-    	FileInputStream infoLer = new FileInputStream(pacientes);
-		ObjectInputStream leitorDeArquivo = new ObjectInputStream(infoLer);
-    	
-    	if(numeroPacientes !=0) {
-			for(int i = 1; i != numeroPacientes; i++) {
-				auxiliar = (Paciente) leitorDeArquivo.readObject();
-				if(auxiliar.equals(p)) {
-					existe = true; 
-				}
+		if(numeroPacientes != 0) {
+			lerNoArquivo = new ObjectInputStream(infoLer);
+			
+			for(int i = 0; i < numeroPacientes; i++) {
+				paciente = (Paciente) lerNoArquivo.readObject();
+				pacientesRecuperados.add(paciente);
 			}
+			
+			
 		}
-    	
-    	leitorDeArquivo.close();
-    	return existe;
-    }
-
-    public Paciente buscarPaciente (String cpf) throws ClassNotFoundException, IOException {
-    	Paciente p = null;
-    	Paciente auxiliar;
-    	
-    	FileInputStream infoLer = new FileInputStream(pacientes);
-		ObjectInputStream leitorDeArquivo = new ObjectInputStream(infoLer);
-    	
-    	for(int i = 1; i < numeroPacientes; i++) {
-    		auxiliar = (Paciente)leitorDeArquivo.readObject();
-    		if(auxiliar.getCpf().contentEquals(cpf)) {
-    			p = auxiliar;
-    		}
-    	}
-    	
-    	leitorDeArquivo.close();
-    	return p;
-    }
-
-    public List<Paciente> listarPacientes() throws ClassNotFoundException, IOException {
-    	List<Paciente> lista = new ArrayList<Paciente>();
-    	Paciente auxiliar;
-    	
-    	FileInputStream infoLer = new FileInputStream(pacientes);
-		ObjectInputStream leitorDeArquivo = new ObjectInputStream(infoLer);
 		
-    	for(int i = 1; i < numeroPacientes; i++) {
-    		auxiliar = (Paciente)leitorDeArquivo.readObject();
-    		lista.add(auxiliar);
-    	}
-    	
-    	leitorDeArquivo.close();
-    	return lista;
-    }
+		return pacientesRecuperados;
+	}
 	
+	private void recuperarNumeroPacientes() throws NumberFormatException, IOException {
+		File arquivoNumeroPacientes = new File("src/dados/arquivos/numeroPacientes.txt");
+		le = new BufferedReader(new FileReader(arquivoNumeroPacientes));
+		
+		setNumeroPacientes(Integer.parseInt(le.readLine()));
+	}
 	
+	private void setNumeroPacientes(int i) {
+		this.numeroPacientes = i;
+	}
 }

@@ -1,4 +1,2 @@
 admin,admin
-medico,medico
 atendente,atendente
-12345,1234

@@ -59,17 +59,34 @@ public class ControladorTelaAtendente implements Initializable{
     	botaoHistorico.setOnKeyPressed((KeyEvent e)->{
     		if(e.getCode() == KeyCode.ENTER) {
     			try {
+    				
 					abrirTelaConsulta();
+					fachada.recuperarConsultas();
 				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
     		}
     	});
     	botaoSair.setOnMouseClicked((MouseEvent e)->{
-			GerenciadorHospitalAPP.fechar();
+			try {
+				fachada.salvarPacientes();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    		GerenciadorHospitalAPP.fechar();
 		});
 		botaoSair.setOnKeyPressed((KeyEvent e)->{
 			if(e.getCode() == KeyCode.ENTER) {
+				try {
+					fachada.salvarPacientes();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				GerenciadorHospitalAPP.fechar();
 			}
 		});

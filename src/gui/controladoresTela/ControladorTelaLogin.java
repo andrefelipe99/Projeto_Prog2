@@ -69,12 +69,18 @@ public class ControladorTelaLogin implements Initializable{
 						if(textoUser.getText().equals("admin")) {
 							titulo = "Administrador";
 							caminho = "/gui/fxmlAdmin/TelaAdmin.fxml";
+							if(fachada.medicoVazio()) {
+								fachada.recuperarMedicos();
+							}
 							logado = true;
 
 						}
 						else if(textoUser.getText().equals("atendente")) {
 							titulo = "Atendente";
 							caminho = "/gui/fxmlAtendente/TelaAtendente.fxml";
+							if(fachada.pacienteVazio()) {
+								fachada.recuperarPacientes();
+							}
 							logado = true;
 
 						}
@@ -83,6 +89,14 @@ public class ControladorTelaLogin implements Initializable{
 							caminho = "/gui/fxmlMedico/TelaMedico.fxml";
 							crm = textoUser.getText();
 							setarMedicoLogado(crm);
+							if(fachada.pacienteVazio()) {
+								fachada.recuperarPacientes();
+								
+							}
+							if(fachada.consultaVazia()) {
+								fachada.recuperarConsultas();
+							}
+							
 							logado = true;
 
 
@@ -112,6 +126,7 @@ public class ControladorTelaLogin implements Initializable{
 				alerta.setHeaderText("Erro nos Arquivos");
 				alerta.setContentText("Falha ao ler o arquivo dos logins, contate a administracao!");
 				alerta.show();
+				ioe.printStackTrace();
 			}
 			catch(Exception e) {
 				Alert alerta = new Alert(AlertType.ERROR);
@@ -119,6 +134,7 @@ public class ControladorTelaLogin implements Initializable{
 				alerta.setHeaderText("Erro no login");
 				alerta.setContentText("Usuario ou senha invalidos!");
 				alerta.show();
+				e.printStackTrace();
 			}
 
 

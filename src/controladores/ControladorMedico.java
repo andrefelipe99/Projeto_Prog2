@@ -1,24 +1,28 @@
 package controladores;
 
+import java.io.IOException;
 import java.util.List;
 
 import dados.RepositorioMedico;
+import dados.RepositorioMedicoFile;
 import exceptions.DadosInvalidosException;
 import exceptions.MedicoExistenteException;
 import negocio.Medico;
 
 public class ControladorMedico implements IControladorMedico{
 	private RepositorioMedico medico;
+	private RepositorioMedicoFile medicoFile;
 
-	public ControladorMedico() {
+	public ControladorMedico(){
 		this.medico = new RepositorioMedico();
+		this.medicoFile = new RepositorioMedicoFile();
 	}
 
-	public void cadastrarMedico( Medico m) throws DadosInvalidosException, MedicoExistenteException {
+	public void cadastrarMedico( Medico m) throws DadosInvalidosException, MedicoExistenteException, IOException {
 		medico.cadastrarMedico(m);
 	}
 
-	public void removerMedico(Medico m) {
+	public void removerMedico(Medico m) throws IOException {
 		medico.removerMedico(m);
 	}
 
@@ -48,6 +52,17 @@ public class ControladorMedico implements IControladorMedico{
     public Medico buscarMedico(String crm) {
     	return medico.buscarMedico(crm);
     }
-
+    
+    public void recuperarMedicos() throws ClassNotFoundException, IOException {
+    	medico.setarMedicosRecuperados(medicoFile.recuperarMedicos());
+    }
+    
+    public void salvarMedicos() throws IOException {
+    	medicoFile.salvarMedicos(medico.listarMedicos());
+    }
+    
+    public boolean medicoVazio() {
+		return medico.medicoVazio();
+	}
         
 }

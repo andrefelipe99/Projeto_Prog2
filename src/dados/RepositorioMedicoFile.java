@@ -1,147 +1,113 @@
 package dados;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.DadosInvalidosException;
-import exceptions.MedicoExistenteException;
 import negocio.Medico;
 
 public class RepositorioMedicoFile {
-	File medicos;
-	FileOutputStream infoEscrever;
-	ObjectOutputStream escreverNoArquivo;
-	
 	private int numeroMedicos;
 	
-	public RepositorioMedicoFile() throws IOException {
-		medicos = new File("src/dados/arquivos/repositorios/repositorioMedicos.txt");
+	private FileOutputStream infoEscrever;
+	private ObjectOutputStream escreverNoArquivo;
+	
+	private FileInputStream infoLer;
+	private ObjectInputStream lerNoArquivo;
+	
+	private BufferedReader le;
+	private BufferedWriter escreve;
+	
+	public RepositorioMedicoFile() {
+		numeroMedicos = 0;
+	}
+	
+	public void salvarMedicos(List<Medico> medico) throws IOException {
+		File medicos = new File("src/dados/arquivos/repositorios/repositorioMedico.txt");
+		
+		if(medicos.exists()) {
+			medicos.delete();
+			medicos.createNewFile();
+		}
+		else {
+			medicos.createNewFile();
+		}
+		
+		infoEscrever = new FileOutputStream(medicos);
+    	escreverNoArquivo = new ObjectOutputStream(infoEscrever);
+		
+		medico.stream().forEach(
+				(Medico m)->{
+					try {
+						escreverNoArquivo.writeObject(m);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
+		
+		
+			salvarNumeroMedicos(medico.size());
+	}
+	
+	private void salvarNumeroMedicos(int i) throws IOException {
+		File arquivoNumeroMedicos = new File("src/dados/arquivos/numeroMedicos.txt");
+		escreve = new BufferedWriter(new FileWriter(arquivoNumeroMedicos));
+		
+		String salvar = Integer.toString(i);
+		escreve.write(salvar);
+		
+		escreve.flush();
+		
+	}
+	
+	public List<Medico> recuperarMedicos() throws IOException, ClassNotFoundException {
+		List<Medico> medicosRecuperados = new ArrayList<Medico>();
+		
+		File medicos = new File("src/dados/arquivos/repositorios/repositorioMedico.txt");
+		
+		infoLer = new FileInputStream(medicos);
 		
 		if(!medicos.exists()) {
 			medicos.createNewFile();
 		}
 		
-		infoEscrever = new FileOutputStream(medicos);
-		escreverNoArquivo = new ObjectOutputStream(infoEscrever);
+		Medico medico;
 		
-		numeroMedicos = 0;		
+		recuperarNumeroMedicos();
 		
-	}
-	
-	public void cadastrarMedico(Medico m) throws MedicoExistenteException, IOException, ClassNotFoundException, DadosInvalidosException {
-		if(!medicoExiste(m)) {
-			
-			if(m != null && m.getArea()!= null && m.getArea().isEmpty() == false
-    			&& m.getCpf()!= null && m.getCpf().isEmpty() == false
-    			&& m.getNome()!= null && m.getNome().isEmpty() == false
-    			&& m.getCrm()!= null && m.getCrm().isEmpty() == false
-    			&& m.getIdade() >= 22) {
-    			
-    			
-    			escreverNoArquivo.writeObject(m);
-    			numeroMedicos++;
-    		}
-    		else {
-    			throw new DadosInvalidosException();
-    		}
+		if(numeroMedicos != 0) {
+			lerNoArquivo = new ObjectInputStream(infoLer);
+			for(int i = 0; i < numeroMedicos; i++) {
+				medico = (Medico) lerNoArquivo.readObject();
+				medicosRecuperados.add(medico);
+			}
 			
 		}
-		else {
-			throw new MedicoExistenteException();
-		}
+			
+		return medicosRecuperados;
 	}
 	
-	public boolean medicoExiste(Medico m) throws ClassNotFoundException, IOException {
-		Medico auxiliar;
-		boolean existe = false;
+	private void recuperarNumeroMedicos() throws IOException {
+		File arquivoNumeroMedicos = new File("src/dados/arquivos/numeroMedicos.txt");
 		
-		FileInputStream infoLer = new FileInputStream(medicos);
-		ObjectInputStream leitorDeArquivo = new ObjectInputStream(infoLer);
+		le = new BufferedReader(new FileReader(arquivoNumeroMedicos));
 		
-		if(numeroMedicos !=0) {
-			for(int i = 1; i != numeroMedicos; i++) {
-				auxiliar = (Medico) leitorDeArquivo.readObject();
-				if(auxiliar.equals(m)) {
-					existe = true; 
-				}
-			}
-		}
-		
-		leitorDeArquivo.close();
-		
-		return existe;
-	}
-	
-	public void removerMedico(Medico m) throws ClassNotFoundException, IOException {
-		Medico auxiliar;
-		File repositorioAuxiliar = new File("src/dados/arquivos/repositorios/repositorioMedicoAux");
-		
-		FileInputStream infoLer = new FileInputStream(medicos);
-		ObjectInputStream leitorDeArquivo = new ObjectInputStream(infoLer);
-		
-		for(int i = 1; i < numeroMedicos; i++) {
-			auxiliar = (Medico)leitorDeArquivo.readObject();
-			if(!auxiliar.equals(m)) {
-				arquivoMedicoAuxiliar(repositorioAuxiliar, auxiliar);
-			}
-		}
-		
-		leitorDeArquivo.close();
-		repositorioAuxiliar.renameTo(medicos);
-		numeroMedicos--;
-	}
-
-	public void arquivoMedicoAuxiliar(File auxiliar, Medico m) throws IOException {
-		
-		if(!auxiliar.exists()) {
-			auxiliar.createNewFile();
-		}
-		
-		FileOutputStream infoEscreverAuxiliar = new FileOutputStream(auxiliar);
-		ObjectOutputStream escreverNoArquivoAuxiliar = new ObjectOutputStream(infoEscreverAuxiliar);
-		
-		escreverNoArquivoAuxiliar.writeObject(m);
-		escreverNoArquivoAuxiliar.close();	
+		setNumeroMedicos(Integer.parseInt(le.readLine()));
 		
 	}
 	
-	public Medico buscarMedico (String crm) throws ClassNotFoundException, IOException {
-    	Medico m = null;
-    	Medico auxiliar;
-    	
-    	FileInputStream infoLer = new FileInputStream(medicos);
-		ObjectInputStream leitorDeArquivo = new ObjectInputStream(infoLer);
-		
-    	for(int i = 1; i < numeroMedicos; i++) {
-    		auxiliar = (Medico)leitorDeArquivo.readObject();
-    		if(auxiliar.getCrm().contentEquals(crm)) {
-    			m = auxiliar;
-    		}
-    	}
-    	
-    	leitorDeArquivo.close();
-    	return m;
-    }
-
-    public List<Medico> listarMedicos() throws ClassNotFoundException, IOException {
-    	List<Medico> lista = new ArrayList<> ();
-    	Medico auxiliar;
-    	FileInputStream infoLer = new FileInputStream(medicos);
-		ObjectInputStream leitorDeArquivo = new ObjectInputStream(infoLer);
-		
-    	for(int i = 1; i < numeroMedicos; i++) {
-    		auxiliar = (Medico)leitorDeArquivo.readObject();
-    		lista.add(auxiliar);
-    	}
-    	
-    	leitorDeArquivo.close();
-    	return lista;
-    }
+	private void setNumeroMedicos(int i) {
+		this.numeroMedicos = i;
+	}
 }
 

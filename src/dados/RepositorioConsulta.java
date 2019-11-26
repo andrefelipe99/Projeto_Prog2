@@ -105,4 +105,13 @@ public class RepositorioConsulta implements IRepositorioConsulta {
     	return localizada;
     }
 
+	public void recuperarConsultas(List<Consulta> consultasRecuperadas) {
+		consultas.addAll(consultasRecuperadas);
+		
+	}
+	
+	public boolean consultaVazia() {
+		return consultas.isEmpty();
+	}
+
 }

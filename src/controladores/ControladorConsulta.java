@@ -1,9 +1,11 @@
 package controladores;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import dados.RepositorioConsulta;
+import dados.RepositorioConsultaFile;
 import exceptions.ConsultaJaExisteException;
 import exceptions.DadosInvalidosException;
 import negocio.Consulta;
@@ -11,10 +13,12 @@ import negocio.Medico;
 import negocio.Paciente;
 
 public class ControladorConsulta implements IControladorConsulta {
-	private RepositorioConsulta consultasSalvas;
+	private RepositorioConsulta consultas;
+	private RepositorioConsultaFile consultasFile;
 
 	ControladorConsulta(){
-		consultasSalvas = new RepositorioConsulta();
+		consultas = new RepositorioConsulta();
+		consultasFile = new RepositorioConsultaFile();
 	}
 
 	@Override
@@ -22,7 +26,7 @@ public class ControladorConsulta implements IControladorConsulta {
 		if(c != null && c.getMedico() != null && c.getPaciente() != null
 				&& !c.getDataHoraInicio().equals(LocalDateTime.of(1900, 1, 1, 0, 0))
 				&& c.getDescricao().isEmpty() == false	&& c.getId()> 0) {
-			consultasSalvas.cadastrarConsulta(c);
+			consultas.cadastrarConsulta(c);
 		}
 		else {
 			throw new DadosInvalidosException();
@@ -31,30 +35,44 @@ public class ControladorConsulta implements IControladorConsulta {
 
 	@Override
 	public void removerConsulta(Consulta c) {
-		consultasSalvas.removerConsulta(c);
+		consultas.removerConsulta(c);
 	}
 
 	@Override
 	public List<Consulta> listarConsultas(){
-		return consultasSalvas.listarConsultas();
+		return consultas.listarConsultas();
 	}
 
 	@Override
 	public List<Consulta> listarConsultasPaciente(Paciente p){
-		return consultasSalvas.listarConsultasPaciente(p);
+		return consultas.listarConsultasPaciente(p);
 	}
 
 	@Override
 	public List<Consulta> listarConsultasMedico(Medico m){
-		return consultasSalvas.listarConsultasMedico(m);
+		return consultas.listarConsultasMedico(m);
 	}
 
     @Override
     public Consulta buscarConsultaPorId(int id) {
-    	return consultasSalvas.buscarConsultaPorId(id);
+    	return consultas.buscarConsultaPorId(id);
     }
 
     public Consulta consultaDoMomento(LocalDateTime horaDoSistema, Medico m) {
-    	return consultasSalvas.consultaDoMomento(horaDoSistema, m);
+    	return consultas.consultaDoMomento(horaDoSistema, m);
     }
+    
+    public void recuperarConsultas() throws ClassNotFoundException, IOException {
+    	consultas.recuperarConsultas(consultasFile.recuperarConsultas());
+    }
+
+	public void salvarConsultas() throws IOException {
+		consultasFile.salvarConsultas(consultas.listarConsultas());
+		
+	}
+	
+	public boolean consultaVazia() {
+		return consultas.consultaVazia();
+	}
+    
 }

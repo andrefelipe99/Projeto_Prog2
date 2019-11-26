@@ -1,5 +1,6 @@
 package controladores;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,14 +53,26 @@ public class Fachada {
 	public List<Paciente> listarPacientes() {
         return controladorPaciente.listarPacientes();
     }
+	
+	public void recuperarPacientes() throws ClassNotFoundException, IOException {
+		controladorPaciente.recuperarPacientes();
+	}
+	
+	public void salvarPacientes() throws IOException {
+		controladorPaciente.salvarPacientes();
+	}
+	
+	public boolean pacienteVazio() {
+		return controladorPaciente.pacienteVazio();
+	}
 
     // MEDICO
 
-    public void cadastrarMedico(Medico m) throws DadosInvalidosException, MedicoExistenteException {
+    public void cadastrarMedico(Medico m) throws DadosInvalidosException, MedicoExistenteException, IOException {
         controladorMedico.cadastrarMedico(m);
     }
 
-    public void removerMedico(Medico m) {
+    public void removerMedico(Medico m) throws IOException {
         controladorMedico.removerMedico(m);
     }
 
@@ -78,6 +91,18 @@ public class Fachada {
     public Medico buscarMedico(String crm) {
     	return controladorMedico.buscarMedico(crm);
     }
+    
+    public void recuperarMedicos() throws ClassNotFoundException, IOException {
+    	controladorMedico.recuperarMedicos();
+    }
+    
+    public void salvarMedicos() throws IOException {
+    	controladorMedico.salvarMedicos();
+    }
+    
+    public boolean medicoVazio() {
+		return controladorMedico.medicoVazio();
+	}
 
     // CONSULTA
 
@@ -108,6 +133,19 @@ public class Fachada {
     public Consulta consultaDoMomento(LocalDateTime horaDoSistema, Medico m) {
     	return controladorConsulta.consultaDoMomento(horaDoSistema, m);
     }
+    
+    public void recuperarConsultas() throws ClassNotFoundException, IOException {
+    	controladorConsulta.recuperarConsultas();
+    }
+    
+    public void salvarConsultas() throws IOException {
+    	controladorConsulta.salvarConsultas();
+    }
+    
+    public boolean consultaVazia() {
+		return controladorConsulta.consultaVazia();
+	}
+
 
     // DIAGNOSTICO
 

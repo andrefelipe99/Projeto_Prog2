@@ -1,6 +1,8 @@
 package gui.controladoresTela;
 
 import controladores.Fachada;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,10 +42,20 @@ public class ControladorTelaAdmin implements Initializable{
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		botaoSair.setOnMouseClicked((MouseEvent e)->{
+			try {
+				fachada.salvarMedicos();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			GerenciadorHospitalAPP.fechar();
 		});
 		botaoSair.setOnKeyPressed((KeyEvent e)->{
 			if(e.getCode() == KeyCode.ENTER) {
+				try {
+					fachada.salvarMedicos();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				GerenciadorHospitalAPP.fechar();
 			}
 		});
@@ -67,12 +79,22 @@ public class ControladorTelaAdmin implements Initializable{
                 });
 
                 botaoRemover.setOnMouseClicked((MouseEvent e) -> {
-                    remover();
+                    try {
+						remover();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 });
 
                 botaoRemover.setOnKeyPressed((KeyEvent e) -> {
                     if(e.getCode() == KeyCode.ENTER){
-                        remover();
+                        try {
+							remover();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
                     }
                 });
 
@@ -98,7 +120,7 @@ public class ControladorTelaAdmin implements Initializable{
             tblMedico.setItems(listaMedicos);
         }
 
-        public void remover(){
+        public void remover() throws IOException{
             Medico medicoSelecionado = tblMedico.getSelectionModel().getSelectedItem();
 
             if(medicoSelecionado != null){

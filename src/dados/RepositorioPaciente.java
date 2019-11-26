@@ -65,5 +65,14 @@ import negocio.Paciente;
 	    	}
 	    	return lista;
 	    }
+
+		public void setarPacientesRecuperados(List<Paciente> recuperados) {
+			pacientes.addAll(recuperados);
+			
+		}
+		
+		public boolean pacienteVazio() {
+			return pacientes.isEmpty();
+		}
 	}
 

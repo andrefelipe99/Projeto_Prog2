@@ -53,6 +53,7 @@ public class ControladorTelaConsulta implements Initializable{
 			GerenciadorHospitalAPP.getStage().close();
 	    	GerenciadorHospitalAPP gerenciadorHospitalAPP = new GerenciadorHospitalAPP();
 			try {
+				fachada.salvarConsultas();
 				gerenciadorHospitalAPP.start(new Stage(), "/gui/fxmlAtendente/TelaAtendente.fxml", "Atendente");
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -64,6 +65,7 @@ public class ControladorTelaConsulta implements Initializable{
 				GerenciadorHospitalAPP.getStage().close();
 				GerenciadorHospitalAPP gerenciadorHospitalAPP = new GerenciadorHospitalAPP();
 				try {
+					fachada.salvarConsultas();
 					gerenciadorHospitalAPP.start(new Stage(), "/gui/fxmlAtendente/TelaAtendente.fxml", "Atendente");
 				} catch (Exception e1) {
 					e1.printStackTrace();

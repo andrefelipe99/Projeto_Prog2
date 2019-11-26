@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 
 import controladores.Fachada;
 import gui.tela.GerenciadorHospitalAPP;
-import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -27,14 +26,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import negocio.Consulta;
-import negocio.Medico;
 
 public class ControladorTelaMedico implements Initializable{
 
 	private Fachada fachada = Fachada.getInstance();
 	@FXML private TableView<Consulta> tabelaConsultasMed;
 	@FXML private TableColumn<Consulta, String> colunaPaciente;
-    @FXML private TableColumn<Consulta, LocalDateTime> colunaHorario;
+    @FXML private TableColumn<Consulta, String> colunaHorario;
     @FXML private Label campoMedIdade;
     @FXML private Label campoMedAvisos;
     @FXML private Button botaoDiagnostico;
@@ -105,7 +103,7 @@ public class ControladorTelaMedico implements Initializable{
 
     public void carregarTableMedico(){
             colunaPaciente.setCellValueFactory(new PropertyValueFactory<Consulta, String>("nomePaciente"));
-            colunaHorario.setCellValueFactory(new PropertyValueFactory<Consulta, LocalDateTime>("dataHoraInicio"));
+            colunaHorario.setCellValueFactory(new PropertyValueFactory<Consulta, String>("horarioConsulta"));
             
             listaConsultas = FXCollections.observableArrayList();
             listaConsultas.addAll(fachada.listarConsultasMedico(fachada.buscarMedico(medicoLogado())));
