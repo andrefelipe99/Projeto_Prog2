@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import controladores.Fachada;
+import exceptions.SemSelecaoException;
 import gui.tela.GerenciadorHospitalAPP;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -57,8 +59,9 @@ public class ControladorTelaAtendente implements Initializable{
     		} catch (IOException e1) {
 				e1.printStackTrace();
 			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			} catch (SemSelecaoException e1) {
+				e1.erro();
 			}
     	});
     	botaoHistorico.setOnKeyPressed((KeyEvent e)->{
@@ -70,8 +73,9 @@ public class ControladorTelaAtendente implements Initializable{
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (SemSelecaoException e1) {
+					e1.erro();
 				}
     		}
     	});
@@ -79,7 +83,6 @@ public class ControladorTelaAtendente implements Initializable{
 			try {
 				fachada.salvarPacientes();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
     		GerenciadorHospitalAPP.fechar();
@@ -89,7 +92,6 @@ public class ControladorTelaAtendente implements Initializable{
 				try {
 					fachada.salvarPacientes();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				GerenciadorHospitalAPP.fechar();
@@ -111,12 +113,24 @@ public class ControladorTelaAtendente implements Initializable{
 				}
 			}
 		});
-		botaoRemover.setOnMouseClicked((MouseEvent e)->{
-				remover();
+		botaoRemover.setOnMousePressed((MouseEvent e)->{
+			if(alertaConfirmacaoProsseguir()) {
+				try {
+					remover();
+				} catch (SemSelecaoException e1) {
+					e1.erro();
+				}
+        	}
 		});
 		botaoRemover.setOnKeyPressed((KeyEvent e)->{
 			if(e.getCode() == KeyCode.ENTER) {
-				remover();
+				if(alertaConfirmacaoProsseguir()) {
+					try {
+						remover();
+					} catch (SemSelecaoException e1) {
+						e1.erro();
+					}
+            	}
 			}
 		});
 		barraPesquisa.setOnKeyReleased((KeyEvent e)->{
@@ -137,7 +151,7 @@ public class ControladorTelaAtendente implements Initializable{
 
     }
 
-    public void abrirTelaConsulta() throws IOException, ClassNotFoundException {
+    public void abrirTelaConsulta() throws IOException, ClassNotFoundException, SemSelecaoException {
     	Paciente pacienteSelecionado = tblPaciente.getSelectionModel().getSelectedItem();
     	
     	if(fachada.medicoVazio()) {
@@ -151,17 +165,10 @@ public class ControladorTelaAtendente implements Initializable{
     		setarPacienteSelecionado(pacienteSelecionado.getCpf());
     		GerenciadorHospitalAPP.getStage().close();
         	GerenciadorHospitalAPP gerenciadorHospitalAPP = new GerenciadorHospitalAPP();
-    		try {
-    			gerenciadorHospitalAPP.start(new Stage(), "/gui/fxmlAtendente/TelaConsulta.fxml", "Historico do Paciente");
-    		} catch (Exception e1) {
-    			e1.printStackTrace();
-    		}
+    		gerenciadorHospitalAPP.start(new Stage(), "/gui/fxmlAtendente/TelaConsulta.fxml", "Historico do Paciente");
+    	
     	} else {
-    		Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Aviso");
-            alert.setHeaderText("Nenhum paciente selecionado!");
-            alert.setContentText("Por favor, selecione um paciente na tabela!");
-            alert.show();
+    		throw new SemSelecaoException();
     	}
 
     }
@@ -175,7 +182,7 @@ public class ControladorTelaAtendente implements Initializable{
 
     }
 
-    public void remover(){
+    public void remover() throws SemSelecaoException{
         Paciente pacienteSelecionado = tblPaciente.getSelectionModel().getSelectedItem();
 
         if(pacienteSelecionado != null){
@@ -184,11 +191,7 @@ public class ControladorTelaAtendente implements Initializable{
             alertaConfirmacaoOK();
             atualizarTabela();
         } else{
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Aviso");
-            alert.setHeaderText("Nenhum paciente selecionado!");
-            alert.setContentText("Por favor, selecione um paciente na tabela!");
-            alert.show();
+        	throw new SemSelecaoException();
         }
 
     }
@@ -248,5 +251,22 @@ public class ControladorTelaAtendente implements Initializable{
 
 		fw.close();
 	}
+    
+    private boolean alertaConfirmacaoProsseguir() {
+    	Alert alerta = new Alert(AlertType.CONFIRMATION);
+        alerta.setTitle("Confirme!");
+        alerta.setHeaderText("Deseja Prosseguir?");
+        alerta.setContentText("Pressione 'OK' para continuar ou 'Cancelar' para retornar!");
+        alerta.showAndWait();
+        
+        ButtonType apertado = alerta.getResult();
+        
+        if(apertado.getText().contentEquals("OK")){
+        	return true;
+        }
+        else {
+        	return false;
+        }
+    }
 
 }

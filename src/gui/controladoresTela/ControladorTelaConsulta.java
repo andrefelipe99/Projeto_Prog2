@@ -6,11 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import controladores.Fachada;
 import exceptions.SemSelecaoException;
 import gui.tela.GerenciadorHospitalAPP;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,6 +27,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 import negocio.Consulta;
 import negocio.Paciente;
 
@@ -81,9 +83,11 @@ public class ControladorTelaConsulta implements Initializable{
     			}
 				
 	             cadastroConsulta();
-	        } catch (Exception ex) {
-	            	Logger.getLogger(ControladorTelaAtendente.class.getName()).log(Level.SEVERE, null, ex);
-	        }
+	        } catch (IOException e1) {
+	            e1.printStackTrace();
+	        } catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
 		});
 		botaoMarcarConsulta.setOnKeyPressed((KeyEvent e)->{
 			if(e.getCode() == KeyCode.ENTER) {
@@ -93,27 +97,32 @@ public class ControladorTelaConsulta implements Initializable{
 	    				fachada.recuperarMedicos();
 	    			}
 					
-	             	cadastroConsulta();
-				} catch (Exception ex) {
-	            		Logger.getLogger(ControladorTelaAtendente.class.getName()).log(Level.SEVERE, null, ex);
+		             cadastroConsulta();
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
+		        } catch (ClassNotFoundException e1) {
+					e1.printStackTrace();
 				}
 			}
 		});
 		botaoCancelaConsulta.setOnMouseClicked((MouseEvent e)->{
-			try {
-				remover();
-			} catch (SemSelecaoException e1) {
-				e1.erro();
-			}
-		});
-		botaoCancelaConsulta.setOnKeyPressed((KeyEvent e)->{
-			if(e.getCode() == KeyCode.ENTER) {
-				try {
+			if(alertaConfirmacaoProsseguir()) {
+        		try {
 					remover();
 				} catch (SemSelecaoException e1) {
 					e1.erro();
-					
 				}
+        	}
+		});
+		botaoCancelaConsulta.setOnKeyPressed((KeyEvent e)->{
+			if(e.getCode() == KeyCode.ENTER) {
+				if(alertaConfirmacaoProsseguir()) {
+	        		try {
+						remover();
+					} catch (SemSelecaoException e1) {
+						e1.erro();
+					}
+	        	}
 			}
 		});
 
@@ -123,14 +132,10 @@ public class ControladorTelaConsulta implements Initializable{
         .addListener((observable, oldValue, newValue) -> mostrarDetalhesConsulta(newValue));
 	}
 
-    public void cadastroConsulta() {
+    public void cadastroConsulta() throws IOException {
 		GerenciadorHospitalAPP.getStage().close();
     	GerenciadorHospitalAPP gerenciadorHospitalAPP = new GerenciadorHospitalAPP();
-		try {
-			gerenciadorHospitalAPP.start(new Stage(), "/gui/fxmlAtendente/TelaCadastroConsulta.fxml", "Marcar consulta");
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		gerenciadorHospitalAPP.start(new Stage(), "/gui/fxmlAtendente/TelaCadastroConsulta.fxml", "Marcar consulta");
     }
 
     public void remover() throws SemSelecaoException{
@@ -211,6 +216,22 @@ public class ControladorTelaConsulta implements Initializable{
         	txtHorario.setText("");
         	txtDiagDescricao.setText("");
     		txtMedicamentos.setText("");
+        }
+    }
+    
+    private boolean alertaConfirmacaoProsseguir() {
+    	Alert alerta = new Alert(AlertType.CONFIRMATION);
+        alerta.setTitle("Confirme");
+        alerta.setHeaderText("Deseja Prosseguir?");
+        alerta.setContentText("Pressione 'OK' para continuar ou 'Cancelar' para retornar!");
+        alerta.showAndWait();
+        ButtonType apertado = alerta.getResult();
+        
+        if(apertado.getText().contentEquals("OK")){
+        	return true;
+        }
+        else {
+        	return false;
         }
     }
 }

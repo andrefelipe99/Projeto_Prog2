@@ -6,23 +6,46 @@ import exceptions.DadosInvalidosException;
 import exceptions.MedicoExistenteException;
 import gui.tela.GerenciadorHospitalAPP;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import negocio.Especialidades;
 import negocio.Medico;
 
-public class ControladorTelaCadastroMedico {
+public class ControladorTelaCadastroMedico implements Initializable{
     @FXML private TextField txtNome;
     @FXML private TextField txtCpf;
     @FXML private TextField txtIdade;
     @FXML private TextField txtArea;
     @FXML private TextField txtCrm;
     @FXML private PasswordField txtSenha;
+    @FXML private ComboBox<String> selecionarEspecialidade;
     private Fachada fachada = Fachada.getInstance();
-
+    
+    ObservableList<String> especialidades;
+    
+    @Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		carregarComboBox();
+		
+	}
+    
+    private void carregarComboBox() {
+    	especialidades = FXCollections.observableArrayList();
+    	especialidades.addAll(Especialidades.listarEspecialidades());
+    	
+    	selecionarEspecialidade.setItems(especialidades);
+    }
+    
     @FXML
     void cadastrar(){
     	int idade = -1;
@@ -39,7 +62,7 @@ public class ControladorTelaCadastroMedico {
 		}	
         String nome = this.txtNome.getText();
         String senha = this.txtSenha.getText();
-        String area = this.txtArea.getText();
+        String area = selecionarEspecialidade.getSelectionModel().getSelectedItem();
 
         try {
         		Medico medico = new Medico(crm,area,senha,nome,idade,cpf);
