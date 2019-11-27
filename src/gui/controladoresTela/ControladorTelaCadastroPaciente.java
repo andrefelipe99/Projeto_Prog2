@@ -13,64 +13,67 @@ import javafx.stage.Stage;
 import negocio.Paciente;
 
 public class ControladorTelaCadastroPaciente {
-	@FXML private TextField textoNome;
-	@FXML private TextField textoIdade;
-	@FXML private TextField textoCPF;
-	@FXML private TextField textoEndereco;
-	@FXML private TextField textoTelefone;
 
-	private Fachada fachada = Fachada.getInstance();
+    @FXML
+    private TextField textoNome;
+    @FXML
+    private TextField textoIdade;
+    @FXML
+    private TextField textoCPF;
+    @FXML
+    private TextField textoEndereco;
+    @FXML
+    private TextField textoTelefone;
 
-	@FXML
-	void cadastrar() throws PacienteExistenteException, IOException {
-		String nome = this.textoNome.getText();
-		int idade = -1;
-		String cpf = "";
-		String telefone = "";
-		String endereco = "";
-		if(!textoIdade.getText().isEmpty() && textoIdade.getText().matches("^[0-9]*$")) {
-			idade = Integer.parseInt(this.textoIdade.getText());
-		}
-		if(textoCPF.getText().matches("^[0-9]*$") && textoCPF.getText().length() == 11) {
-			cpf = this.textoCPF.getText();
-		}
-		if(textoTelefone.getText().matches("^[0-9]*$") && textoTelefone.getText().length() == 9) {
-			telefone = this.textoTelefone.getText();
-		}
-		if(!textoEndereco.getText().isEmpty()) {
-			endereco = this.textoEndereco.getText();
-		}		
+    private Fachada fachada = Fachada.getInstance();
 
-		try{
-            	Paciente paciente = new Paciente(endereco, telefone, nome, idade, cpf);
-            	fachada.cadastrarPaciente(paciente);
-            	alertaConfirmacaoOK();
-            	voltar();
-		}	catch (DadosInvalidosException e) {
-			e.erro();
-		}	catch (PacienteExistenteException e) {
-			e.erro();
-		}	catch(Exception ioe){
-			ioe.printStackTrace();
-		}
-	}
+    @FXML
+    void cadastrar() throws PacienteExistenteException, IOException {
+        String nome = this.textoNome.getText();
+        int idade = -1;
+        String cpf = "";
+        String telefone = "";
+        String endereco = "";
+        if (!textoIdade.getText().isEmpty() && textoIdade.getText().matches("^[0-9]*$")) {
+            idade = Integer.parseInt(this.textoIdade.getText());
+        }
+        if (textoCPF.getText().matches("^[0-9]*$") && textoCPF.getText().length() == 11) {
+            cpf = this.textoCPF.getText();
+        }
+        if (textoTelefone.getText().matches("^[0-9]*$") && textoTelefone.getText().length() == 9) {
+            telefone = this.textoTelefone.getText();
+        }
+        if (!textoEndereco.getText().isEmpty()) {
+            endereco = this.textoEndereco.getText();
+        }
 
-	@FXML
-    void voltar() throws IOException{
-            GerenciadorHospitalAPP.getStage().close();
-            GerenciadorHospitalAPP atd = new GerenciadorHospitalAPP();
-            atd.start(new Stage(), "/gui/fxmlAtendente/TelaAtendente.fxml","Atendente");
+        try {
+            Paciente paciente = new Paciente(endereco, telefone, nome, idade, cpf);
+            fachada.cadastrarPaciente(paciente);
+            alertaConfirmacaoOK();
+            voltar();
+        } catch (DadosInvalidosException e) {
+            e.erro();
+        } catch (PacienteExistenteException e) {
+            e.erro();
+        } catch (Exception ioe) {
+            ioe.printStackTrace();
+        }
     }
 
-	public void alertaConfirmacaoOK() {
-    	Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    	alerta.setTitle("Informacao");
-    	alerta.setHeaderText("Salvo com sucesso!");
-    	alerta.setContentText("Pressione 'OK' para retornar!");
-    	alerta.showAndWait();
+    @FXML
+    void voltar() throws IOException {
+        GerenciadorHospitalAPP.getStage().close();
+        GerenciadorHospitalAPP atd = new GerenciadorHospitalAPP();
+        atd.start(new Stage(), "/gui/fxmlAtendente/TelaAtendente.fxml", "Atendente");
     }
 
-
-
+    public void alertaConfirmacaoOK() {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Informacao");
+        alerta.setHeaderText("Salvo com sucesso!");
+        alerta.setContentText("Pressione 'OK' para retornar!");
+        alerta.showAndWait();
+    }
 
 }

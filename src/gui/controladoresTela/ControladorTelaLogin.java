@@ -24,156 +24,150 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-public class ControladorTelaLogin implements Initializable{
+public class ControladorTelaLogin implements Initializable {
 
-    @FXML private TextField textoUser;
-    @FXML private PasswordField textoSenha;
-    @FXML private Button botaoLogin;
-    @FXML private Label textoAvisos;
-    
+    @FXML
+    private TextField textoUser;
+    @FXML
+    private PasswordField textoSenha;
+    @FXML
+    private Button botaoLogin;
+    @FXML
+    private Label textoAvisos;
+
     private Fachada fachada = Fachada.getInstance();
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		botaoLogin.setOnMouseClicked((MouseEvent me)->{
-			logar();
-		});
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        botaoLogin.setOnMouseClicked((MouseEvent me) -> {
+            logar();
+        });
 
-		botaoLogin.setOnKeyPressed((KeyEvent e)->{
-			if(e.getCode() == KeyCode.ENTER) {
-			logar();
-			}
-		});
+        botaoLogin.setOnKeyPressed((KeyEvent e) -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                logar();
+            }
+        });
 
-		textoSenha.setOnKeyPressed((KeyEvent e)->{
-			if(e.getCode() == KeyCode.ENTER) {
-			logar();
-			}
-		});
-	}
+        textoSenha.setOnKeyPressed((KeyEvent e) -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                logar();
+            }
+        });
+    }
 
-	public void logar(){
+    public void logar() {
 
-			try {
-                	BufferedReader br = new BufferedReader(new FileReader("src/dados/arquivos/logins.txt"));
-                	boolean logado = false;
-                	String caminho = "";
-                	String titulo = new String();
-                	String crm = new String();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/dados/arquivos/logins.txt"));
+            boolean logado = false;
+            String caminho = "";
+            String titulo = new String();
+            String crm = new String();
 
-				do {
-					String[] loginSenha = br.readLine().split(",");
+            do {
+                String[] loginSenha = br.readLine().split(",");
 
-					if(textoUser.getText().equals(loginSenha[0]) && textoSenha.getText().equals(loginSenha[1])) {
+                if (textoUser.getText().equals(loginSenha[0]) && textoSenha.getText().equals(loginSenha[1])) {
 
-						if(textoUser.getText().equals("admin")) {
-							titulo = "Administrador";
-							caminho = "/gui/fxmlAdmin/TelaAdmin.fxml";
-							if(fachada.medicoVazio()) {
-								fachada.recuperarMedicos();
-							}
-							logado = true;
+                    if (textoUser.getText().equals("admin")) {
+                        titulo = "Administrador";
+                        caminho = "/gui/fxmlAdmin/TelaAdmin.fxml";
+                        if (fachada.medicoVazio()) {
+                            fachada.recuperarMedicos();
+                        }
+                        logado = true;
 
-						}
-						else if(textoUser.getText().equals("atendente")) {
-							titulo = "Atendente";
-							caminho = "/gui/fxmlAtendente/TelaAtendente.fxml";
-							if(fachada.pacienteVazio()) {
-								fachada.recuperarPacientes();
-							}
-							logado = true;
+                    } else if (textoUser.getText().equals("atendente")) {
+                        titulo = "Atendente";
+                        caminho = "/gui/fxmlAtendente/TelaAtendente.fxml";
+                        if (fachada.pacienteVazio()) {
+                            fachada.recuperarPacientes();
+                        }
+                        logado = true;
 
-						}
-						else {
-							titulo = "Medico";
-							caminho = "/gui/fxmlMedico/TelaMedico.fxml";
-							crm = textoUser.getText();
-							setarMedicoLogado(crm);
-							
-							if(fachada.pacienteVazio()) {
-								fachada.recuperarPacientes();
-								
-							}
-							if(fachada.medicoVazio()) {
-								fachada.recuperarMedicos();
-							}
-							if(fachada.consultaVazia()) {
-								fachada.recuperarConsultas();
-							}
-							
-							logado = true;
+                    } else {
+                        titulo = "Medico";
+                        caminho = "/gui/fxmlMedico/TelaMedico.fxml";
+                        crm = textoUser.getText();
+                        setarMedicoLogado(crm);
 
+                        if (fachada.pacienteVazio()) {
+                            fachada.recuperarPacientes();
 
-						}
+                        }
+                        if (fachada.medicoVazio()) {
+                            fachada.recuperarMedicos();
+                        }
+                        if (fachada.consultaVazia()) {
+                            fachada.recuperarConsultas();
+                        }
 
-						if(!br.ready()) {
-							br.close();
-							logado = true;
+                        logado = true;
 
-						}
-					}
+                    }
 
+                    if (!br.ready()) {
+                        br.close();
+                        logado = true;
 
-				}while(!logado);
+                    }
+                }
 
-				if(!caminho.equals("")) {
-					GerenciadorHospitalAPP.getStage().close();
-					GerenciadorHospitalAPP gerenciadorHospitalAPP = new GerenciadorHospitalAPP();
-					gerenciadorHospitalAPP.start(new Stage(), caminho, titulo);
+            } while (!logado);
 
-				}
+            if (!caminho.equals("")) {
+                GerenciadorHospitalAPP.getStage().close();
+                GerenciadorHospitalAPP gerenciadorHospitalAPP = new GerenciadorHospitalAPP();
+                gerenciadorHospitalAPP.start(new Stage(), caminho, titulo);
 
-			}
-			catch(IOException ioe) {
-				Alert alerta = new Alert(AlertType.ERROR);
-				alerta.setTitle("ERRO");
-				alerta.setHeaderText("Erro nos Arquivos");
-				alerta.setContentText("Falha ao ler o arquivo dos logins, contate a administracao!");
-				alerta.show();
-			}
-			catch(Exception e) {
-				Alert alerta = new Alert(AlertType.ERROR);
-				alerta.setTitle("ERRO");
-				alerta.setHeaderText("Erro no login");
-				alerta.setContentText("Usuario ou senha invalidos!");
-				alerta.show();
-			}
+            }
 
+        } catch (IOException ioe) {
+            Alert alerta = new Alert(AlertType.ERROR);
+            alerta.setTitle("ERRO");
+            alerta.setHeaderText("Erro nos Arquivos");
+            alerta.setContentText("Falha ao ler o arquivo dos logins, contate a administracao!");
+            alerta.show();
+        } catch (Exception e) {
+            Alert alerta = new Alert(AlertType.ERROR);
+            alerta.setTitle("ERRO");
+            alerta.setHeaderText("Erro no login");
+            alerta.setContentText("Usuario ou senha invalidos!");
+            alerta.show();
+        }
 
-		}
+    }
 
-	public void setarMedicoLogado(String crm) throws IOException {
-		File f = new File("src/dados/arquivos/medicoLogado.txt");
+    public void setarMedicoLogado(String crm) throws IOException {
+        File f = new File("src/dados/arquivos/medicoLogado.txt");
 
-		if(f.exists()) {
-			f.delete();
-		}
+        if (f.exists()) {
+            f.delete();
+        }
 
-		f.createNewFile();
-		FileWriter fw = new FileWriter(f);
+        f.createNewFile();
+        FileWriter fw = new FileWriter(f);
 
-		fw.write(crm);
+        fw.write(crm);
 
-		fw.close();
-	}
+        fw.close();
+    }
 
+    public PasswordField getTextoSenha() {
+        return textoSenha;
+    }
 
+    public void setTextoSenha(PasswordField textoSenha) {
+        this.textoSenha = textoSenha;
+    }
 
-	public PasswordField getTextoSenha() {
-		return textoSenha;
-	}
-	public void setTextoSenha(PasswordField textoSenha) {
-		this.textoSenha = textoSenha;
-	}
+    public Button getBotaoLogin() {
+        return botaoLogin;
+    }
 
-
-	public Button getBotaoLogin() {
-		return botaoLogin;
-	}
-
-
-	public void setBotaoLogin(Button botaoLogin) {
-		this.botaoLogin = botaoLogin;
-	}
+    public void setBotaoLogin(Button botaoLogin) {
+        this.botaoLogin = botaoLogin;
+    }
 
 }

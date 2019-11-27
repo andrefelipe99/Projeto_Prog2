@@ -2,18 +2,28 @@ package negocio;
 
 import java.util.List;
 
-public class Medico extends Pessoa{
+public class Medico extends Pessoa {
 
     private String crm;
     private String area;
     private String senha;
     private List<Consulta> consultas;
+    private boolean ativo;
 
     public Medico(String crm, String area, String senha, String nome, int idade, String cpf) {
         super(nome, idade, cpf);
         this.crm = crm;
         this.area = area;
         this.senha = senha;
+        this.ativo = true;
+    }
+
+    public boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     public List<Consulta> getConsultas() {
@@ -49,17 +59,16 @@ public class Medico extends Pessoa{
     }
 
     @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((crm == null) ? 0 : crm.hashCode());
-		return result;
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((crm == null) ? 0 : crm.hashCode());
+        return result;
+    }
 
-   
-	public boolean equals(Medico m) {
-		return this.crm.equals(m.crm);
-	}
+    public boolean equals(Medico m) {
+        return this.crm.equals(m.crm);
+    }
 
     @Override
     public String toString() {

@@ -22,58 +22,60 @@ public class Fachada {
     private ControladorConsulta controladorConsulta;
     private ControladorDiagnostico controladorDiagnostico;
 
-    private Fachada(){
+    private Fachada() {
         controladorPaciente = new ControladorPaciente();
         controladorMedico = new ControladorMedico();
         controladorConsulta = new ControladorConsulta();
         controladorDiagnostico = new ControladorDiagnostico();
     }
 
-    public static Fachada getInstance(){
-        if(instance == null){
+    public static Fachada getInstance() {
+        if (instance == null) {
             instance = new Fachada();
         }
         return instance;
     }
 
     // PACIENTE
-
     public void cadastrarPaciente(Paciente p) throws DadosInvalidosException, PacienteExistenteException {
         controladorPaciente.cadastrarPaciente(p);
     }
 
     public void removerPaciente(Paciente p) {
         controladorPaciente.removerPaciente(p);
+        List<Consulta> consultas = this.listarConsultasPaciente(p);
+        for (Consulta c : consultas) {
+            this.removerConsulta(c);
+        }
     }
 
     public Paciente buscarPaciente(String cpf) {
-		return controladorPaciente.buscarPaciente(cpf);
-	}
+        return controladorPaciente.buscarPaciente(cpf);
+    }
 
-	public List<Paciente> listarPacientes() {
+    public List<Paciente> listarPacientes() {
         return controladorPaciente.listarPacientes();
     }
-	
-	public void recuperarPacientes() throws ClassNotFoundException, IOException {
-		controladorPaciente.recuperarPacientes();
-	}
-	
-	public void salvarPacientes() throws IOException {
-		controladorPaciente.salvarPacientes();
-	}
-	
-	public boolean pacienteVazio() {
-		return controladorPaciente.pacienteVazio();
-	}
+
+    public void recuperarPacientes() throws ClassNotFoundException, IOException {
+        controladorPaciente.recuperarPacientes();
+    }
+
+    public void salvarPacientes() throws IOException {
+        controladorPaciente.salvarPacientes();
+    }
+
+    public boolean pacienteVazio() {
+        return controladorPaciente.pacienteVazio();
+    }
 
     // MEDICO
-
     public void cadastrarMedico(Medico m) throws DadosInvalidosException, MedicoExistenteException, IOException {
         controladorMedico.cadastrarMedico(m);
     }
 
     public void removerMedico(Medico m) throws IOException {
-        controladorMedico.removerMedico(m);
+        controladorMedico.removerMedico(m, this.listarConsultasMedico(m));
     }
 
     public List<Medico> listarMedicos() {
@@ -89,23 +91,22 @@ public class Fachada {
     }
 
     public Medico buscarMedico(String crm) {
-    	return controladorMedico.buscarMedico(crm);
+        return controladorMedico.buscarMedico(crm);
     }
-    
+
     public void recuperarMedicos() throws ClassNotFoundException, IOException {
-    	controladorMedico.recuperarMedicos();
+        controladorMedico.recuperarMedicos();
     }
-    
+
     public void salvarMedicos() throws IOException {
-    	controladorMedico.salvarMedicos();
+        controladorMedico.salvarMedicos();
     }
-    
+
     public boolean medicoVazio() {
-		return controladorMedico.medicoVazio();
-	}
+        return controladorMedico.medicoVazio();
+    }
 
     // CONSULTA
-
     public void cadastrarConsulta(Consulta c) throws DadosInvalidosException, ConsultaJaExisteException {
         controladorConsulta.cadastrarConsulta(c);
     }
@@ -131,26 +132,24 @@ public class Fachada {
     }
 
     public Consulta consultaDoMomento(LocalDateTime horaDoSistema, Medico m) {
-    	return controladorConsulta.consultaDoMomento(horaDoSistema, m);
+        return controladorConsulta.consultaDoMomento(horaDoSistema, m);
     }
-    
-    public void recuperarConsultas() throws ClassNotFoundException, IOException {
-    	controladorConsulta.recuperarConsultas();
-    }
-    
-    public void salvarConsultas() throws IOException {
-    	controladorConsulta.salvarConsultas();
-    }
-    
-    public boolean consultaVazia() {
-		return controladorConsulta.consultaVazia();
-	}
 
+    public void recuperarConsultas() throws ClassNotFoundException, IOException {
+        controladorConsulta.recuperarConsultas();
+    }
+
+    public void salvarConsultas() throws IOException {
+        controladorConsulta.salvarConsultas();
+    }
+
+    public boolean consultaVazia() {
+        return controladorConsulta.consultaVazia();
+    }
 
     // DIAGNOSTICO
-
     public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
-    	controladorDiagnostico.cadastrarDiagnostico(dg, c);
+        controladorDiagnostico.cadastrarDiagnostico(dg, c);
     }
 
     public Diagnostico buscarDiagnosticoPorConsulta(Consulta c) {
@@ -160,6 +159,5 @@ public class Fachada {
     public List<Diagnostico> listarDiagnosticoPorConsulta(Consulta c) {
         return controladorDiagnostico.listarDiagnosticoPorConsulta(c);
     }
-
 
 }

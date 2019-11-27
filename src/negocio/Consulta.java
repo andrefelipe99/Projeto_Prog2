@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Consulta implements Serializable{
+public class Consulta implements Serializable {
 
     private int id;
     private Medico medico;
@@ -24,8 +24,8 @@ public class Consulta implements Serializable{
         this.dataHoraFim = dataHoraFim;
         this.diagnostico = diagnostico;
     }
-    
-    public String getNomePaciente(){
+
+    public String getNomePaciente() {
         return paciente != null ? paciente.getNome() : null;
     }
 
@@ -66,9 +66,9 @@ public class Consulta implements Serializable{
     }
 
     public String horarioConsulta() {
-    	DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-    	String retorno = this.getDataHoraInicio().format(formato) + "";
-    	return retorno;
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String retorno = this.getDataHoraInicio().format(formato) + "";
+        return retorno;
     }
 
     public void setDataHoraInicio(LocalDateTime dataHoraInicio) {
@@ -97,16 +97,16 @@ public class Consulta implements Serializable{
     }
 
     public boolean equals(Consulta c) {
-    	if(this.id == c.getId()) {
-        	if(this.paciente.equals(c.getPaciente())) {
-        		if((this.medico.equals(c.getMedico()))){
-        			if(this.dataHoraInicio.isEqual(c.dataHoraInicio)) {
-        				return true;
-        			}
-        		}
-        	}
-    	}
+        if (this.id == c.getId()) {
+            if (this.paciente.equals(c.getPaciente())) {
+                if ((this.medico.equals(c.getMedico()))) {
+                    if (this.dataHoraInicio.isEqual(c.dataHoraInicio)) {
+                        return true;
+                    }
+                }
+            }
+        }
 
-    	return false;
+        return false;
     }
 }

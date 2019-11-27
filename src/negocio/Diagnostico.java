@@ -2,13 +2,13 @@ package negocio;
 
 import java.io.Serializable;
 
-public class Diagnostico implements Serializable{
-	
+public class Diagnostico implements Serializable {
+
     private String descricao;
     private String medicamentos;
 
     public Diagnostico(String descricao, String medicamentos) {
-    	this.descricao = descricao;
+        this.descricao = descricao;
         this.medicamentos = medicamentos;
     }
 

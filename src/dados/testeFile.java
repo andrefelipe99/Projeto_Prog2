@@ -28,7 +28,7 @@ public class testeFile {
 			medico.cadastrarMedico(m1);
 			medico.cadastrarMedico(m2);
 			medico.cadastrarMedico(m3);
-			medico.removerMedico(m3);
+			//medico.removerMedico(m3);
 		} catch (MedicoExistenteException | DadosInvalidosException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,8 +49,8 @@ public class testeFile {
 			e.printStackTrace();
 		}
 		
-		Consulta c = new Consulta(0, m2, p, "", LocalDateTime.now().plusMinutes(30), LocalDateTime.now().plusMinutes(40));
-		Consulta c1 = new Consulta(1, m2, p, "", LocalDateTime.now().plusMinutes(10), LocalDateTime.now().plusMinutes(20));
+		Consulta c = new Consulta(0, m2, p, "", LocalDateTime.now().plusMinutes(30), LocalDateTime.now().plusMinutes(40), null);
+		Consulta c1 = new Consulta(1, m2, p, "", LocalDateTime.now().plusMinutes(10), LocalDateTime.now().plusMinutes(20), null);
 		
 		RepositorioConsultaFile consultas = new RepositorioConsultaFile();
 		RepositorioConsulta consulta = new RepositorioConsulta();

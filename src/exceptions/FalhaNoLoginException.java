@@ -1,5 +1,5 @@
 package exceptions;
 
-public class FalhaNoLoginException extends Exception{
-    
+public class FalhaNoLoginException extends Exception {
+
 }

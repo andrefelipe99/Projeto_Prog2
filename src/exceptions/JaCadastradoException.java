@@ -1,5 +1,5 @@
 package exceptions;
 
-public class JaCadastradoException extends Exception{
-    
+public class JaCadastradoException extends Exception {
+
 }
