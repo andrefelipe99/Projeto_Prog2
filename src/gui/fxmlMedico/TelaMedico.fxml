@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controladoresTela.ControladorTelaMedico">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controladoresTela.ControladorTelaMedico">
    <left>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="358.0" BorderPane.alignment="CENTER">
          <children>
@@ -32,7 +32,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="90.0" layoutY="14.0" prefHeight="40.0" prefWidth="340.0" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="14.0">
+            <Label fx:id="campoMedNome" layoutX="90.0" layoutY="14.0" prefHeight="40.0" prefWidth="340.0" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="14.0">
                <font>
                   <Font size="18.0" />
                </font>
@@ -43,11 +43,6 @@
                </font>
             </Label>
             <Label fx:id="campoMedIdade" layoutX="90.0" layoutY="60.0" prefHeight="40.0" prefWidth="340.0" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="60.0">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="campoMedAvisos" layoutX="19.0" layoutY="134.0" prefHeight="113.0" prefWidth="402.0" textFill="#fd0202">
                <font>
                   <Font size="18.0" />
                </font>

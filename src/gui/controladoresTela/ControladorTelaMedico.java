@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import controladores.Fachada;
+import exceptions.ForaDoHorarioException;
 import exceptions.SemSelecaoException;
 import gui.tela.GerenciadorHospitalAPP;
 import javafx.beans.property.SimpleStringProperty;
@@ -39,7 +40,7 @@ public class ControladorTelaMedico implements Initializable{
 	@FXML private TableColumn<Consulta, String> colunaPaciente;
     @FXML private TableColumn<Consulta, String> colunaHorario;
     @FXML private Label campoMedIdade;
-    @FXML private Label campoMedAvisos;
+    @FXML private Label campoMedNome;
     @FXML private Button botaoDiagnostico;
     @FXML private Label campoMedHora;
     @FXML private Button botaoSair;
@@ -64,6 +65,8 @@ public class ControladorTelaMedico implements Initializable{
 					e1.erro();
 				} catch (IOException e1) {
 					e1.printStackTrace();
+				} catch (ForaDoHorarioException e1) {
+					e1.erro();
 				}
     			
     		});
@@ -75,24 +78,33 @@ public class ControladorTelaMedico implements Initializable{
 						e1.erro();
 					} catch (IOException e1) {
 						e1.printStackTrace();
+					} catch (ForaDoHorarioException e1) {
+						e1.erro();;
 					}
     			}
     		});
-
-                carregarTableMedico();
+    		
+    		atualizarHora();
+    		carregarTableMedico();
+    		mostrarDetalhesPaciente(null);
+            tabelaConsultasMed.getSelectionModel().selectedItemProperty()
+            .addListener((observable, oldValue, newValue) -> mostrarDetalhesPaciente(newValue));
 	}
 
-    public String atualizarHora() {
+    private String atualizarHora() {
     	LocalDateTime horaDoSistema = LocalDateTime.now();
     	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     	return horaDoSistema.format(formatador);
     }
 
-    public void abrirTelaDiagnostico() throws SemSelecaoException, IOException {
+    private void abrirTelaDiagnostico() throws SemSelecaoException, IOException, ForaDoHorarioException {
     	Consulta c = tabelaConsultasMed.getSelectionModel().getSelectedItem();
     	
     	if(c == null) {
     		throw new SemSelecaoException();
+    	}
+    	else if(c.getDataHoraInicio().isAfter(LocalDateTime.now())) {
+    		throw new ForaDoHorarioException();
     	}
     	
     	salvarConsultaSelecionada(c);
@@ -143,7 +155,7 @@ public class ControladorTelaMedico implements Initializable{
 		return medicoLogado;
     }
 
-    public void carregarTableMedico(){
+    private void carregarTableMedico(){
             colunaPaciente.setCellValueFactory(new PropertyValueFactory<Consulta, String>("nomePaciente"));
             colunaHorario.setCellValueFactory((TableColumn.CellDataFeatures<Consulta, String> c)->
         	new SimpleStringProperty(c.getValue().horarioConsulta()));
@@ -151,6 +163,18 @@ public class ControladorTelaMedico implements Initializable{
             listaConsultas = FXCollections.observableArrayList();
             listaConsultas.addAll(fachada.listarConsultasMedico(fachada.buscarMedico(medicoLogado())));
             tabelaConsultasMed.setItems(listaConsultas);
+     }
+    
+    private void mostrarDetalhesPaciente(Consulta newValue) {
+        atualizarHora();
+    	if (newValue != null) {
+            campoMedNome.setText(newValue.getPaciente().getNome());
+            campoMedIdade.setText(newValue.getPaciente().getIdade() + "");
+
+        } else {
+        	campoMedNome.setText("");
+        	campoMedIdade.setText("");
         }
+    }
 
 }
