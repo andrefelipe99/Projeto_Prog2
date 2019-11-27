@@ -15,14 +15,14 @@ public class Consulta implements Serializable{
     private LocalDateTime dataHoraFim;
     private Diagnostico diagnostico;
 
-    public Consulta(int id, Medico medico, Paciente paciente, String descricao, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim) {
+    public Consulta(int id, Medico medico, Paciente paciente, String descricao, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim, Diagnostico diagnostico) {
         this.id = id;
         this.medico = medico;
         this.paciente = paciente;
         this.descricao = descricao;
         this.dataHoraInicio = dataHoraInicio;
         this.dataHoraFim = dataHoraFim;
-        this.diagnostico = null;
+        this.diagnostico = diagnostico;
     }
     
     public String getNomePaciente(){

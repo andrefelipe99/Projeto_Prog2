@@ -84,7 +84,7 @@ public class RepositorioConsultaFile{
 		if(numeroConsultas != 0) {
 			lerNoArquivo = new ObjectInputStream(infoLer);
 			
-			for(int i = 0; i< numeroConsultas; i++){
+			for(int i = 0; i < numeroConsultas; i++){
 				consulta = (Consulta) lerNoArquivo.readObject();
 				consultasRecuperadas.add(consulta);
 			}

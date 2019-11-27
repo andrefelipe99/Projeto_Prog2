@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import controladores.Fachada;
+import exceptions.SemSelecaoException;
 import gui.tela.GerenciadorHospitalAPP;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -99,11 +100,20 @@ public class ControladorTelaConsulta implements Initializable{
 			}
 		});
 		botaoCancelaConsulta.setOnMouseClicked((MouseEvent e)->{
-			remover();
+			try {
+				remover();
+			} catch (SemSelecaoException e1) {
+				e1.erro();
+			}
 		});
 		botaoCancelaConsulta.setOnKeyPressed((KeyEvent e)->{
 			if(e.getCode() == KeyCode.ENTER) {
-				remover();
+				try {
+					remover();
+				} catch (SemSelecaoException e1) {
+					e1.erro();
+					
+				}
 			}
 		});
 
@@ -123,7 +133,7 @@ public class ControladorTelaConsulta implements Initializable{
 		}
     }
 
-    public void remover(){
+    public void remover() throws SemSelecaoException{
         Consulta consultaSelecionada = tabelaConsultas.getSelectionModel().getSelectedItem();
 
         if(consultaSelecionada != null){
@@ -132,11 +142,7 @@ public class ControladorTelaConsulta implements Initializable{
             alertaConfirmacaoOK();
             atualizarTabela();
         } else{
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Aviso");
-            alert.setHeaderText("Nenhuma consulta selecionada!");
-            alert.setContentText("Por favor, selecione uma consulta na tabela!");
-            alert.show();
+            throw new SemSelecaoException();
         }
 
     }

@@ -1,4 +1,2 @@
 admin,admin
 atendente,atendente
-12345,1234
-12345,1234

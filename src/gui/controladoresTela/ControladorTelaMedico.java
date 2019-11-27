@@ -1,8 +1,11 @@
 package gui.controladoresTela;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -10,7 +13,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import controladores.Fachada;
+import exceptions.SemSelecaoException;
 import gui.tela.GerenciadorHospitalAPP;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -32,7 +37,7 @@ public class ControladorTelaMedico implements Initializable{
 	private Fachada fachada = Fachada.getInstance();
 	@FXML private TableView<Consulta> tabelaConsultasMed;
 	@FXML private TableColumn<Consulta, String> colunaPaciente;
-    @FXML private TableColumn<Consulta, LocalDateTime> colunaHorario;
+    @FXML private TableColumn<Consulta, String> colunaHorario;
     @FXML private Label campoMedIdade;
     @FXML private Label campoMedAvisos;
     @FXML private Button botaoDiagnostico;
@@ -53,11 +58,24 @@ public class ControladorTelaMedico implements Initializable{
     		});
 
     		botaoDiagnostico.setOnMouseClicked((MouseEvent e)->{
-    			abrirTelaDiagnostico();
+    			try {
+					abrirTelaDiagnostico();
+				} catch (SemSelecaoException e1) {
+					e1.erro();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+    			
     		});
     		botaoDiagnostico.setOnKeyPressed((KeyEvent e)->{
     			if(e.getCode() == KeyCode.ENTER) {
-    				abrirTelaDiagnostico();
+    				try {
+						abrirTelaDiagnostico();
+					} catch (SemSelecaoException e1) {
+						e1.erro();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
     			}
     		});
 
@@ -70,7 +88,15 @@ public class ControladorTelaMedico implements Initializable{
     	return horaDoSistema.format(formatador);
     }
 
-    public void abrirTelaDiagnostico() {
+    public void abrirTelaDiagnostico() throws SemSelecaoException, IOException {
+    	Consulta c = tabelaConsultasMed.getSelectionModel().getSelectedItem();
+    	
+    	if(c == null) {
+    		throw new SemSelecaoException();
+    	}
+    	
+    	salvarConsultaSelecionada(c);
+    	
     	GerenciadorHospitalAPP.getStage().close();
 		GerenciadorHospitalAPP novaTela = new GerenciadorHospitalAPP();
 
@@ -80,8 +106,24 @@ public class ControladorTelaMedico implements Initializable{
 
 		}
     }
-
-    public String medicoLogado() {
+    
+    private void salvarConsultaSelecionada(Consulta c) throws IOException {
+    	File consultaSelecionada = new File("src/dados/arquivos/consultaSelecionada.txt");
+    	
+    	if(!consultaSelecionada.exists()) {
+    		consultaSelecionada.createNewFile();
+    	}
+    	
+    	BufferedWriter escritor = new BufferedWriter(new FileWriter(consultaSelecionada));
+    	escritor.write(Integer.toString(c.getId()));
+    	
+    	escritor.flush();
+    	
+    	escritor.close();
+    	
+    }
+    
+    private String medicoLogado() {
     	String medicoLogado = new String();
 
     	try {
@@ -103,7 +145,8 @@ public class ControladorTelaMedico implements Initializable{
 
     public void carregarTableMedico(){
             colunaPaciente.setCellValueFactory(new PropertyValueFactory<Consulta, String>("nomePaciente"));
-            colunaHorario.setCellValueFactory(new PropertyValueFactory<Consulta, LocalDateTime>("dataHoraInicio"));
+            colunaHorario.setCellValueFactory((TableColumn.CellDataFeatures<Consulta, String> c)->
+        	new SimpleStringProperty(c.getValue().horarioConsulta()));
             
             listaConsultas = FXCollections.observableArrayList();
             listaConsultas.addAll(fachada.listarConsultasMedico(fachada.buscarMedico(medicoLogado())));

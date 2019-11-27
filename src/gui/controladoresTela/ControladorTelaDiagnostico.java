@@ -1,15 +1,15 @@
 package gui.controladoresTela;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import controladores.Fachada;
-import exceptions.SemConsultaNoMomentoException;
+import exceptions.SemSelecaoException;
 import gui.tela.GerenciadorHospitalAPP;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,12 +44,12 @@ public class ControladorTelaDiagnostico implements Initializable{
 		botaoSalvar.setOnMouseClicked((MouseEvent e)->{
 			try {
 				cadastrarDiagnostico();
-			} catch (SemConsultaNoMomentoException e1) {
-				Alert alerta = new Alert(AlertType.WARNING);
-		    	alerta.setTitle("Aviso");
-		    	alerta.setHeaderText("Fora do horario da consulta!");
-		    	alerta.setContentText("So e possivel salvar um diagnostico no horario da consulta. Tente novamente mais tarde!");
-		    	alerta.show();
+			} catch (SemSelecaoException e1) {
+				e1.erro();
+			} catch (NumberFormatException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
 
 		});
@@ -57,20 +57,25 @@ public class ControladorTelaDiagnostico implements Initializable{
 			if(e.getCode() == KeyCode.ENTER) {
 				try {
 					cadastrarDiagnostico();
-				} catch (SemConsultaNoMomentoException e1) {
+				} catch (SemSelecaoException e1) {
 					e1.erro();
+				} catch (NumberFormatException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
-
 			}
 		});
 	}
 
-    public void cadastrarDiagnostico() throws SemConsultaNoMomentoException {
-    	Consulta c = Fachada.getInstance().consultaDoMomento(LocalDateTime.now(), Fachada.getInstance().buscarMedico(medicoLogado()));
+    public void cadastrarDiagnostico() throws NumberFormatException, IOException, SemSelecaoException {
+    	File consultaSelecionada = new File("src/dados/arquivos/consultaSelecionada.txt");
+    	BufferedReader leitor = new BufferedReader(new FileReader(consultaSelecionada));
+    	
+    	Consulta c = Fachada.getInstance().buscarConsultaPorId(Integer.parseInt(leitor.readLine()));
 
-    	if(c == null) {
-    		throw new SemConsultaNoMomentoException();
-    	}
+    	leitor.close();
+    
     	Diagnostico d = c.getDiagnostico();
 
     	d.setDescricao(areaTextoDiag.getText());

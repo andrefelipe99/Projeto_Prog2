@@ -1,6 +1,7 @@
 package gui.controladoresTela;
 
 import controladores.Fachada;
+import exceptions.SemSelecaoException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -82,8 +83,9 @@ public class ControladorTelaAdmin implements Initializable{
                     try {
 						remover();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
+					} catch (SemSelecaoException e1) {
+						e1.erro();
 					}
                 });
 
@@ -92,8 +94,9 @@ public class ControladorTelaAdmin implements Initializable{
                         try {
 							remover();
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
+						} catch (SemSelecaoException e1) {
+							e1.erro();
 						}
                     }
                 });
@@ -120,7 +123,7 @@ public class ControladorTelaAdmin implements Initializable{
             tblMedico.setItems(listaMedicos);
         }
 
-        public void remover() throws IOException{
+        public void remover() throws IOException, SemSelecaoException{
             Medico medicoSelecionado = tblMedico.getSelectionModel().getSelectedItem();
 
             if(medicoSelecionado != null){
@@ -129,11 +132,7 @@ public class ControladorTelaAdmin implements Initializable{
                 alertaConfirmacaoOK();
                 atualizarTabela();
             } else{
-                Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("Aviso");
-                alert.setHeaderText("Nenhum medico selecionado!");
-                alert.setContentText("Por favor, selecione um medico na tabela!");
-                alert.show();
+                throw new SemSelecaoException();
             }
 
         }

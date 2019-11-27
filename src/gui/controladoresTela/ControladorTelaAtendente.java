@@ -51,9 +51,6 @@ public class ControladorTelaAtendente implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	botaoHistorico.setOnMouseClicked((MouseEvent e)->{
     		try {
-    			if(fachada.consultaVazia()) {
-    				fachada.recuperarConsultas();
-    			}
     			
 				abrirTelaConsulta();
 			
@@ -67,10 +64,6 @@ public class ControladorTelaAtendente implements Initializable{
     	botaoHistorico.setOnKeyPressed((KeyEvent e)->{
     		if(e.getCode() == KeyCode.ENTER) {
     			try {
-    				
-    				if(fachada.consultaVazia()) {
-        				fachada.recuperarConsultas();
-        			}
     				
     				abrirTelaConsulta();
 					
@@ -144,8 +137,15 @@ public class ControladorTelaAtendente implements Initializable{
 
     }
 
-    public void abrirTelaConsulta() throws IOException {
+    public void abrirTelaConsulta() throws IOException, ClassNotFoundException {
     	Paciente pacienteSelecionado = tblPaciente.getSelectionModel().getSelectedItem();
+    	
+    	if(fachada.medicoVazio()) {
+			fachada.recuperarMedicos();
+		}
+    	if(fachada.consultaVazia()) {
+			fachada.recuperarConsultas();
+		}
 
     	if(pacienteSelecionado != null) {
     		setarPacienteSelecionado(pacienteSelecionado.getCpf());

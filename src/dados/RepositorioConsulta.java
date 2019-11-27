@@ -57,7 +57,7 @@ public class RepositorioConsulta implements IRepositorioConsulta {
 		List<Consulta> consultasPaciente = new ArrayList<Consulta>();
 
 		for(Consulta c: consultas) {
-			if(c.getPaciente() == p) {
+			if(c.getPaciente().equals(p)) {
 				consultasPaciente.add(c);
 			}
 		}
@@ -70,7 +70,7 @@ public class RepositorioConsulta implements IRepositorioConsulta {
 		List<Consulta> consultasMedico = new ArrayList<Consulta>();
 
 		for(Consulta c: consultas) {
-			if(c.getMedico() == m) {
+			if(c.getMedico().equals(m)) {
 				consultasMedico.add(c);
 			}
 		}

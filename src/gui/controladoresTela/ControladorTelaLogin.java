@@ -94,6 +94,9 @@ public class ControladorTelaLogin implements Initializable{
 								fachada.recuperarPacientes();
 								
 							}
+							if(fachada.medicoVazio()) {
+								fachada.recuperarMedicos();
+							}
 							if(fachada.consultaVazia()) {
 								fachada.recuperarConsultas();
 							}
@@ -127,7 +130,6 @@ public class ControladorTelaLogin implements Initializable{
 				alerta.setHeaderText("Erro nos Arquivos");
 				alerta.setContentText("Falha ao ler o arquivo dos logins, contate a administracao!");
 				alerta.show();
-				ioe.printStackTrace();
 			}
 			catch(Exception e) {
 				Alert alerta = new Alert(AlertType.ERROR);
@@ -135,7 +137,6 @@ public class ControladorTelaLogin implements Initializable{
 				alerta.setHeaderText("Erro no login");
 				alerta.setContentText("Usuario ou senha invalidos!");
 				alerta.show();
-				e.printStackTrace();
 			}
 
 

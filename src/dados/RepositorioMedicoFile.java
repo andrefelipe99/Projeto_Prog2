@@ -87,6 +87,7 @@ public class RepositorioMedicoFile {
 		
 		if(numeroMedicos != 0) {
 			lerNoArquivo = new ObjectInputStream(infoLer);
+			
 			for(int i = 0; i < numeroMedicos; i++) {
 				medico = (Medico) lerNoArquivo.readObject();
 				medicosRecuperados.add(medico);
