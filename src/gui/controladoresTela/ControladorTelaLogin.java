@@ -73,8 +73,15 @@ public class ControladorTelaLogin implements Initializable {
                     if (textoUser.getText().equals("admin")) {
                         titulo = "Administrador";
                         caminho = "/gui/fxmlAdmin/TelaAdmin.fxml";
+                        if (fachada.pacienteVazio()) {
+                            fachada.recuperarPacientes();
+
+                        }
                         if (fachada.medicoVazio()) {
                             fachada.recuperarMedicos();
+                        }
+                        if (fachada.consultaVazia()) {
+                            fachada.recuperarConsultas();
                         }
                         logado = true;
 
@@ -83,6 +90,13 @@ public class ControladorTelaLogin implements Initializable {
                         caminho = "/gui/fxmlAtendente/TelaAtendente.fxml";
                         if (fachada.pacienteVazio()) {
                             fachada.recuperarPacientes();
+
+                        }
+                        if (fachada.medicoVazio()) {
+                            fachada.recuperarMedicos();
+                        }
+                        if (fachada.consultaVazia()) {
+                            fachada.recuperarConsultas();
                         }
                         logado = true;
 

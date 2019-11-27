@@ -2,6 +2,7 @@ package gui.controladoresTela;
 
 import controladores.Fachada;
 import exceptions.DadosInvalidosException;
+import exceptions.JaCadastradoException;
 import exceptions.MedicoExistenteException;
 import gui.tela.GerenciadorHospitalAPP;
 import java.io.IOException;
@@ -76,11 +77,14 @@ public class ControladorTelaCadastroMedico implements Initializable {
             fachada.cadastrarMedico(medico);
             alertaConfirmacaoOK();
             voltar();
+            fachada.salvarMedicos();
         } catch (DadosInvalidosException e) {
             e.erro();
         } catch (MedicoExistenteException e) {
             e.erro();
-        } catch (IOException ioe) {
+        } catch (JaCadastradoException e) {
+			e.erro();
+		} catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }

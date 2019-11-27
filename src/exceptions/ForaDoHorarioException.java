@@ -8,8 +8,8 @@ public class ForaDoHorarioException extends Exception {
     public void erro() {
         Alert alerta = new Alert(AlertType.WARNING);
         alerta.setTitle("Aviso");
-        alerta.setHeaderText("Fora do Horário da Consulta!");
-        alerta.setContentText("Paciente ainda não foi atendido. A consulta está marcada para mais tarde!");
+        alerta.setHeaderText("Fora do Horario da consulta!");
+        alerta.setContentText("Paciente ainda nao foi atendido. A consulta esta marcada para mais tarde!");
         alerta.showAndWait();
     }
 }

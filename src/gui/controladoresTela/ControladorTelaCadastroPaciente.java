@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import controladores.Fachada;
 import exceptions.DadosInvalidosException;
+import exceptions.JaCadastradoException;
 import exceptions.PacienteExistenteException;
 import gui.tela.GerenciadorHospitalAPP;
 import javafx.fxml.FXML;
@@ -52,9 +53,12 @@ public class ControladorTelaCadastroPaciente {
             fachada.cadastrarPaciente(paciente);
             alertaConfirmacaoOK();
             voltar();
+            fachada.salvarPacientes();
         } catch (DadosInvalidosException e) {
             e.erro();
         } catch (PacienteExistenteException e) {
+            e.erro();
+        } catch (JaCadastradoException e) {
             e.erro();
         } catch (Exception ioe) {
             ioe.printStackTrace();

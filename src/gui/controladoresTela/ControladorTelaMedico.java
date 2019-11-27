@@ -59,10 +59,20 @@ public class ControladorTelaMedico implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         botaoSair.setOnMouseClicked((MouseEvent e) -> {
             GerenciadorHospitalAPP.fechar();
+            try {
+				fachada.salvarConsultas();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
         });
         botaoSair.setOnKeyPressed((KeyEvent e) -> {
             if (e.getCode() == KeyCode.ENTER) {
                 GerenciadorHospitalAPP.fechar();
+                try {
+					fachada.salvarConsultas();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
             }
         });
 

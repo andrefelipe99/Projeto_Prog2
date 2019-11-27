@@ -59,11 +59,9 @@ public class RepositorioMedico implements IRepositorioMedico {
         if (consultas.isEmpty() || consultas == null) {
             removerLogin(m);
             medicos.remove(m);
-            System.out.println("removeu tudo");
         } else {
             removerLogin(m);
             m.setAtivo(false);
-            System.out.println("removeu false");
         }
 
     }

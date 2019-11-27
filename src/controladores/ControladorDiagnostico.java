@@ -1,6 +1,9 @@
 package controladores;
 
 import dados.RepositorioDiagnostico;
+import exceptions.DadosInvalidosException;
+import exceptions.DiagnosticoJaExiste;
+
 import java.util.List;
 import negocio.Consulta;
 import negocio.Diagnostico;
@@ -14,11 +17,11 @@ public class ControladorDiagnostico implements IControladorDiagnostico {
     }
 
     @Override
-    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
-        if (dg != null && c.getDiagnostico() == null) {
+    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) throws DiagnosticoJaExiste, DadosInvalidosException {
+        if (dg != null && !dg.getDescricao().isEmpty() && !dg.getMedicamentos().isEmpty()) {
             diagnostico.cadastrarDiagnostico(dg, c);
-        } else { //exception dados invalidos
-            System.out.println("Dados invalidos diagnostico");
+        } else {
+            throw new DadosInvalidosException();
         }
     }
 

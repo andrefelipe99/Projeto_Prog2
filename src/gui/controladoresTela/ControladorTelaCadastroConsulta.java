@@ -27,7 +27,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import negocio.Consulta;
-import negocio.Diagnostico;
 import negocio.Medico;
 import negocio.Paciente;
 
@@ -103,7 +102,7 @@ public class ControladorTelaCadastroConsulta implements Initializable {
         }
         try {
             Consulta consulta = new Consulta(ID, tabelaMedicos.getSelectionModel().getSelectedItem(), pacienteSelecionado(),
-                     descricao, LocalDateTime.of(date, time), LocalDateTime.of(date, time.plusMinutes(20)), new Diagnostico(null, null));
+                     descricao, LocalDateTime.of(date, time), LocalDateTime.of(date, time.plusMinutes(20)));
             fachada.cadastrarConsulta(consulta);
             alertaConfirmacaoOK();
             voltar();

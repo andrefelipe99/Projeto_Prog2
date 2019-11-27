@@ -2,10 +2,13 @@ package controladores;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.ConsultaJaExisteException;
 import exceptions.DadosInvalidosException;
+import exceptions.DiagnosticoJaExiste;
+import exceptions.JaCadastradoException;
 import exceptions.MedicoExistenteException;
 import exceptions.PacienteExistenteException;
 import negocio.Consulta;
@@ -37,8 +40,19 @@ public class Fachada {
     }
 
     // PACIENTE
-    public void cadastrarPaciente(Paciente p) throws DadosInvalidosException, PacienteExistenteException {
-        controladorPaciente.cadastrarPaciente(p);
+    public void cadastrarPaciente(Paciente p) throws DadosInvalidosException, PacienteExistenteException, JaCadastradoException {
+    	List<Medico> medicos = new ArrayList<>();
+    	medicos.addAll(this.listarMedicos());
+    	int contador = 0;
+    	for(Medico m : medicos) {
+    		if(m.getCpf().equalsIgnoreCase(p.getCpf())) {
+    			contador++;
+    			throw new JaCadastradoException();
+    		}
+    	}
+    	if(contador == 0) {
+    		controladorPaciente.cadastrarPaciente(p);
+    	}
     }
 
     public void removerPaciente(Paciente p) {
@@ -70,8 +84,19 @@ public class Fachada {
     }
 
     // MEDICO
-    public void cadastrarMedico(Medico m) throws DadosInvalidosException, MedicoExistenteException, IOException {
-        controladorMedico.cadastrarMedico(m);
+    public void cadastrarMedico(Medico m) throws DadosInvalidosException, MedicoExistenteException, IOException, JaCadastradoException {
+    	List<Paciente> pacientes = new ArrayList<>();
+    	pacientes.addAll(this.listarPacientes());
+    	int contador = 0;
+    	for(Paciente p : pacientes) {
+    		if(p.getCpf().equalsIgnoreCase(m.getCpf())) {
+    			contador++;
+    			throw new JaCadastradoException();
+    		}
+    	}
+    	if(contador == 0) {
+    		controladorMedico.cadastrarMedico(m);
+    	}
     }
 
     public void removerMedico(Medico m) throws IOException {
@@ -148,7 +173,7 @@ public class Fachada {
     }
 
     // DIAGNOSTICO
-    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
+    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) throws DiagnosticoJaExiste, DadosInvalidosException {
         controladorDiagnostico.cadastrarDiagnostico(dg, c);
     }
 

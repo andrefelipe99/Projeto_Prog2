@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controladoresTela.ControladorTelaConsulta">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controladoresTela.ControladorTelaConsulta">
    <bottom>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="122.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
@@ -81,7 +81,7 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label fx:id="txtHorario" layoutX="185.0" layoutY="158.0" prefHeight="39.0" prefWidth="177.0" AnchorPane.leftAnchor="185.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="158.0">
+            <Label fx:id="txtHorario" layoutX="190.0" layoutY="152.0" prefHeight="39.0" prefWidth="177.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="152.0">
                <font>
                   <Font size="18.0" />
                </font></Label>

@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import controladores.Fachada;
+import exceptions.DadosInvalidosException;
+import exceptions.DiagnosticoJaExiste;
 import exceptions.SemSelecaoException;
 import gui.tela.GerenciadorHospitalAPP;
 import javafx.fxml.FXML;
@@ -34,6 +36,8 @@ public class ControladorTelaDiagnostico implements Initializable {
     private TextArea areaTextoDiag;
     @FXML
     private TextArea areaTextoMedicamentos;
+
+    Fachada fachada = Fachada.getInstance();
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -77,19 +81,21 @@ public class ControladorTelaDiagnostico implements Initializable {
         File consultaSelecionada = new File("src/dados/arquivos/consultaSelecionada.txt");
         BufferedReader leitor = new BufferedReader(new FileReader(consultaSelecionada));
 
-        Consulta c = Fachada.getInstance().buscarConsultaPorId(Integer.parseInt(leitor.readLine()));
+        Consulta c = fachada.buscarConsultaPorId(Integer.parseInt(leitor.readLine()));
 
         leitor.close();
 
-        Diagnostico d = c.getDiagnostico();
-
-        d.setDescricao(areaTextoDiag.getText());
-        d.setMedicamentos(areaTextoMedicamentos.getText());
-
-        Fachada.getInstance().cadastrarDiagnostico(d, c);
-
-        alertaConfirmacaoOK();
-        retornarTelaMedico();
+        try {
+        	Diagnostico d = new Diagnostico(areaTextoDiag.getText(), areaTextoMedicamentos.getText());
+			fachada.cadastrarDiagnostico(d, c);
+			alertaConfirmacaoOK();
+			retornarTelaMedico();
+			fachada.salvarConsultas();
+		} catch (DiagnosticoJaExiste e) {
+			e.erro();
+		} catch (DadosInvalidosException e) {
+			e.erro();
+		}
     }
 
     public void alertaConfirmacaoOK() {

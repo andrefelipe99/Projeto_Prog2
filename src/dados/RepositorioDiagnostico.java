@@ -2,6 +2,8 @@ package dados;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import exceptions.DiagnosticoJaExiste;
 import negocio.Consulta;
 import negocio.Diagnostico;
 
@@ -14,13 +16,12 @@ public class RepositorioDiagnostico implements IRepositorioDiagnostico {
     }
 
     @Override
-    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) {
+    public void cadastrarDiagnostico(Diagnostico dg, Consulta c) throws DiagnosticoJaExiste {
         if (c.getDiagnostico() == null) {
             c.setDiagnostico(dg);
             diagnosticos.add(dg);
-            System.out.println("Diagnostico criado");
-        } else { //exception consulta ja tem um diagnostico cadastrado
-            System.out.println("Diagnostico ja cadastrado");
+        } else {
+            throw new DiagnosticoJaExiste();
         }
     }
 
