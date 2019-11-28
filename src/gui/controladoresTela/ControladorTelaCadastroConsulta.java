@@ -106,6 +106,7 @@ public class ControladorTelaCadastroConsulta implements Initializable {
             fachada.cadastrarConsulta(consulta);
             alertaConfirmacaoOK();
             voltar();
+            fachada.salvarConsultas();
         } catch (DadosInvalidosException e) {
             e.erro();
         } catch (ConsultaJaExisteException e) {

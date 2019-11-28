@@ -93,7 +93,7 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label fx:id="txtDiagDescricao" prefHeight="71.0" prefWidth="340.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="17.600000000000023" AnchorPane.topAnchor="330.0">
+            <Label fx:id="txtDiagDescricao" prefHeight="71.0" prefWidth="340.0" textAlignment="JUSTIFY" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="330.0">
                <font>
                   <Font size="18.0" />
                </font></Label>
@@ -101,7 +101,7 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label fx:id="txtMedicamentos" prefHeight="102.0" prefWidth="346.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="11.200000000000045" AnchorPane.topAnchor="430.0">
+            <Label fx:id="txtMedicamentos" prefHeight="91.0" prefWidth="347.0" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="11.200000000000045" AnchorPane.topAnchor="430.0">
                <font>
                   <Font size="18.0" />
                </font></Label>

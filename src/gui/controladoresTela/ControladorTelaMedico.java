@@ -52,6 +52,8 @@ public class ControladorTelaMedico implements Initializable {
     private Label campoMedHora;
     @FXML
     private Button botaoSair;
+    @FXML
+    private Label campoDescricao;
 
     private ObservableList<Consulta> listaConsultas;
 
@@ -186,10 +188,12 @@ public class ControladorTelaMedico implements Initializable {
         if (newValue != null) {
             campoMedNome.setText(newValue.getPaciente().getNome());
             campoMedIdade.setText(newValue.getPaciente().getIdade() + "");
+            campoDescricao.setText(newValue.getDescricao());
 
         } else {
             campoMedNome.setText("");
             campoMedIdade.setText("");
+            campoDescricao.setText("");
         }
     }
 

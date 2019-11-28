@@ -90,6 +90,7 @@ public class ControladorTelaAdmin implements Initializable {
             try {
                 if (alertaConfirmacaoProsseguir()) {
                     remover();
+                    fachada.salvarMedicos();
                 }
 
             } catch (IOException e1) {
@@ -104,6 +105,7 @@ public class ControladorTelaAdmin implements Initializable {
                 try {
                     if (alertaConfirmacaoProsseguir()) {
                         remover();
+                        fachada.salvarMedicos();
                     }
                 } catch (IOException e1) {
                     e1.printStackTrace();

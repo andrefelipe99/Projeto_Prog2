@@ -122,8 +122,11 @@ public class ControladorTelaConsulta implements Initializable {
             if (alertaConfirmacaoProsseguir()) {
                 try {
                     remover();
+                    fachada.salvarConsultas();
                 } catch (SemSelecaoException e1) {
                     e1.erro();
+                } catch (IOException e2) {
+                    
                 }
             }
         });
@@ -132,8 +135,11 @@ public class ControladorTelaConsulta implements Initializable {
                 if (alertaConfirmacaoProsseguir()) {
                     try {
                         remover();
+                        fachada.salvarConsultas();
                     } catch (SemSelecaoException e1) {
                         e1.erro();
+                    } catch (IOException e2) {
+                        
                     }
                 }
             }

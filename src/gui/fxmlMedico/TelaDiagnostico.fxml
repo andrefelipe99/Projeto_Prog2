@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controladoresTela.ControladorTelaDiagnostico">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controladoresTela.ControladorTelaDiagnostico">
    <children>
-      <TextArea fx:id="areaTextoDiag" layoutX="16.0" layoutY="111.0" prefHeight="194.0" prefWidth="768.0" promptText="Digite aqui o diagnóstico:" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="111.0">
+      <TextArea fx:id="areaTextoDiag" layoutX="16.0" layoutY="111.0" prefHeight="194.0" prefWidth="768.0" promptText="Digite aqui o diagnóstico:" wrapText="true" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="111.0">
          <font>
             <Font size="24.0" />
          </font></TextArea>
@@ -29,7 +29,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextArea fx:id="areaTextoMedicamentos" layoutX="16.0" layoutY="361.0" prefHeight="138.0" prefWidth="768.0" promptText="Digite aqui a medicação..." AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="361.0">
+      <TextArea fx:id="areaTextoMedicamentos" layoutX="16.0" layoutY="361.0" prefHeight="138.0" prefWidth="768.0" promptText="Digite aqui a medicação..." wrapText="true" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="361.0">
          <font>
             <Font size="24.0" />
          </font>

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controladoresTela.ControladorTelaMedico">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controladoresTela.ControladorTelaMedico">
    <left>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="358.0" BorderPane.alignment="CENTER">
          <children>
@@ -47,13 +47,23 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="botaoDiagnostico" layoutX="315.0" layoutY="121.0" mnemonicParsing="false" text="Criar Diagnóstico" AnchorPane.rightAnchor="16.19999999999999" AnchorPane.topAnchor="121.0" />
+            <Button fx:id="botaoDiagnostico" layoutX="317.0" layoutY="247.0" mnemonicParsing="false" text="Criar Diagnóstico" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="247.0" />
             <Label fx:id="campoMedHora" layoutX="19.0" layoutY="522.0" prefHeight="62.0" prefWidth="218.0" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="15.600000000000023" AnchorPane.leftAnchor="19.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <Button fx:id="botaoSair" layoutX="369.0" layoutY="558.0" mnemonicParsing="false" text="Sair" AnchorPane.bottomAnchor="14.799999999999976" AnchorPane.rightAnchor="17.399999999999977" />
+            <Label layoutX="14.0" layoutY="120.0" text="Descrição:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="campoDescricao" alignment="TOP_LEFT" layoutX="97.0" layoutY="120.0" prefHeight="80.0" prefWidth="333.0" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children>
          </AnchorPane>
    </center>

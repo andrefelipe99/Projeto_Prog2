@@ -130,8 +130,11 @@ public class ControladorTelaAtendente implements Initializable {
             if (alertaConfirmacaoProsseguir()) {
                 try {
                     remover();
+                    fachada.salvarPacientes();
                 } catch (SemSelecaoException e1) {
                     e1.erro();
+                } catch (IOException e2) {
+                    
                 }
             }
         });
@@ -140,8 +143,11 @@ public class ControladorTelaAtendente implements Initializable {
                 if (alertaConfirmacaoProsseguir()) {
                     try {
                         remover();
+                        fachada.salvarPacientes();
                     } catch (SemSelecaoException e1) {
                         e1.erro();
+                    } catch (IOException e2) {
+                        
                     }
                 }
             }
