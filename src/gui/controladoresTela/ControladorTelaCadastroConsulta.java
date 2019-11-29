@@ -19,7 +19,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -104,13 +103,13 @@ public class ControladorTelaCadastroConsulta implements Initializable {
             Consulta consulta = new Consulta(ID, tabelaMedicos.getSelectionModel().getSelectedItem(), pacienteSelecionado(),
                      descricao, LocalDateTime.of(date, time), LocalDateTime.of(date, time.plusMinutes(20)));
             fachada.cadastrarConsulta(consulta);
-            alertaConfirmacaoOK();
+            Alertas.alertaConfirmacaoOK();
             voltar();
             fachada.salvarConsultas();
         } catch (DadosInvalidosException e) {
-            e.erro();
+            Alertas.erroDadosInvalidos();
         } catch (ConsultaJaExisteException e) {
-            e.erro();
+            Alertas.erroConsultaExiste();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,14 +120,6 @@ public class ControladorTelaCadastroConsulta implements Initializable {
         GerenciadorHospitalAPP.getStage().close();
         GerenciadorHospitalAPP cons = new GerenciadorHospitalAPP();
         cons.start(new Stage(), "/gui/fxmlAtendente/TelaConsulta.fxml", "Historico do paciente");
-    }
-
-    public void alertaConfirmacaoOK() {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Informacao");
-        alerta.setHeaderText("Marcado com sucesso!");
-        alerta.setContentText("Pressione 'OK' para retornar!");
-        alerta.showAndWait();
     }
 
     public Paciente pacienteSelecionado() {

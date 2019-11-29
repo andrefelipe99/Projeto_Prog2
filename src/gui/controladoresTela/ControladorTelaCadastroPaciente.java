@@ -8,7 +8,6 @@ import exceptions.JaCadastradoException;
 import exceptions.PacienteExistenteException;
 import gui.tela.GerenciadorHospitalAPP;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import negocio.Paciente;
@@ -51,15 +50,15 @@ public class ControladorTelaCadastroPaciente {
         try {
             Paciente paciente = new Paciente(endereco, telefone, nome, idade, cpf);
             fachada.cadastrarPaciente(paciente);
-            alertaConfirmacaoOK();
+            Alertas.alertaConfirmacaoOK();
             voltar();
             fachada.salvarPacientes();
         } catch (DadosInvalidosException e) {
-            e.erro();
+            Alertas.erroDadosInvalidos();
         } catch (PacienteExistenteException e) {
-            e.erro();
+            Alertas.erroPacienteExiste();
         } catch (JaCadastradoException e) {
-            e.erro();
+            Alertas.erroJaCadastrado();
         } catch (Exception ioe) {
             ioe.printStackTrace();
         }
@@ -70,14 +69,6 @@ public class ControladorTelaCadastroPaciente {
         GerenciadorHospitalAPP.getStage().close();
         GerenciadorHospitalAPP atd = new GerenciadorHospitalAPP();
         atd.start(new Stage(), "/gui/fxmlAtendente/TelaAtendente.fxml", "Atendente");
-    }
-
-    public void alertaConfirmacaoOK() {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Informacao");
-        alerta.setHeaderText("Salvo com sucesso!");
-        alerta.setContentText("Pressione 'OK' para retornar!");
-        alerta.showAndWait();
     }
 
 }

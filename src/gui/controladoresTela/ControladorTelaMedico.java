@@ -82,11 +82,11 @@ public class ControladorTelaMedico implements Initializable {
             try {
                 abrirTelaDiagnostico();
             } catch (SemSelecaoException e1) {
-                e1.erro();
+                Alertas.avisoSelecao();
             } catch (IOException e1) {
                 e1.printStackTrace();
             } catch (ForaDoHorarioException e1) {
-                e1.erro();
+                Alertas.avisoForaDeHorarioConsulta();
             }
 
         });
@@ -95,11 +95,11 @@ public class ControladorTelaMedico implements Initializable {
                 try {
                     abrirTelaDiagnostico();
                 } catch (SemSelecaoException e1) {
-                    e1.erro();
+                    Alertas.avisoSelecao();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 } catch (ForaDoHorarioException e1) {
-                    e1.erro();;
+                    Alertas.avisoForaDeHorarioConsulta();
                 }
             }
         });

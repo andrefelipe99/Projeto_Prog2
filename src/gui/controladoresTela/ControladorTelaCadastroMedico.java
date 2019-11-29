@@ -13,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -75,15 +74,15 @@ public class ControladorTelaCadastroMedico implements Initializable {
         try {
             Medico medico = new Medico(crm, area, senha, nome, idade, cpf);
             fachada.cadastrarMedico(medico);
-            alertaConfirmacaoOK();
+            Alertas.alertaConfirmacaoOK();
             voltar();
             fachada.salvarMedicos();
         } catch (DadosInvalidosException e) {
-            e.erro();
+            Alertas.erroDadosInvalidos();
         } catch (MedicoExistenteException e) {
-            e.erro();
+            Alertas.erroMedicoExiste();
         } catch (JaCadastradoException e) {
-			e.erro();
+			Alertas.erroJaCadastrado();
 		} catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -94,14 +93,6 @@ public class ControladorTelaCadastroMedico implements Initializable {
         GerenciadorHospitalAPP.getStage().close();
         GerenciadorHospitalAPP adm = new GerenciadorHospitalAPP();
         adm.start(new Stage(), "/gui/fxmlAdmin/TelaAdmin.fxml", "Administrador");
-    }
-
-    public void alertaConfirmacaoOK() {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Informacao");
-        alerta.setHeaderText("Salvo com sucesso!");
-        alerta.setContentText("Pressione 'OK' para retornar!");
-        alerta.showAndWait();
     }
 
 }

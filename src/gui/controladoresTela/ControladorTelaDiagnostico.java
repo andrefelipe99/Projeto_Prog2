@@ -15,8 +15,6 @@ import exceptions.SemSelecaoException;
 import gui.tela.GerenciadorHospitalAPP;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -54,7 +52,7 @@ public class ControladorTelaDiagnostico implements Initializable {
             try {
                 cadastrarDiagnostico();
             } catch (SemSelecaoException e1) {
-                e1.erro();
+                Alertas.avisoSelecao();
             } catch (NumberFormatException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
@@ -67,7 +65,7 @@ public class ControladorTelaDiagnostico implements Initializable {
                 try {
                     cadastrarDiagnostico();
                 } catch (SemSelecaoException e1) {
-                    e1.erro();
+                    Alertas.avisoSelecao();
                 } catch (NumberFormatException e1) {
                     e1.printStackTrace();
                 } catch (IOException e1) {
@@ -88,22 +86,14 @@ public class ControladorTelaDiagnostico implements Initializable {
         try {
         	Diagnostico d = new Diagnostico(areaTextoDiag.getText(), areaTextoMedicamentos.getText());
 			fachada.cadastrarDiagnostico(d, c);
-			alertaConfirmacaoOK();
+			Alertas.alertaConfirmacaoOK();
 			retornarTelaMedico();
 			fachada.salvarConsultas();
 		} catch (DiagnosticoJaExiste e) {
-			e.erro();
+			Alertas.erroJaDiagnosticado();
 		} catch (DadosInvalidosException e) {
-			e.erro();
+			Alertas.erroDadosInvalidos();
 		}
-    }
-
-    public void alertaConfirmacaoOK() {
-        Alert alerta = new Alert(AlertType.INFORMATION);
-        alerta.setTitle("Informacao");
-        alerta.setHeaderText("Salvo com sucesso!");
-        alerta.setContentText("Pressione 'OK' para retornar!");
-        alerta.showAndWait();
     }
 
     public String medicoLogado() {

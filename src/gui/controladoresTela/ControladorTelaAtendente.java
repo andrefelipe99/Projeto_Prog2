@@ -15,14 +15,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -74,7 +71,7 @@ public class ControladorTelaAtendente implements Initializable {
             } catch (ClassNotFoundException e1) {
                 e1.printStackTrace();
             } catch (SemSelecaoException e1) {
-                e1.erro();
+                Alertas.avisoSelecao();
             }
         });
         botaoHistorico.setOnKeyPressed((KeyEvent e) -> {
@@ -88,7 +85,7 @@ public class ControladorTelaAtendente implements Initializable {
                 } catch (ClassNotFoundException e1) {
                     e1.printStackTrace();
                 } catch (SemSelecaoException e1) {
-                    e1.erro();
+                    Alertas.avisoSelecao();
                 }
             }
         });
@@ -127,30 +124,28 @@ public class ControladorTelaAtendente implements Initializable {
             }
         });
         botaoRemover.setOnMousePressed((MouseEvent e) -> {
-            if (alertaConfirmacaoProsseguir()) {
-                try {
-                    remover();
-                    fachada.salvarPacientes();
-                } catch (SemSelecaoException e1) {
-                    e1.erro();
-                } catch (IOException e2) {
-                    
-                }
+        	try {
+        		remover();
+                fachada.salvarPacientes();
+            } catch (SemSelecaoException e1) {
+                Alertas.avisoSelecao();
+            } catch (IOException e2) {
+                e2.printStackTrace();
             }
         });
         botaoRemover.setOnKeyPressed((KeyEvent e) -> {
             if (e.getCode() == KeyCode.ENTER) {
-                if (alertaConfirmacaoProsseguir()) {
-                    try {
-                        remover();
-                        fachada.salvarPacientes();
-                    } catch (SemSelecaoException e1) {
-                        e1.erro();
-                    } catch (IOException e2) {
-                        
-                    }
+            	try {
+            		remover();
+                    fachada.salvarPacientes();
+                } catch (SemSelecaoException e1) {
+                    Alertas.avisoSelecao();
+                } catch (IOException e2) {
+                    e2.printStackTrace();
                 }
+            
             }
+            
         });
         barraPesquisa.setOnKeyReleased((KeyEvent e) -> {
             tblPaciente.getItems().setAll(busca());
@@ -203,28 +198,22 @@ public class ControladorTelaAtendente implements Initializable {
 
     public void remover() throws SemSelecaoException {
         Paciente pacienteSelecionado = tblPaciente.getSelectionModel().getSelectedItem();
-
-        if (pacienteSelecionado != null) {
-
-            fachada.removerPaciente(pacienteSelecionado);
-            alertaConfirmacaoOK();
-            atualizarTabela();
-        } else {
-            throw new SemSelecaoException();
-        }
+        
+        	if (pacienteSelecionado != null) {
+        		if(Alertas.alertaConfirmacaoProsseguir()) {
+        			fachada.removerPaciente(pacienteSelecionado);
+        			Alertas.alertaRemocaoOK();
+        			atualizarTabela();
+        		}
+        		
+        	} else {
+        		throw new SemSelecaoException();
+        	}
 
     }
 
     public void atualizarTabela() {
         tblPaciente.getItems().setAll(fachada.listarPacientes());
-    }
-
-    public void alertaConfirmacaoOK() {
-        Alert alerta = new Alert(AlertType.INFORMATION);
-        alerta.setTitle("Informacao");
-        alerta.setHeaderText("Remocao feita com sucesso!");
-        alerta.setContentText("Pressione 'OK' para retornar!");
-        alerta.showAndWait();
     }
 
     private void mostrarDetalhesPaciente(Paciente p) {
@@ -269,22 +258,6 @@ public class ControladorTelaAtendente implements Initializable {
         fw.write(cpf);
 
         fw.close();
-    }
-
-    private boolean alertaConfirmacaoProsseguir() {
-        Alert alerta = new Alert(AlertType.CONFIRMATION);
-        alerta.setTitle("Confirme!");
-        alerta.setHeaderText("Deseja Prosseguir?");
-        alerta.setContentText("Pressione 'OK' para continuar ou 'Cancelar' para retornar!");
-        alerta.showAndWait();
-
-        ButtonType apertado = alerta.getResult();
-
-        if (apertado.getText().contentEquals("OK")) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }
