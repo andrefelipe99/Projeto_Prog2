@@ -1,2 +1,6 @@
 # Projeto_Prog2
-Projeto IP2 - Marcação de Consultas
+Projeto Introdução a Programação 2 - Marcação de Consultas
+
+---
+
+-Linguagem: Java
