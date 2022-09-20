@@ -1,3 +1,0 @@
-admin,admin
-medico,medico
-atendente,atendente

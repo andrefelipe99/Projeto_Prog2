@@ -67,6 +67,7 @@ public class ControladorTelaMedico implements Initializable {
 				e1.printStackTrace();
 			}
         });
+        
         botaoSair.setOnKeyPressed((KeyEvent e) -> {
             if (e.getCode() == KeyCode.ENTER) {
                 GerenciadorHospitalAPP.fechar();

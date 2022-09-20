@@ -63,9 +63,7 @@ public class ControladorTelaAtendente implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         botaoHistorico.setOnMouseClicked((MouseEvent e) -> {
             try {
-
                 abrirTelaConsulta();
-
             } catch (IOException e1) {
                 e1.printStackTrace();
             } catch (ClassNotFoundException e1) {
@@ -74,12 +72,11 @@ public class ControladorTelaAtendente implements Initializable {
                 Alertas.avisoSelecao();
             }
         });
+        
         botaoHistorico.setOnKeyPressed((KeyEvent e) -> {
             if (e.getCode() == KeyCode.ENTER) {
                 try {
-
                     abrirTelaConsulta();
-
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 } catch (ClassNotFoundException e1) {
@@ -89,6 +86,7 @@ public class ControladorTelaAtendente implements Initializable {
                 }
             }
         });
+        
         botaoSair.setOnMouseClicked((MouseEvent e) -> {
             try {
                 fachada.salvarPacientes();
@@ -97,6 +95,7 @@ public class ControladorTelaAtendente implements Initializable {
             }
             GerenciadorHospitalAPP.fechar();
         });
+        
         botaoSair.setOnKeyPressed((KeyEvent e) -> {
             if (e.getCode() == KeyCode.ENTER) {
                 try {
@@ -107,6 +106,7 @@ public class ControladorTelaAtendente implements Initializable {
                 GerenciadorHospitalAPP.fechar();
             }
         });
+        
         botaoCadastrar.setOnMouseClicked((MouseEvent e) -> {
             try {
                 cadastro();
@@ -114,6 +114,7 @@ public class ControladorTelaAtendente implements Initializable {
                 Logger.getLogger(ControladorTelaAtendente.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        
         botaoCadastrar.setOnKeyPressed((KeyEvent e) -> {
             if (e.getCode() == KeyCode.ENTER) {
                 try {
@@ -123,6 +124,7 @@ public class ControladorTelaAtendente implements Initializable {
                 }
             }
         });
+        
         botaoRemover.setOnMousePressed((MouseEvent e) -> {
         	try {
         		remover();

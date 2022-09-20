@@ -97,16 +97,10 @@ public class Consulta implements Serializable {
     }
 
     public boolean equals(Consulta c) {
-        if (this.id == c.getId()) {
-            if (this.paciente.equals(c.getPaciente())) {
-                if ((this.medico.equals(c.getMedico()))) {
-                    if (this.dataHoraInicio.isEqual(c.dataHoraInicio)) {
-                        return true;
-                    }
-                }
-            }
-        }
-
+        if (this.id == c.getId() && this.paciente.equals(c.getPaciente()) 
+        		&& this.medico.equals(c.getMedico()) && this.dataHoraInicio.isEqual(c.dataHoraInicio)) {
+           return true;
+        }        
         return false;
     }
 }

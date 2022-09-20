@@ -28,16 +28,14 @@ public class RepositorioMedico implements IRepositorioMedico {
                     && m.getNome() != null && m.getNome().isEmpty() == false
                     && m.getCrm() != null && m.getCrm().isEmpty() == false
                     && m.getIdade() >= 22 && m.getIdade() < 100) {
-
+            	
                 medicos.add(m);
-
-                salvarLoginSenha(m);
+                salvarLoginSenha(m);       
             } else {
                 throw new DadosInvalidosException();
             }
         } else {
             throw new MedicoExistenteException();
-
         }
 
     }

@@ -55,6 +55,18 @@ public class ControladorTelaLogin implements Initializable {
             }
         });
     }
+    
+    public void fachadaTela() {
+    	if (fachada.pacienteVazio()) {
+            fachada.recuperarPacientes();
+        }
+        if (fachada.medicoVazio()) {
+            fachada.recuperarMedicos();
+        }
+        if (fachada.consultaVazia()) {
+            fachada.recuperarConsultas();
+        }
+    }
 
     public void logar() {
 
@@ -69,57 +81,24 @@ public class ControladorTelaLogin implements Initializable {
                 String[] loginSenha = br.readLine().split(",");
 
                 if (textoUser.getText().equals(loginSenha[0]) && textoSenha.getText().equals(loginSenha[1])) {
+                	
+                	String user = textoUser.getText();
 
-                    if (textoUser.getText().equals("admin")) {
+                    if (user.equals("admin")) {
                         titulo = "Administrador";
                         caminho = "/gui/fxmlAdmin/TelaAdmin.fxml";
-                        if (fachada.pacienteVazio()) {
-                            fachada.recuperarPacientes();
-
-                        }
-                        if (fachada.medicoVazio()) {
-                            fachada.recuperarMedicos();
-                        }
-                        if (fachada.consultaVazia()) {
-                            fachada.recuperarConsultas();
-                        }
-                        logado = true;
-
-                    } else if (textoUser.getText().equals("atendente")) {
+                    } else if (user.equals("atendente")) {
                         titulo = "Atendente";
                         caminho = "/gui/fxmlAtendente/TelaAtendente.fxml";
-                        if (fachada.pacienteVazio()) {
-                            fachada.recuperarPacientes();
-
-                        }
-                        if (fachada.medicoVazio()) {
-                            fachada.recuperarMedicos();
-                        }
-                        if (fachada.consultaVazia()) {
-                            fachada.recuperarConsultas();
-                        }
-                        logado = true;
-
                     } else {
                         titulo = "Medico";
                         caminho = "/gui/fxmlMedico/TelaMedico.fxml";
-                        crm = textoUser.getText();
+                        crm = user;
                         setarMedicoLogado(crm);
-
-                        if (fachada.pacienteVazio()) {
-                            fachada.recuperarPacientes();
-
-                        }
-                        if (fachada.medicoVazio()) {
-                            fachada.recuperarMedicos();
-                        }
-                        if (fachada.consultaVazia()) {
-                            fachada.recuperarConsultas();
-                        }
-
-                        logado = true;
-
                     }
+                    
+                    fachadaTela();
+                    logado = true;
 
                     if (!br.ready()) {
                         br.close();
